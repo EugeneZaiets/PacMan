@@ -1,0 +1,30 @@
+﻿  Game.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(34): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(19): warning C4154: deletion of an array expression; conversion to pointer supplied
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(113): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(125): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(128): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(131): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(134): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(137): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(140): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(143): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(146): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(149): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(152): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(155): warning C4309: '=': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(158): warning C4309: '=': truncation of constant value
+  Ghost.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(34): warning C4309: 'initializing': truncation of constant value
+  PacMan.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(34): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(140): warning C4309: 'static_cast': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(209): warning C4309: 'static_cast': truncation of constant value
+  SetConsole.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(34): warning C4309: 'initializing': truncation of constant value
+  Source.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(34): warning C4309: 'initializing': truncation of constant value
+  Generating Code...
+c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(245): warning C4715: 'Ghost::GetOppositeDirection': not all control paths return a value
+c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(324): warning C4715: 'Ghost::GetDirection': not all control paths return a value
+  ProjectPacMan.vcxproj -> C:\Users\euzai\source\repos\ProjectPacMan\x64\Debug\ProjectPacMan.exe
