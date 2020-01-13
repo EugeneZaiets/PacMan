@@ -50,9 +50,9 @@ public:
 	bool CheckCollision (char dir);
 
 
-	int	 GetPos_X()                  { return x;             }
-	int  GetPos_Y()                  { return y;             }
-	int  GetLives()                  { return lives;         }
+	int GetPos_X()                   { return x;             }
+	int GetPos_Y()                   { return y;             }
+	int GetLives()                   { return lives;         }
 	void SetDirection(char dir)      { direction = dir;      }
 	void SetOldDirection(char dir)   { old_direction = dir;  }
 	void SetPos_X(int x)             { this->x = x;          }

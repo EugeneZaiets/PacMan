@@ -62,8 +62,8 @@ public:
 	int GetClydeCountPos_Y(int pacman_y);
 	double GetTimeInWait() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 
-	int	 GetPos_X()	               { return x;            }
-	int  GetPos_Y()                { return y;            }
+	int GetPos_X()                 { return x;            }
+	int GetPos_Y()                 { return y;            }
 	int GetGhostColor()            { return color;        }
 	Ghosts_Names GetGhostName()    { return name;         }
 	Mode GetMode()                 { return current_mode; }

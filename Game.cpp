@@ -3,7 +3,7 @@
 Game::Game(ConsoleSettingsHandler* console_handler)
 {
 	m_console_handler         = console_handler;
-	points_num	              = 360;			// num of pills and energyzers - 360
+	points_num                = 360;			// num of pills and energyzers - 360
 	seconds_in_boost_by_level = 20.0;
 	
 	SetConsoleTitle("PacMan");
