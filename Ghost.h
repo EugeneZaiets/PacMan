@@ -54,28 +54,28 @@ public:
 	void ResetGhost(int x, int y);
 	void ResetModes(int name);
 	void ModeActivity(int x, int y);
-	
 	char GetDirection();
-	int	 GetPos_X() { return x; }
-	int  GetPos_Y() { return y; }
-	int GetGhostColor() { return color; }
-	Ghosts_Names GetGhostName() { return name; }
-	Mode GetMode() { return current_mode; }
-	double GetTimeInWait() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
+
 	int GetInkyPos_X(int pacman_x, int blincky_x);
 	int GetInkyPos_Y(int pacman_y, int blincky_y);
 	int GetClydeCountPos_X(int pacman_x);
 	int GetClydeCountPos_Y(int pacman_y);
+	double GetTimeInWait() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 
-	void SetMode(Mode m) { current_mode = m; }
-	void SetHead(char ch) { head = ch; }
-	void SetPrevMode(Mode m) { prev_mode = m; }
-	void SetPos_X(int x) { this->x = x; }
-	void SetPos_Y(int y) { this->y = y; }
-	void SetDirection(char dir) { direction = dir; }
+	int	 GetPos_X()	               { return x;            }
+	int  GetPos_Y()                { return y;            }
+	int GetGhostColor()            { return color;        }
+	Ghosts_Names GetGhostName()    { return name;         }
+	Mode GetMode()                 { return current_mode; }
+	void SetMode(Mode m)           { current_mode = m;    }
+	void SetHead(char ch)          { head = ch;           }
+	void SetPrevMode(Mode m)       { prev_mode = m;       }
+	void SetPos_X(int x)           { this->x = x;         }
+	void SetPos_Y(int y)           { this->y = y;         }
+	void SetDirection(char dir)    { direction = dir;     }
 	void SetOldDirection(char dir) { old_direction = dir; }
-	void SetGhostColor(int clr) { color = clr; }
-	void SetGhostColor(Ghosts_Names name);
+	void SetGhostColor(int clr)    { color = clr;         }
 
+	void SetGhostColor(Ghosts_Names name);
 };
 #endif //GHOST_H

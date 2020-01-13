@@ -51,12 +51,13 @@ public:
 	~Game();
 	void Start();
 
-	void DecreasePointsNum() { --points_num; }
-	int  GetPointsNum() { return points_num; }
-	char GetCharOfMap(int x, int y) { return m_MapToPrint[y][x]; }
-	double GetTime() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
+	void DecreasePointsNum()                    { --points_num;               }
+	int  GetPointsNum()                         { return points_num;          }
+	char GetCharOfMap(int x, int y)             { return m_MapToPrint[y][x];  }
 	void SetCharOfMap(int x, int y, char print) { m_MapToPrint[y][x] = print; }
-	void SetPointsNum(int num) { points_num = num; }
+	void SetPointsNum(int num)                  { points_num = num;           }
+
+	double GetTime(){ return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 };
 
 #endif // GAME_H

@@ -4,11 +4,11 @@ Ghost::Ghost(ConsoleSettingsHandler* console_handler, Game* game, Ghosts_Names h
 {
 	m_console_handler = console_handler;
 	game_instance	  = game;
-	name			  = his_name;
-	head			  = 'G';
-	direction		  = 'w';
+	name              = his_name;
+	head              = 'G';
+	direction         = 'w';
 	old_direction	  = 'w';
-	speed			  = 58;
+	speed             = 58;
 	move_counter	  = 0;
 	ResetModes(his_name);
 	SetGhostColor(his_name);

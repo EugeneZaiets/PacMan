@@ -5,12 +5,12 @@ PacMan::PacMan(ConsoleSettingsHandler* console_handler, Game* game)
 {
 	m_console_handler = console_handler;
 	game_instance	  = game;
-	color			  = YELLOW;
-	lives			  = 3;
-	score			  = 0;
-	head			  = Head::RIGHT;
-	direction		  = 'N';
-	speed		      = 28;
+	color             = YELLOW;
+	lives             = 3;
+	score             = 0;
+	head              = Head::RIGHT;
+	direction         = 'N';
+	speed             = 28;
 	move_counter	  = 0;
 	kill_counter	  = 0;
 	score_offset	  = 0;

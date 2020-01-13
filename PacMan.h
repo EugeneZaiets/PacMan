@@ -43,23 +43,24 @@ public:
 	void ScoreUp();
 	void RenderScore();
 	void RenderLives();
+	char GetDirection();
 	void RenderPacman();
 	void RenderKill();
 	void ResetPacMan(int x, int y);
 	bool CheckCollision (char dir);
-	
-	char GetDirection();
-	int	 GetPos_X() { return x; }
-	int  GetPos_Y() { return y; }
-	int  GetLives() { return lives; }
-	bool GetEnergizerInfo() { return got_energizer; }
-	double GetTimeInBooste() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 
-	void SetDirection(char dir) { direction = dir; }
-	void SetOldDirection(char dir) { old_direction = dir; }
-	void SetPos_X(int x) { this->x = x; }
-	void SetPos_Y(int y) { this->y = y; }
-	void SetLives(int num) { lives = num; }
+
+	int	 GetPos_X()                  { return x;             }
+	int  GetPos_Y()                  { return y;             }
+	int  GetLives()                  { return lives;         }
+	void SetDirection(char dir)      { direction = dir;      }
+	void SetOldDirection(char dir)   { old_direction = dir;  }
+	void SetPos_X(int x)             { this->x = x;          }
+	void SetPos_Y(int y)             { this->y = y;          }
+	void SetLives(int num)           { lives = num;          }
 	void SetEnergizerInfo(bool info) { got_energizer = info; }
+
+	bool GetEnergizerInfo()          { return got_energizer; }
+	double GetTimeInBooste()         { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 };
 #endif //PACMAN_H
