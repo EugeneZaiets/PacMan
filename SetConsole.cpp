@@ -6,7 +6,7 @@
 using namespace std;
 
 ConsoleSettingsHandler::ConsoleSettingsHandler() {
-	m_Console		= GetStdHandle(STD_OUTPUT_HANDLE);
+	m_Console       = GetStdHandle(STD_OUTPUT_HANDLE);
 	m_Console_Input = GetStdHandle(STD_INPUT_HANDLE);
 }
 ConsoleSettingsHandler::~ConsoleSettingsHandler(){}
