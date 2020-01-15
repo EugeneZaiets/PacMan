@@ -1,20 +1,24 @@
 ﻿#include "PacMan.h"
 
-
-PacMan::PacMan(ConsoleSettingsHandler* console_handler, Game* game) 
+PacMan::PacMan(ConsoleSettingsHandler* console_handler, Game* game) :
+	m_console_handler(console_handler),
+	game_instance(game), 
+	x(0), 
+	y(0),
+	prev_x(0),
+	prev_y(0),
+	color(YELLOW),
+	lives(3), 
+	score(0),
+	head(Head::RIGHT), 
+	direction('N'), 
+	speed(28),
+	move_counter(0),
+	kill_counter(0),
+	score_offset(0), 
+	got_energizer(false),
+	timer(0)
 {
-	m_console_handler = console_handler;
-	game_instance	  = game;
-	color             = YELLOW;
-	lives             = 3;
-	score             = 0;
-	head              = Head::RIGHT;
-	direction         = 'N';
-	speed             = 28;
-	move_counter	  = 0;
-	kill_counter	  = 0;
-	score_offset	  = 0;
-	got_energizer     = false;
 }
 PacMan::~PacMan()
 {
@@ -153,8 +157,6 @@ void PacMan::ResetPacMan(int x, int y)
 {
 	SetPos_X(x);
 	SetPos_Y(y);
-	//SetOldDirection('d');
-	//SetDirection('d');
 }
 void PacMan::RenderPacman()
 {
@@ -183,7 +185,8 @@ void PacMan::RenderLives()
 	std::cout << ' ';
 	m_console_handler->ResetSettingsToDefault();
 }
-void PacMan::RenderKill() {
+void PacMan::RenderKill() 
+{
 	++kill_counter;
 	int sum	 = 200 * (int)pow(2, kill_counter - 1);
 	int temp = sum;
@@ -191,11 +194,20 @@ void PacMan::RenderKill() {
 	score += sum;
 
 	int digit_num = 1;
-	while ((temp /= 10) > 0) ++digit_num;
+	while ((temp /= 10) > 0)
+	{
+		++digit_num;
+	}
 
 	int kill_pos_x = x - 1;
-	if (x == 0) kill_pos_x = x;
-	if (x > X_SIZE - digit_num) x = X_SIZE - digit_num;
+	if (x == 0)
+	{
+		kill_pos_x = x;
+	}
+	if (x > X_SIZE - digit_num)
+	{
+		x = X_SIZE - digit_num;
+	}
 
 	m_console_handler->SetTextColor(CYAN);
 	m_console_handler->SetCursorPosition(kill_pos_x, y);
@@ -207,7 +219,10 @@ void PacMan::RenderKill() {
 	{
 		m_console_handler->SetTextColor(BLUE);
 		if (game_instance->GetCharOfMap(i, y) == static_cast<char>(250) ||
-			game_instance->GetCharOfMap(i, y) == 'o') m_console_handler->SetTextColor(WHITE);
+			game_instance->GetCharOfMap(i, y) == 'o')
+		{
+			m_console_handler->SetTextColor(WHITE);
+		}
 		std::cout << game_instance->GetCharOfMap(i, y);
 	}
 	if ((score / 10000) < ((score + score_offset) / 10000))

@@ -1,7 +1,9 @@
 #include "Game.h"
-#include "SetConsole.h"
+#include "ConsoleSettingsHandler.h"
+#include <memory>
 
-int main() {
+int main() 
+{
 	ConsoleSettingsHandler* handler = new ConsoleSettingsHandler();
 	Game* game = new Game(handler);
 	game->Start();

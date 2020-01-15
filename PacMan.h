@@ -4,21 +4,22 @@
 
 #include "Game.h"
 #include "Actor.h"
-#include "SetConsole.h"
+#include "ConsoleSettingsHandler.h"
 
 #include <iostream>
 #include <conio.h>
 #include <ctime>
 #include <Windows.h>
+using namespace Game_Constants;
 
 class Game;
 
-class PacMan : public Actor
+class PacMan : public iActor
 {
 private:
 	int x, y;
 	int prev_x, prev_y;
-	int init_pos_x, init_pos_y;
+
 	bool got_energizer;
 	unsigned int lives;
 	unsigned int score;
@@ -55,8 +56,8 @@ public:
 	int GetLives()                   { return lives;         }
 	void SetDirection(char dir)      { direction = dir;      }
 	void SetOldDirection(char dir)   { old_direction = dir;  }
-	void SetPos_X(int x)             { this->x = x;          }
-	void SetPos_Y(int y)             { this->y = y;          }
+	void SetPos_X(int x_pos)         { x = x_pos;            }
+	void SetPos_Y(int y_pos)         { y = y_pos;            }
 	void SetLives(int num)           { lives = num;          }
 	void SetEnergizerInfo(bool info) { got_energizer = info; }
 

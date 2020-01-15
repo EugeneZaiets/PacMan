@@ -5,22 +5,22 @@
 #include "Game.h"
 #include "Actor.h"
 #include "constants.h"
-#include "SetConsole.h"
+#include "ConsoleSettingsHandler.h"
 
-#include <conio.h>
-#include <vector>
 #include <iostream>
 #include <Windows.h>
+#include <conio.h>
+#include <vector>
 #include <utility>
+#include <ctime>
+using namespace Game_Constants;
 
 class Game;
 
-class Ghost : public Actor
+class Ghost : public iActor
 {
-private:
 	int x, y;
 	int prev_x, prev_y;
-	int init_pos_x, init_pos_y;
 	unsigned int color;
 	unsigned int speed;
 	unsigned int move_counter;
@@ -34,7 +34,6 @@ private:
 	ConsoleSettingsHandler* m_console_handler;
 	Game* game_instance;
 	std::clock_t timer;
-
 
 	void HandleScatterMode();
 	char DetermineClosestMove(int pm_x, int pm_y);
@@ -70,8 +69,8 @@ public:
 	void SetMode(Mode m)           { current_mode = m;    }
 	void SetHead(char ch)          { head = ch;           }
 	void SetPrevMode(Mode m)       { prev_mode = m;       }
-	void SetPos_X(int x)           { this->x = x;         }
-	void SetPos_Y(int y)           { this->y = y;         }
+	void SetPos_X(int x_pos)       { x = x_pos;           }
+	void SetPos_Y(int y_pos)       { y = y_pos;           }
 	void SetDirection(char dir)    { direction = dir;     }
 	void SetOldDirection(char dir) { old_direction = dir; }
 	void SetGhostColor(int clr)    { color = clr;         }

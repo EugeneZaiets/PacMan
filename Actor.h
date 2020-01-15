@@ -1,5 +1,5 @@
 #pragma once
-class Actor
+class iActor
 {
 public:
 	virtual int GetPos_X()                = 0;

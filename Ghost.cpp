@@ -1,20 +1,31 @@
 #include "Ghost.h"
 
-Ghost::Ghost(ConsoleSettingsHandler* console_handler, Game* game, Ghosts_Names his_name)
+Ghost::Ghost(ConsoleSettingsHandler* console_handler, Game* game, Ghosts_Names his_name):
+	m_console_handler(console_handler),
+	game_instance(game),
+	name(his_name),
+	x(0),
+	y(0),
+	prev_x(0),
+	prev_y(0),
+	head(GHOST_HEAD),
+	direction('w'),
+	old_direction('w'),
+	speed(58),
+	move_counter(0),
+	timer(0)
 {
-	m_console_handler = console_handler;
-	game_instance	  = game;
-	name              = his_name;
-	head              = 'G';
-	direction         = 'w';
-	old_direction	  = 'w';
-	speed             = 58;
-	move_counter	  = 0;
 	ResetModes(his_name);
 	SetGhostColor(his_name);
-	if(his_name == Ghosts_Names::INKY || his_name == Ghosts_Names::CLYDE) timer = std::clock();
+	if (his_name == Ghosts_Names::INKY || 
+		his_name == Ghosts_Names::CLYDE) 
+	{
+		timer = std::clock();
+	}
 }
-Ghost::~Ghost(){}
+Ghost::~Ghost()
+{
+}
 void Ghost::Dead()
 {
 	SetGhostColor(WHITE);
@@ -45,6 +56,7 @@ void Ghost::ResetModes(int name) {
 	else if (name == Ghosts_Names::PINKY  ) current_mode = Mode::EXIT_GATE;
 	else if (name == Ghosts_Names::INKY   ) current_mode = Mode::WAIT;
 	else if (name == Ghosts_Names::CLYDE  ) current_mode = Mode::WAIT;
+	prev_mode = current_mode;
 }
 void Ghost::ModeActivity(int pacman_x, int pacman_y)
 {
@@ -124,22 +136,22 @@ void Ghost::HandleScatterMode()
 {
 		if(name == Ghosts_Names::BLINCKY)
 		{
-			char dir = DetermineClosestMove(44, 1); // right-up corner
+			char dir = DetermineClosestMove(BLINKY_SCATTER_POS_X, BLINKY_SCATTER_POS_Y); // right-up corner
 			Move(dir);
 		}
 		else if (name == Ghosts_Names::PINKY) 
 		{
-			char dir = DetermineClosestMove(44, 20); // right-down corner
+			char dir = DetermineClosestMove(PINKY_SCATTER_POS_X, PINKY_SCATTER_POS_Y); // right-down corner
 			Move(dir);
 		}
 		else if (name == Ghosts_Names::INKY) 
 		{
-			char dir = DetermineClosestMove(1, 1); // left-up corner
+			char dir = DetermineClosestMove(INKY_SCATTER_POS_X, INKY_SCATTER_POS_Y); // left-up corner
 			Move(dir);
 		}
 		else if (name == Ghosts_Names::CLYDE) 
 		{
-			char dir = DetermineClosestMove(4, 20); // left-down corner
+			char dir = DetermineClosestMove(CLYDE_SCATTER_POS_X, CLYDE_SCATTER_POS_Y); // left-down corner
 			Move(dir);
 		}
 	
@@ -181,7 +193,8 @@ char Ghost::DetermineClosestMove(int pm_x, int pm_y)
 		int closest = pointer_counter_direction[0].second;
 		for (int i = 0; i < dirs_num.size(); ++i)
 		{
-			if (pointer_counter_direction[i].first < min) {
+			if (pointer_counter_direction[i].first < min)
+			{
 				min = pointer_counter_direction[i].first;
 				closest = pointer_counter_direction[i].second;
 			}
@@ -227,7 +240,8 @@ char Ghost::DetermineFurthestMove(int pm_x, int pm_y)
 		int furthest = pointer_counter_direction[0].second;
 		for (int i = 0; i < dirs_num.size(); ++i)
 		{
-			if (pointer_counter_direction[i].first > max) {
+			if (pointer_counter_direction[i].first > max) 
+			{
 				max = pointer_counter_direction[i].first;
 				furthest = pointer_counter_direction[i].second;
 			}
@@ -324,7 +338,8 @@ char Ghost::GetDirection()
 }
 bool Ghost::CheckCollision(char dir)
 {
-	switch (dir) {
+	switch (dir) 
+	{
 	case 'w': if (strchr(CharNotToCollide, game_instance->GetCharOfMap(x, y - 1)))return false;
 	break;
 	case 'a': if (x == 0 || strchr(CharNotToCollide, game_instance->GetCharOfMap(x - 1, y))) return false;

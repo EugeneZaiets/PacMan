@@ -120,13 +120,13 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="PacMan.h" />
-    <ClInclude Include="SetConsole.h" />
+    <ClInclude Include="ConsoleSettingsHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="PacMan.cpp" />
-    <ClCompile Include="SetConsole.cpp" />
+    <ClCompile Include="ConsoleSettingsHandler.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
