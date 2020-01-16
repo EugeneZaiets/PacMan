@@ -1,14 +1,16 @@
 #pragma once
+#include <map>
 namespace Game_Constants
 {
 	const int X_SIZE = 46; //Maze x_size
 	const int Y_SIZE = 21; //Maze y_size
 
 	const int X_GAME_SCREEN_OFFSET = 0;
-	const int Y_GAME_SCREEN_OFFSET = 3;
+	const int Y_GAME_SCREEN_BOTTOM_SIDE_OFFSET = 2;
+	const int Y_GAME_SCREEN_TOP_SIDE_OFFSET = 1;
 
-	const int X_GAME_SCREEN_SIZE = X_SIZE;                        //Screen x_size
-	const int Y_GAME_SCREEN_SIZE = Y_SIZE + Y_GAME_SCREEN_OFFSET; //Screen x_size
+	const int X_GAME_SCREEN_SIZE = X_SIZE;                                                                     //Screen x_size
+	const int Y_GAME_SCREEN_SIZE = Y_SIZE + Y_GAME_SCREEN_TOP_SIDE_OFFSET  + Y_GAME_SCREEN_BOTTOM_SIDE_OFFSET; //Screen y_size
 
 	const int X_GATE = 19;
 	const int Y_GATE = 10;
@@ -19,6 +21,7 @@ namespace Game_Constants
 	//ERRORS
 	const int WINDOW_INFO_FAIL        = 2;
 	const int CONSOLE_BUFFERSIZE_FAIL = 3;
+
 
 	//COLORS
 	const int RED        = 4;
@@ -57,7 +60,6 @@ namespace Game_Constants
 	const int CLYDE_INIT_POS_X  = 21;
 	const int CLYDE_INIT_POS_Y  = 9;
 
-
 	//Elements declaration
 	enum Head 
 	{ 
@@ -83,8 +85,25 @@ namespace Game_Constants
 		INKY, 
 		CLYDE 
 	};
-
 	const char GHOST_HEAD = 'G';
 	const char CharNotToCollide[3] = { ' ', 'o', 250 /*pill ascii*/ };
 	const char Direction[4] = { 'w', 'a', 's', 'd' };
+	const std::map<char, short> MapCharToPtint = 
+	{
+	    { ' ', 32  },
+		{ '.', 250 },
+	    { 'o', 111 },
+	    { '1', 201 },
+	    { '2', 187 },
+	    { '3', 200 },
+	    { '4', 188 },
+	    { '5', 205 }, 
+	    { '6', 186 }, 
+	    { '^', 217 }, 
+	    { '$', 218 },
+	    { '%', 179 }, 
+	    { '#', 196 }, 
+	    { '@', 192 }, 
+	    { '*', 191 }
+	};
 }

@@ -31,7 +31,7 @@ class Ghost : public iActor
 	Mode current_mode;
 	Mode prev_mode;
 	Ghosts_Names name;
-	ConsoleSettingsHandler* m_console_handler;
+	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	Game* game_instance;
 	std::clock_t timer;
 
@@ -42,7 +42,7 @@ class Ghost : public iActor
 	int OffsetCoordinatesX(int);
 	int OffsetCoordinatesY(int);
 public:
-	Ghost(ConsoleSettingsHandler* console_handler, Game* game, Ghosts_Names his_name);
+	Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name);
 	~Ghost();
 
 	void Move(char);

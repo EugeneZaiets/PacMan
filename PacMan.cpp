@@ -1,6 +1,6 @@
 ﻿#include "PacMan.h"
 
-PacMan::PacMan(ConsoleSettingsHandler* console_handler, Game* game) :
+PacMan::PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game) :
 	m_console_handler(console_handler),
 	game_instance(game), 
 	x(0), 
@@ -19,6 +19,7 @@ PacMan::PacMan(ConsoleSettingsHandler* console_handler, Game* game) :
 	got_energizer(false),
 	timer(0)
 {
+	if (m_console_handler == 0) exit(1);
 }
 PacMan::~PacMan()
 {

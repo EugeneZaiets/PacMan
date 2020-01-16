@@ -13,6 +13,7 @@
 #include <string>
 #include <memory>
 #include <ctime>
+#include <vector>
 using namespace std;
 using namespace Game_Constants;
 
@@ -29,11 +30,13 @@ class Game
 	double seconds_in_boost_by_level;
 	double seconds_to_mode_change;
 
-	ConsoleSettingsHandler* m_console_handler;
-	PacMan* pacman;
-	Ghost* ghost[4];
+	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
+	std::unique_ptr<PacMan> pacman;
+	std::unique_ptr<Ghost> ghosts[4];
+    std::vector<std::unique_ptr<Ghost>> ghost;
 
 	std::clock_t timer;
+	std::clock_t timer2;
 	void Game_Loop();
 	void LoadLevel();
 	void Render();
@@ -45,17 +48,18 @@ class Game
 	void ResetMapInCollision();
 	bool CollisionWithGhost();
 public:
-	Game(ConsoleSettingsHandler* console_handler);
+	Game(std::shared_ptr<ConsoleSettingsHandler> console_handler);
 	~Game();
 	void Start();
 
-	void DecreasePointsNum()                    { --points_num;               }
-	int  GetPointsNum()                         { return points_num;          }
-	char GetCharOfMap(int x, int y)             { return m_MapToPrint[y][x];  }
-	void SetCharOfMap(int x, int y, char print) { m_MapToPrint[y][x] = print; }
-	void SetPointsNum(int num)                  { points_num = num;           }
+	void GetCharFromMap(char, int, int);
+	void DecreasePointsNum()                    { --points_num;                  }
+	int  GetPointsNum()                         { return points_num;             }
+	char GetCharOfMap(int x, int y)             { return m_MapToPrint[y][x];     }
+	void SetCharOfMap(int x, int y, char print) { m_MapToPrint[y][x] = print;    }
+	void SetPointsNum(int num)                  { points_num = num;              }
 
-	double GetTime(){ return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
+	double GetTime()  { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
+	double GetTime2() { return (std::clock() - timer2) / (double)CLOCKS_PER_SEC; }
 };
-
 #endif // GAME_H

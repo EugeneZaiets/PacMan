@@ -1,30 +1,38 @@
 #include "Game.h"
 
-Game::Game(ConsoleSettingsHandler* console_handler) : 
-	m_console_handler(console_handler), 
+Game::Game(std::shared_ptr<ConsoleSettingsHandler> console_handler) :
+	m_console_handler(console_handler),
 	points_num(POINTS_NUMBER),                    // num of pills and energyzers - 360
 	seconds_in_boost_by_level(20.0),
 	seconds_to_mode_change(20.0),
 	level_counter(0),
-	number_of_ghosts(4)
+	number_of_ghosts(4),
+	timer(0),
+	timer2(0)
 {
 	SetConsoleTitle("PacMan");
 	m_console_handler->CreateGameWindow();
 	m_console_handler->HanldeCursorVisibility(false);
 
-	pacman = new PacMan(console_handler, this);
-	for (int i = 0; i < number_of_ghosts; i++)
-	{
-		ghost[i] = new Ghost(console_handler, this, (Ghosts_Names)i);
-	}
+	if (m_console_handler == 0) exit(1);
 }
 Game::~Game()
 {
-	delete pacman;
-	delete[] ghost;
+	//delete pacman;
+	//delete[] ghost;
 }
 void Game::Start() 
 {
+	pacman = std::make_unique<PacMan>(m_console_handler, this);
+	if (pacman == 0) exit(1);
+    ghost.push_back(std::unique_ptr<Ghost>{new Ghost{ m_console_handler, this, Ghosts_Names::BLINCKY }});
+    ghost.push_back(std::unique_ptr<Ghost>{new Ghost{ m_console_handler, this, Ghosts_Names::PINKY }});
+    ghost.push_back(std::unique_ptr<Ghost>{new Ghost{ m_console_handler, this, Ghosts_Names::INKY }});
+    ghost.push_back(std::unique_ptr<Ghost>{new Ghost{ m_console_handler, this, Ghosts_Names::CLYDE }});
+    for (int i = 0; i < number_of_ghosts; i++)
+    {
+        if (ghost[i] == 0) exit(1);
+    }
 	while (true) 
 	{ 
 		Game_Loop(); 
@@ -110,65 +118,11 @@ void Game::LoadLevel()
 	{
 		for (int x = 0; x < X_SIZE; x++)
 		{
-			m_console_handler->SetTextColor(BLUE);
 			char_to_print = Map[y][x];
-			if (char_to_print == ' ')
-			{
-				m_MapToPrint[y][x] = ' ';
-			}
-			else if (char_to_print == '.') 
-			{
-				m_console_handler->SetTextColor(WHITE);
-				m_MapToPrint[y][x] = 250;
-			}
-			else if(char_to_print == 'o')
-			{
-				m_console_handler->SetTextColor(WHITE);
-				m_MapToPrint[y][x] = 'o';
-			}
-			else if(char_to_print == 'P')
-			{
-
-			}
-			else if (char_to_print == '1') {
-				m_MapToPrint[y][x] = 201;
-			}
-			else if (char_to_print == '2') {
-				m_MapToPrint[y][x] = 187;
-			}
-			else if (char_to_print == '3') {
-				m_MapToPrint[y][x] = 200;
-			}
-			else if (char_to_print == '4') {
-				m_MapToPrint[y][x] = 188;
-			}
-			else if (char_to_print == '5') {
-				m_MapToPrint[y][x] = 205;
-			}
-			else if (char_to_print == '6') {
-				m_MapToPrint[y][x] = 186;
-			}
-			else if (char_to_print == '^') {
-				m_MapToPrint[y][x] = 217;
-			}
-			else if (char_to_print == '$') {
-				m_MapToPrint[y][x] = 218;
-			}
-			else if (char_to_print == '%') {
-				m_MapToPrint[y][x] = 179;
-			}
-			else if (char_to_print == '#') {
-				m_MapToPrint[y][x] = 196;
-			}
-			else if (char_to_print == '@') {
-				m_MapToPrint[y][x] = 192;
-			}
-			else if (char_to_print == '*') {
-				m_MapToPrint[y][x] = 191;
-			}
+			GetCharFromMap(char_to_print, x, y);
 			cout << m_MapToPrint[y][x];
 		}
-		m_console_handler->SetCursorPosition(0, y + 1);
+		m_console_handler->SetCursorPosition(0, y + Y_GAME_SCREEN_TOP_SIDE_OFFSET);
 	}
 	InitAllActors();
 	Render();
@@ -221,12 +175,18 @@ void Game::MoveGhosts()
 	if (points_num <= 240 && ghost[3]->GetMode() == Mode::WAIT) ghost[3]->SetMode(Mode::EXIT_GATE); // 1/3 of points are ate
 	for (int i = 0; i < number_of_ghosts; ++i)
 	{
-		if (i == 0) ghost[0]->ModeActivity(pacman->GetPos_X(), 
-                                           pacman->GetPos_Y());
-		if (i == 1) ghost[i]->ModeActivity(pacman->GetPos_X() + OFFSET_PINKY_POSITION,
-                                           pacman->GetPos_Y() + OFFSET_PINKY_POSITION); // feature of Pinky, offset from pacman position on 4 tiles
-		if (i == 2) ghost[i]->ModeActivity(ghost[i]->GetInkyPos_X(pacman->GetPos_X(), ghost[0]->GetPos_X()),
-                                           ghost[i]->GetInkyPos_Y(pacman->GetPos_Y(), ghost[0]->GetPos_X())); // feature of Inky
+		if (i == 0)
+		{
+			ghost[0]->ModeActivity(pacman->GetPos_X(), pacman->GetPos_Y());
+		}
+		if (i == 1)
+		{
+			ghost[i]->ModeActivity(pacman->GetPos_X() + OFFSET_PINKY_POSITION, pacman->GetPos_Y() + OFFSET_PINKY_POSITION); // feature of Pinky, offset from pacman position on 4 tiles
+		}
+		if (i == 2)
+		{
+			ghost[i]->ModeActivity(ghost[i]->GetInkyPos_X(pacman->GetPos_X(), ghost[0]->GetPos_X()), ghost[i]->GetInkyPos_Y(pacman->GetPos_Y(), ghost[0]->GetPos_X())); // feature of Inky
+		}
 		if (i == 3)
 		{
 			int sum = ghost[i]->GetClydeCountPos_X(pacman->GetPos_X()) + ghost[i]->GetClydeCountPos_Y(pacman->GetPos_Y()); // distance to pacman
@@ -271,15 +231,15 @@ void Game::HandleTime()
 		}
 	}
 
-	if (GetTime() >= seconds_to_mode_change)
+	if (GetTime2() >= seconds_to_mode_change)
 	{
 		for (int i = 0; i < number_of_ghosts; ++i)
 		{
 			if (ghost[i]->GetMode() == Mode::CHASE) ghost[i]->SetMode(Mode::SCATTER);
 			else if (ghost[i]->GetMode() == Mode::SCATTER) ghost[i]->SetMode(Mode::CHASE);
 		}
-		timer = std::clock();
 	}
+	timer2 = std::clock();
 }
 void Game::InitAllActors()
 {
@@ -315,6 +275,7 @@ void Game::SetMazeText(std::string text, int color)
 	std::cout << text;
 
 	while (!_kbhit());
+    //std::unique_ptr<char> substring(new char[text.size() + 1]);
 	char* substring = new char[text.size() + 1];          //a substring to recover the maze in the console
 	memcpy(substring, &m_MapToPrint[Y_MIDDLE_POS][X_MIDDLE_POS], text.size());
 	substring[text.size()] = '\0';
@@ -323,4 +284,22 @@ void Game::SetMazeText(std::string text, int color)
 	m_console_handler->SetTextColor(WHITE);
 	std::cout << substring;
 	delete substring;
+}
+void Game::GetCharFromMap(char ch, int x_offset, int y_offset) 
+{
+	for (auto iterator = MapCharToPtint.begin(); iterator != MapCharToPtint.end(); ++iterator)
+	{
+		if (ch == '.' || ch == 'o')
+		{
+			m_console_handler->SetTextColor(WHITE);
+		}
+		else
+		{
+			m_console_handler->SetTextColor(BLUE);
+		}
+		if (ch == iterator->first)
+		{
+			m_MapToPrint[y_offset][x_offset] = iterator->second;
+		}
+	}
 }

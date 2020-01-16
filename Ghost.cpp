@@ -1,6 +1,6 @@
 #include "Ghost.h"
 
-Ghost::Ghost(ConsoleSettingsHandler* console_handler, Game* game, Ghosts_Names his_name):
+Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name):
 	m_console_handler(console_handler),
 	game_instance(game),
 	name(his_name),
@@ -22,6 +22,7 @@ Ghost::Ghost(ConsoleSettingsHandler* console_handler, Game* game, Ghosts_Names h
 	{
 		timer = std::clock();
 	}
+	if (m_console_handler == 0) exit(1);
 }
 Ghost::~Ghost()
 {
@@ -154,7 +155,6 @@ void Ghost::HandleScatterMode()
 			char dir = DetermineClosestMove(CLYDE_SCATTER_POS_X, CLYDE_SCATTER_POS_Y); // left-down corner
 			Move(dir);
 		}
-	
 }
 char Ghost::DetermineClosestMove(int pm_x, int pm_y)
 {
@@ -314,7 +314,6 @@ int  Ghost::GetClydeCountPos_X(int pacman_x)
 		++counter;
 	}
 	return counter;
-
 }
 int  Ghost::GetClydeCountPos_Y(int pacman_y)
 {

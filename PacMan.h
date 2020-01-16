@@ -21,7 +21,7 @@ private:
 	int prev_x, prev_y;
 
 	bool got_energizer;
-	unsigned int lives;
+    unsigned int lives;
 	unsigned int score;
 	unsigned int color;
 	unsigned int speed;
@@ -33,10 +33,10 @@ private:
 	unsigned char head;
 	std::clock_t timer;
 
-	ConsoleSettingsHandler* m_console_handler;
+	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	Game* game_instance;
 public:
-	PacMan(ConsoleSettingsHandler* console_handler, Game* game);
+	PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game);
 	~PacMan();
 
 	void Move();
