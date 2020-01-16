@@ -18,8 +18,6 @@ Game::Game(std::shared_ptr<ConsoleSettingsHandler> console_handler) :
 }
 Game::~Game()
 {
-	//delete pacman;
-	//delete[] ghost;
 }
 void Game::Start() 
 {
