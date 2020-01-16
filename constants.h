@@ -37,6 +37,10 @@ namespace Game_Constants
 	
 	const int OFFSET_PINKY_POSITION = 4;
 	const int POINTS_NUMBER         = 360;
+    const int NUMBER_OF_GHOSTS      = 4;
+    const int NUMBER_OF_LIVES       = 3;
+    const int PACMAN_SPEED          = 28;
+    const int GHOST_SPEED           = 58;
 
 	//Position for ghosts in scatter mode
 	const int BLINKY_SCATTER_POS_X  = 44;
@@ -86,6 +90,8 @@ namespace Game_Constants
 		CLYDE 
 	};
 	const char GHOST_HEAD = 'G';
+    const char DEFAULT_DIRECTION = 'w';
+    const char NO_DIRECTION = 'N';
 	const char CharNotToCollide[3] = { ' ', 'o', 250 /*pill ascii*/ };
 	const char Direction[4] = { 'w', 'a', 's', 'd' };
 	const std::map<char, short> MapCharToPtint = 
@@ -106,4 +112,8 @@ namespace Game_Constants
 	    { '@', 192 }, 
 	    { '*', 191 }
 	};
+
+    //Timings
+    const double SECODS_IN_BOOST_BY_LEVEL = 20.0;
+    const double SECODS_TO_CHANGE_MODE = 20.0;
 }

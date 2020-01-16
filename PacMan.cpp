@@ -8,11 +8,11 @@ PacMan::PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* ga
 	prev_x(0),
 	prev_y(0),
 	color(YELLOW),
-	lives(3), 
+	lives(NUMBER_OF_LIVES),
 	score(0),
 	head(Head::RIGHT), 
-	direction('N'), 
-	speed(28),
+	direction(NO_DIRECTION),
+	speed(PACMAN_SPEED),
 	move_counter(0),
 	kill_counter(0),
 	score_offset(0), 
@@ -24,47 +24,47 @@ PacMan::PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* ga
 PacMan::~PacMan()
 {
 }
-void PacMan::Move()
+void PacMan::move()
 {
 	if (move_counter) move_counter--;
 	else {
-		GetDirection();
-		if (!CheckCollision(direction))
+		getDirection();
+		if (!checkCollision(direction))
 		{
-			m_console_handler->SetCursorPosition(prev_x, prev_y);
-			//check = game_instance->GetCharOfMap(prev_x, prev_y);
-			m_console_handler->ResetSettingsToDefault();
-			std::cout << game_instance->GetCharOfMap(prev_x, prev_y);
-			if (game_instance->GetCharOfMap(x, y) != ' ')
+			m_console_handler->setCursorPosition(prev_x, prev_y);
+			//check = game_instance->getCharOfMap(prev_x, prev_y);
+			m_console_handler->resetSettingsToDefault();
+			std::cout << game_instance->getCharOfMap(prev_x, prev_y);
+			if (game_instance->getCharOfMap(x, y) != ' ')
 			{
-				ScoreUp();
-				RenderScore();
-				game_instance->DecreasePointsNum();
-				game_instance->SetCharOfMap(x, y, ' ');
+				scoreUp();
+				renderScore();
+				game_instance->decreasePointsNum();
+				game_instance->setCharOfMap(x, y, ' ');
 			}
-			RenderPacman();
+			renderPacman();
 			old_direction = direction;
 			move_counter = speed;
 		}
-		else if(!CheckCollision(old_direction))
+		else if(!checkCollision(old_direction))
 		{
-			m_console_handler->SetCursorPosition(prev_x, prev_y);
-			//check = game_instance->GetCharOfMap(prev_x, prev_y);
-			m_console_handler->ResetSettingsToDefault();
-			std::cout << game_instance->GetCharOfMap(prev_x, prev_y);
-			if (game_instance->GetCharOfMap(x, y) != ' ')
+			m_console_handler->setCursorPosition(prev_x, prev_y);
+			//check = game_instance->getCharOfMap(prev_x, prev_y);
+			m_console_handler->resetSettingsToDefault();
+			std::cout << game_instance->getCharOfMap(prev_x, prev_y);
+			if (game_instance->getCharOfMap(x, y) != ' ')
 			{
-				ScoreUp();
-				RenderScore();
-				game_instance->DecreasePointsNum();
-				game_instance->SetCharOfMap(x, y, ' ');
+				scoreUp();
+				renderScore();
+				game_instance->decreasePointsNum();
+				game_instance->setCharOfMap(x, y, ' ');
 			}
-			RenderPacman();
+			renderPacman();
 			move_counter = speed;
 		}
 	}
 }
-char PacMan::GetDirection()
+char PacMan::getDirection()
 {
 	if (_kbhit()) 
 	{
@@ -73,14 +73,14 @@ char PacMan::GetDirection()
 	}
 	return 0;
 }
-bool PacMan::CheckCollision(char dir)
+bool PacMan::checkCollision(char dir)
 {
 	prev_x = x;
 	prev_y = y;
 	switch (dir)
 	{
 	case 'w':
-		if (strchr(CharNotToCollide,  game_instance->GetCharOfMap(x, y - 1)))
+		if (strchr(CharNotToCollide,  game_instance->getCharOfMap(x, y - 1)))
 		{
 			--y;
 			head = Head::UP;
@@ -92,14 +92,14 @@ bool PacMan::CheckCollision(char dir)
 			x = X_SIZE - 1;
 			head = Head::LEFT;
 		}
-		else if(strchr(CharNotToCollide, game_instance->GetCharOfMap(x - 1, y)))
+		else if(strchr(CharNotToCollide, game_instance->getCharOfMap(x - 1, y)))
 		{
 			--x;
 			head = Head::LEFT;
 		}
 		break;
 	case 's':
-		if (strchr(CharNotToCollide, game_instance->GetCharOfMap(x, y + 1)))
+		if (strchr(CharNotToCollide, game_instance->getCharOfMap(x, y + 1)))
 		{
 			++y;
 			head = Head::DOWN;
@@ -111,7 +111,7 @@ bool PacMan::CheckCollision(char dir)
 			x = 0;
 			head = Head::RIGHT;
 		}
-		else if(strchr(CharNotToCollide, game_instance->GetCharOfMap(x + 1, y)))
+		else if(strchr(CharNotToCollide, game_instance->getCharOfMap(x + 1, y)))
 		{
 			++x;
 			head = Head::RIGHT;
@@ -120,21 +120,21 @@ bool PacMan::CheckCollision(char dir)
 	}
 	return (prev_x == x && prev_y == y) ? true :  false;
 }
-void PacMan::Dead()
+void PacMan::dead()
 {
 	unsigned char head_prev = head;
 	for (int i = 0; i < 9; i++) //blincking
 	{
 		if (i % 2) head = ' ';
 		else head = head_prev;
-		RenderPacman();
+		renderPacman();
 		Sleep(150);
 	}
 	--lives;
 }
-void PacMan::ScoreUp()
+void PacMan::scoreUp()
 {
-	if (game_instance->GetCharOfMap(x, y) == 'o') // energizer
+	if (game_instance->getCharOfMap(x, y) == 'o') // energizer
 	{ 
 		score_offset = 50;
 		score += 50;
@@ -142,51 +142,51 @@ void PacMan::ScoreUp()
 		kill_counter = 0;
 		timer = std::clock();
 	} 
-	else if (game_instance->GetCharOfMap(x, y) == static_cast<char>(250))  // pill
+	else if (game_instance->getCharOfMap(x, y) == static_cast<char>(250))  // pill
 	{
 		score_offset = 10;
 		score += 10;
 	} 
-	else if (game_instance->GetCharOfMap(x, y) == '%') {} // cherry
+	else if (game_instance->getCharOfMap(x, y) == '%') {} // cherry
 	if ((score / 10000) < ((score + score_offset) / 10000)) // each 10k gains lives_point;
 	{
 		if(lives < 3) ++lives;
-		RenderLives();
+		renderLives();
 	}
 }
-void PacMan::ResetPacMan(int x, int y)
+void PacMan::resetPacMan(int x, int y)
 {
-	SetPos_X(x);
-	SetPos_Y(y);
+	setPos_X(x);
+	setPos_Y(y);
 }
-void PacMan::RenderPacman()
+void PacMan::renderPacman()
 {
-	m_console_handler->SetCursorPosition(x, y);
-	m_console_handler->SetTextColor(YELLOW);
+	m_console_handler->setCursorPosition(x, y);
+	m_console_handler->setTextColor(YELLOW);
 	std::cout << head;
 }
-void PacMan::RenderScore()
+void PacMan::renderScore()
 {
-	m_console_handler->SetTextColor(WHITE);
-	m_console_handler->SetCursorPosition(0, -1);
+	m_console_handler->setTextColor(WHITE);
+	m_console_handler->setCursorPosition(0, -1);
 	std::cout << "SCORE: " << score;
 }
-void PacMan::RenderLives()
+void PacMan::renderLives()
 {
 	SetConsoleOutputCP(CP_UTF8); // to handle render heart sign
-	m_console_handler->SetTextColor(YELLOW);
-	m_console_handler->SetCursorPosition(1, Y_SIZE);
+	m_console_handler->setTextColor(YELLOW);
+	m_console_handler->setCursorPosition(1, Y_SIZE);
 	std::cout << "Lives: ";
-	m_console_handler->SetTextColor(RED);
+	m_console_handler->setTextColor(RED);
 	for (unsigned int i = 0; i < lives; ++i)
 	{
 		//"\xE2\x99\xA5" heart sign in UTF-8
 		std::cout << "\xE2\x99\xA5 ";
 	}
 	std::cout << ' ';
-	m_console_handler->ResetSettingsToDefault();
+	m_console_handler->resetSettingsToDefault();
 }
-void PacMan::RenderKill() 
+void PacMan::renderKill() 
 {
 	++kill_counter;
 	int sum	 = 200 * (int)pow(2, kill_counter - 1);
@@ -210,25 +210,25 @@ void PacMan::RenderKill()
 		x = X_SIZE - digit_num;
 	}
 
-	m_console_handler->SetTextColor(CYAN);
-	m_console_handler->SetCursorPosition(kill_pos_x, y);
+	m_console_handler->setTextColor(CYAN);
+	m_console_handler->setCursorPosition(kill_pos_x, y);
 	std::cout << sum;
 	Sleep(500);
 
-	m_console_handler->SetCursorPosition(kill_pos_x, y);
+	m_console_handler->setCursorPosition(kill_pos_x, y);
 	for (int i = kill_pos_x; i < kill_pos_x + digit_num; ++i)
 	{
-		m_console_handler->SetTextColor(BLUE);
-		if (game_instance->GetCharOfMap(i, y) == static_cast<char>(250) ||
-			game_instance->GetCharOfMap(i, y) == 'o')
+		m_console_handler->setTextColor(BLUE);
+		if (game_instance->getCharOfMap(i, y) == static_cast<char>(250) ||
+			game_instance->getCharOfMap(i, y) == 'o')
 		{
-			m_console_handler->SetTextColor(WHITE);
+			m_console_handler->setTextColor(WHITE);
 		}
-		std::cout << game_instance->GetCharOfMap(i, y);
+		std::cout << game_instance->getCharOfMap(i, y);
 	}
 	if ((score / 10000) < ((score + score_offset) / 10000))
 	{
 		if (lives < 3) ++lives;
-		RenderLives();
+		renderLives();
 	}
 }

@@ -35,46 +35,51 @@ class Ghost : public iActor
 	Game* game_instance;
 	std::clock_t timer;
 
-	void HandleScatterMode();
-	char DetermineClosestMove(int pm_x, int pm_y);
-	char DetermineFurthestMove(int pm_x, int pm_y);
-	char GetOppositeDirection();
-	int OffsetCoordinatesX(int);
-	int OffsetCoordinatesY(int);
+    void handleChaseMode(int x, int y);
+	void handleScatterMode();
+    void handleFrightenedMode(int x, int y);
+    void handleExitMode();
+    void handleDeadMode();
+    void handleWaitMode();
+	char determineClosestMove(int pm_x, int pm_y);
+	char determineFurthestMove(int pm_x, int pm_y);
+	char getOppositeDirection();
+	int  offsetCoordinatesX(int);
+	int  offsetCoordinatesY(int);
 public:
 	Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name);
 	~Ghost();
 
-	void Move(char);
-	void Dead();
-	bool CheckCollision(char);
-	void RenderMap();
-	void RenderGhost();
-	void ResetGhost(int x, int y);
-	void ResetModes(int name);
-	void ModeActivity(int x, int y);
-	char GetDirection();
+	void move(char);
+	void dead();
+	bool checkCollision(char);
+	void renderMap();
+	void renderGhost();
+	void resetGhost(int x, int y);
+	void resetModes(int name);
+	void modeActivity(int x, int y);
+	char getDirection();
 
-	int GetInkyPos_X(int pacman_x, int blincky_x);
-	int GetInkyPos_Y(int pacman_y, int blincky_y);
-	int GetClydeCountPos_X(int pacman_x);
-	int GetClydeCountPos_Y(int pacman_y);
-	double GetTimeInWait() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
+	int getInkyPos_X(int pacman_x, int blincky_x);
+	int getInkyPos_Y(int pacman_y, int blincky_y);
+	int getClydeCountPos_X(int pacman_x);
+	int getClydeCountPos_Y(int pacman_y);
+	double getTimeInWait() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 
-	int GetPos_X()                 { return x;            }
-	int GetPos_Y()                 { return y;            }
-	int GetGhostColor()            { return color;        }
-	Ghosts_Names GetGhostName()    { return name;         }
-	Mode GetMode()                 { return current_mode; }
-	void SetMode(Mode m)           { current_mode = m;    }
-	void SetHead(char ch)          { head = ch;           }
-	void SetPrevMode(Mode m)       { prev_mode = m;       }
-	void SetPos_X(int x_pos)       { x = x_pos;           }
-	void SetPos_Y(int y_pos)       { y = y_pos;           }
-	void SetDirection(char dir)    { direction = dir;     }
-	void SetOldDirection(char dir) { old_direction = dir; }
-	void SetGhostColor(int clr)    { color = clr;         }
+	int getPos_X()                 { return x;            }
+	int getPos_Y()                 { return y;            }
+	int getGhostColor()            { return color;        }
+	Ghosts_Names getGhostName()    { return name;         }
+	Mode getMode()                 { return current_mode; }
+	void setMode(Mode m)           { current_mode = m;    }
+	void setHead(char ch)          { head = ch;           }
+	void setPrevMode(Mode m)       { prev_mode = m;       }
+	void setPos_X(int x_pos)       { x = x_pos;           }
+	void setPos_Y(int y_pos)       { y = y_pos;           }
+	void setDirection(char dir)    { direction = dir;     }
+	void setOldDirection(char dir) { old_direction = dir; }
+	void setGhostColor(int clr)    { color = clr;         }
 
-	void SetGhostColor(Ghosts_Names name);
+	void setGhostColor(Ghosts_Names name);
 };
 #endif //GHOST_H

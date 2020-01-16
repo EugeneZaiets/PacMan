@@ -1,19 +1,21 @@
 ﻿  Game.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(89): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(299): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(93): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(282): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
           with
           [
               _Ty2=short
           ]
   Ghost.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(89): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(93): warning C4309: 'initializing': truncation of constant value
   PacMan.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(89): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(93): warning C4309: 'initializing': truncation of constant value
 c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(145): warning C4309: 'static_cast': truncation of constant value
 c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(222): warning C4309: 'static_cast': truncation of constant value
+  ConsoleSettingsHandler.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(93): warning C4309: 'initializing': truncation of constant value
   Source.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(89): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(93): warning C4309: 'initializing': truncation of constant value
   Generating Code...
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(259): warning C4715: 'Ghost::GetOppositeDirection': not all control paths return a value
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(337): warning C4715: 'Ghost::GetDirection': not all control paths return a value
+c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(277): warning C4715: 'Ghost::getOppositeDirection': not all control paths return a value
+c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(355): warning C4715: 'Ghost::getDirection': not all control paths return a value
   ProjectPacMan.vcxproj -> C:\Users\euzai\source\repos\ProjectPacMan\x64\Debug\ProjectPacMan.exe

@@ -39,29 +39,29 @@ public:
 	PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game);
 	~PacMan();
 
-	void Move();
-	void Dead();
-	void ScoreUp();
-	void RenderScore();
-	void RenderLives();
-	char GetDirection();
-	void RenderPacman();
-	void RenderKill();
-	void ResetPacMan(int x, int y);
-	bool CheckCollision (char dir);
+	void move();
+	void dead();
+	void scoreUp();
+	void renderScore();
+	void renderLives();
+	char getDirection();
+	void renderPacman();
+	void renderKill();
+	void resetPacMan(int x, int y);
+	bool checkCollision (char dir);
 
 
-	int GetPos_X()                   { return x;             }
-	int GetPos_Y()                   { return y;             }
-	int GetLives()                   { return lives;         }
-	void SetDirection(char dir)      { direction = dir;      }
-	void SetOldDirection(char dir)   { old_direction = dir;  }
-	void SetPos_X(int x_pos)         { x = x_pos;            }
-	void SetPos_Y(int y_pos)         { y = y_pos;            }
-	void SetLives(int num)           { lives = num;          }
-	void SetEnergizerInfo(bool info) { got_energizer = info; }
+	int getPos_X()                   { return x;             }
+	int getPos_Y()                   { return y;             }
+	int getLives()                   { return lives;         }
+	void setDirection(char dir)      { direction = dir;      }
+	void setOldDirection(char dir)   { old_direction = dir;  }
+	void setPos_X(int x_pos)         { x = x_pos;            }
+	void setPos_Y(int y_pos)         { y = y_pos;            }
+	void setLives(int num)           { lives = num;          }
+	void setEnergizerInfo(bool info) { got_energizer = info; }
 
-	bool GetEnergizerInfo()          { return got_energizer; }
-	double GetTimeInBooste()         { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
+	bool getEnergizerInfo()          { return got_energizer; }
+	double getTimeInBooste()         { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
 };
 #endif //PACMAN_H

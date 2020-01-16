@@ -32,34 +32,35 @@ class Game
 
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	std::unique_ptr<PacMan> pacman;
-	std::unique_ptr<Ghost> ghosts[4];
-    std::vector<std::unique_ptr<Ghost>> ghost;
+	std::unique_ptr<Ghost> ghost[4];
 
 	std::clock_t timer;
 	std::clock_t timer2;
-	void Game_Loop();
-	void LoadLevel();
-	void Render();
+	void game_Loop();
+	void loadLevel();
+	void render();
 	bool isDead();
-	void MoveGhosts();
-	void HandleTime();
-	void InitAllActors();
-	void SetMazeText(std::string, int);
-	void ResetMapInCollision();
-	bool CollisionWithGhost();
+	void moveGhosts();
+	void handleTime();
+	void initAllActors();
+	void setMazeText(std::string, int);
+	void resetMapInCollision();
+	bool collisionWithGhost();
+    void checkPointersToActors();
+    void determitePositionForModeActivity();
 public:
 	Game(std::shared_ptr<ConsoleSettingsHandler> console_handler);
 	~Game();
-	void Start();
+	void start();
 
-	void GetCharFromMap(char, int, int);
-	void DecreasePointsNum()                    { --points_num;                  }
-	int  GetPointsNum()                         { return points_num;             }
-	char GetCharOfMap(int x, int y)             { return m_MapToPrint[y][x];     }
-	void SetCharOfMap(int x, int y, char print) { m_MapToPrint[y][x] = print;    }
-	void SetPointsNum(int num)                  { points_num = num;              }
+	void getCharFromMap(char, int, int);
+	void decreasePointsNum()                    { --points_num;                  }
+	int  getPointsNum()                         { return points_num;             }
+	char getCharOfMap(int x, int y)             { return m_MapToPrint[y][x];     }
+	void setCharOfMap(int x, int y, char print) { m_MapToPrint[y][x] = print;    }
+	void setPointsNum(int num)                  { points_num = num;              }
 
-	double GetTime()  { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
-	double GetTime2() { return (std::clock() - timer2) / (double)CLOCKS_PER_SEC; }
+	double getTime()  { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
+	double getTime2() { return (std::clock() - timer2) / (double)CLOCKS_PER_SEC; }
 };
 #endif // GAME_H

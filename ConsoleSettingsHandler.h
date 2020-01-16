@@ -17,13 +17,13 @@ public:
 	ConsoleSettingsHandler();
 	~ConsoleSettingsHandler();
 
-	bool FlushConsoleBuffer();
-	void ResetSettingsToDefault();
-	void CreateGameWindow();
-	void HanldeCursorVisibility(bool visibility);
+	bool flushConsoleBuffer();
+	void resetSettingsToDefault();
+	void createGameWindow();
+	void hanldeCursorVisibility(bool visibility);
 
-	void SetCursorPosition(short x, short y)      { SetConsoleCursorPosition(m_Console, { x, y + 2 }); }
-	void SetTextColor(int color)                  { SetConsoleTextAttribute(m_Console, color);         }
-	HANDLE GetConsoleOutputHandle()               { return m_Console;                                  }
+	void setCursorPosition(short x, short y)      { SetConsoleCursorPosition(m_Console, { x, y + 2 }); }
+	void setTextColor(int color)                  { SetConsoleTextAttribute(m_Console, color);         }
+	HANDLE getConsoleOutputHandle()               { return m_Console;                                  }
 };
 #endif //CONSOLESETTINGSHANDLER_H

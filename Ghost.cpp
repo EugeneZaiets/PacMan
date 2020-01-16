@@ -9,14 +9,14 @@ Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game
 	prev_x(0),
 	prev_y(0),
 	head(GHOST_HEAD),
-	direction('w'),
-	old_direction('w'),
-	speed(58),
+	direction(DEFAULT_DIRECTION),
+	old_direction(DEFAULT_DIRECTION),
+	speed(GHOST_SPEED),
 	move_counter(0),
 	timer(0)
 {
-	ResetModes(his_name);
-	SetGhostColor(his_name);
+	resetModes(his_name);
+	setGhostColor(his_name);
 	if (his_name == Ghosts_Names::INKY || 
 		his_name == Ghosts_Names::CLYDE) 
 	{
@@ -27,142 +27,160 @@ Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game
 Ghost::~Ghost()
 {
 }
-void Ghost::Dead()
+void Ghost::dead()
 {
-	SetGhostColor(WHITE);
-	SetPrevMode(current_mode);
-	SetMode(Mode::DEAD);
+	setGhostColor(WHITE);
+	setPrevMode(current_mode);
+	setMode(Mode::DEAD);
 	head = '"';
 }
-void Ghost::RenderGhost()
+void Ghost::renderGhost()
 {
-	m_console_handler->SetCursorPosition(x, y);
-	m_console_handler->SetTextColor(color);
+	m_console_handler->setCursorPosition(x, y);
+	m_console_handler->setTextColor(color);
 	std::cout << head;
 }
-void Ghost::RenderMap()
+void Ghost::renderMap()
 {
-	m_console_handler->SetTextColor(WHITE);
-	m_console_handler->SetCursorPosition(x, y);
-	std::cout << game_instance->GetCharOfMap(x, y);
+	m_console_handler->setTextColor(WHITE);
+	m_console_handler->setCursorPosition(x, y);
+	std::cout << game_instance->getCharOfMap(x, y);
 }
-void Ghost::ResetGhost(int x, int y)
+void Ghost::resetGhost(int x, int y)
 {
-	SetPos_X(x);
-	SetPos_Y(y);
-	SetGhostColor(name);
+	setPos_X(x);
+	setPos_Y(y);
+	setGhostColor(name);
 }
-void Ghost::ResetModes(int name) {
+void Ghost::resetModes(int name) {
 	if	    (name == Ghosts_Names::BLINCKY)	current_mode = Mode::CHASE;
 	else if (name == Ghosts_Names::PINKY  ) current_mode = Mode::EXIT_GATE;
 	else if (name == Ghosts_Names::INKY   ) current_mode = Mode::WAIT;
 	else if (name == Ghosts_Names::CLYDE  ) current_mode = Mode::WAIT;
 	prev_mode = current_mode;
 }
-void Ghost::ModeActivity(int pacman_x, int pacman_y)
+void Ghost::modeActivity(int pacman_x, int pacman_y)
 {
 	switch (current_mode) 
 	{
 	case Mode::CHASE :
 	{
-		char dir = DetermineClosestMove(pacman_x, pacman_y);
-		Move(dir);
+        handleChaseMode(pacman_x, pacman_y);
 	}
 	break;
 	case Mode::SCATTER:
 	{
-		HandleScatterMode();
+		handleScatterMode();
 	}
 	break;
 	case Mode::FRIGHTENED: 
 	{
-		char dir = DetermineFurthestMove(pacman_x, pacman_y);
-		Move(dir);
+        handleFrightenedMode(pacman_x, pacman_y);
 	}
 	break;
 	case Mode::DEAD : 
 	{
-		if (x == X_GATE - 1 && y == Y_GATE)
-		{
-			Move('d');
-			break;
-		}
-		if (x == X_GATE + 1 && y == Y_GATE)
-		{
-			SetGhostColor(name);
-			head = 'G';
-			SetMode(Mode::EXIT_GATE);
-		}
-		char dir = DetermineClosestMove(X_GATE + 1, Y_GATE);
-		if (x == 4 && y == 10) dir = 's';
-		else if (x == 4 && y == 13) dir = 'd';
-		Move(dir);
-		old_direction = dir;
+        handleDeadMode();
 	}
 	break;
 	case Mode::WAIT: 
 	{
-		if (GetTimeInWait() >= 1.0) 
-		{
-			RenderMap();
-			if (x == X_GATE + 1) ++x;
-			else --x;
-			RenderGhost();
-			timer = std::clock();
-		}
+        handleWaitMode();
 	}
 	break;
 	case Mode::EXIT_GATE: 
 	{
-		if (x == X_GATE + 1 && y == Y_GATE) 
-		{
-
-			direction = 'a';
-			old_direction = 'a';
-			RenderMap();
-			--x;
-			RenderMap();
-			RenderGhost();
-			if (color == BLUE) SetMode(Mode::FRIGHTENED);
-			else			   SetMode(Mode::CHASE);
-			break;
-		}
-		char dir = DetermineClosestMove(X_GATE + 1, Y_GATE);
-		Move(dir);
+        handleExitMode();
 	}
 	break;
 	}
 }
-void Ghost::HandleScatterMode()
+void Ghost::handleChaseMode(int x, int y)
 {
-		if(name == Ghosts_Names::BLINCKY)
-		{
-			char dir = DetermineClosestMove(BLINKY_SCATTER_POS_X, BLINKY_SCATTER_POS_Y); // right-up corner
-			Move(dir);
-		}
-		else if (name == Ghosts_Names::PINKY) 
-		{
-			char dir = DetermineClosestMove(PINKY_SCATTER_POS_X, PINKY_SCATTER_POS_Y); // right-down corner
-			Move(dir);
-		}
-		else if (name == Ghosts_Names::INKY) 
-		{
-			char dir = DetermineClosestMove(INKY_SCATTER_POS_X, INKY_SCATTER_POS_Y); // left-up corner
-			Move(dir);
-		}
-		else if (name == Ghosts_Names::CLYDE) 
-		{
-			char dir = DetermineClosestMove(CLYDE_SCATTER_POS_X, CLYDE_SCATTER_POS_Y); // left-down corner
-			Move(dir);
-		}
+    char dir = determineClosestMove(x, y);
+    move(dir);
 }
-char Ghost::DetermineClosestMove(int pm_x, int pm_y)
+void Ghost::handleScatterMode()
+{
+	if(name == Ghosts_Names::BLINCKY)
+	{
+		char dir = determineClosestMove(BLINKY_SCATTER_POS_X, BLINKY_SCATTER_POS_Y); // right-up corner
+		move(dir);
+	}
+	else if (name == Ghosts_Names::PINKY) 
+	{
+		char dir = determineClosestMove(PINKY_SCATTER_POS_X, PINKY_SCATTER_POS_Y); // right-down corner
+		move(dir);
+	}
+	else if (name == Ghosts_Names::INKY) 
+	{
+		char dir = determineClosestMove(INKY_SCATTER_POS_X, INKY_SCATTER_POS_Y); // left-up corner
+		move(dir);
+	}
+	else if (name == Ghosts_Names::CLYDE) 
+	{
+		char dir = determineClosestMove(CLYDE_SCATTER_POS_X, CLYDE_SCATTER_POS_Y); // left-down corner
+		move(dir);
+	}
+}
+void Ghost::handleFrightenedMode(int x, int y)
+{
+    char dir = determineFurthestMove(x, y);
+    move(dir);
+}
+void Ghost::handleExitMode()
+{
+    if (x == X_GATE + 1 && y == Y_GATE)
+    {
+        direction = 'a';
+        old_direction = 'a';
+        renderMap();
+        --x;
+        renderMap();
+        renderGhost();
+        setMode(Mode::CHASE);
+        return;
+    }
+    char dir = determineClosestMove(X_GATE + 1, Y_GATE);
+    move(dir);
+}
+void Ghost::handleDeadMode()
+{
+    if (x == X_GATE - 1 && y == Y_GATE)
+    {
+        move('d');
+        return;
+    }
+    else if (x == X_GATE + 1 && y == Y_GATE)
+    {
+        setGhostColor(name);
+        head = 'G';
+        setMode(Mode::EXIT_GATE);
+    }
+    char dir = determineClosestMove(X_GATE + 1, Y_GATE);
+    if (x == 4 && y == 10) dir = 's';
+    else if (x == 4 && y == 13) dir = 'd';
+    move(dir);
+    old_direction = dir;
+}
+void Ghost::handleWaitMode()
+{
+    if (getTimeInWait() >= 1.0)
+    {
+        renderMap();
+        if (x == X_GATE + 1) ++x;
+        else --x;
+        renderGhost();
+        timer = std::clock();
+    }
+}
+char Ghost::determineClosestMove(int pm_x, int pm_y)
 {
 	std::vector<int> dirs_num;
-	if (Direction[0] != GetOppositeDirection() && !CheckCollision(Direction[0])) dirs_num.push_back(0);
-	if (Direction[1] != GetOppositeDirection() && !CheckCollision(Direction[1])) dirs_num.push_back(1);
-	if (Direction[2] != GetOppositeDirection() && !CheckCollision(Direction[2])) dirs_num.push_back(2);
-	if (Direction[3] != GetOppositeDirection() && !CheckCollision(Direction[3])) dirs_num.push_back(3);
+	if (Direction[0] != getOppositeDirection() && !checkCollision(Direction[0])) dirs_num.push_back(0);
+	if (Direction[1] != getOppositeDirection() && !checkCollision(Direction[1])) dirs_num.push_back(1);
+	if (Direction[2] != getOppositeDirection() && !checkCollision(Direction[2])) dirs_num.push_back(2);
+	if (Direction[3] != getOppositeDirection() && !checkCollision(Direction[3])) dirs_num.push_back(3);
 	if (dirs_num.size() == 1) return Direction[dirs_num[0]];
 	else 
 	{
@@ -170,8 +188,8 @@ char Ghost::DetermineClosestMove(int pm_x, int pm_y)
 		std::pair<int, int>* pointer_counter_direction = new std::pair<int, int>[dirs_num.size()];
 		for (int i = 0; i < dirs_num.size(); ++i)
 		{
-			int ghost_x = x + OffsetCoordinatesX(dirs_num[i]);
-			int ghost_y = y + OffsetCoordinatesY(dirs_num[i]);
+			int ghost_x = x + offsetCoordinatesX(dirs_num[i]);
+			int ghost_y = y + offsetCoordinatesY(dirs_num[i]);
 			int counter = 0;
 			while(ghost_x != pm_x)
 			{
@@ -203,13 +221,13 @@ char Ghost::DetermineClosestMove(int pm_x, int pm_y)
 		return Direction[closest];
 	}
 }
-char Ghost::DetermineFurthestMove(int pm_x, int pm_y)
+char Ghost::determineFurthestMove(int pm_x, int pm_y)
 {
 	std::vector<int> dirs_num;
-	if (Direction[0] != GetOppositeDirection() && !CheckCollision(Direction[0])) dirs_num.push_back(0);
-	if (Direction[1] != GetOppositeDirection() && !CheckCollision(Direction[1])) dirs_num.push_back(1);
-	if (Direction[2] != GetOppositeDirection() && !CheckCollision(Direction[2])) dirs_num.push_back(2);
-	if (Direction[3] != GetOppositeDirection() && !CheckCollision(Direction[3])) dirs_num.push_back(3);
+	if (Direction[0] != getOppositeDirection() && !checkCollision(Direction[0])) dirs_num.push_back(0);
+	if (Direction[1] != getOppositeDirection() && !checkCollision(Direction[1])) dirs_num.push_back(1);
+	if (Direction[2] != getOppositeDirection() && !checkCollision(Direction[2])) dirs_num.push_back(2);
+	if (Direction[3] != getOppositeDirection() && !checkCollision(Direction[3])) dirs_num.push_back(3);
 	if (dirs_num.size() == 1) return Direction[dirs_num[0]];
 	else
 	{
@@ -217,8 +235,8 @@ char Ghost::DetermineFurthestMove(int pm_x, int pm_y)
 		std::pair<int, int>* pointer_counter_direction = new std::pair<int, int>[dirs_num.size()];
 		for (int i = 0; i < dirs_num.size(); ++i)
 		{
-			int ghost_x = x + OffsetCoordinatesX(dirs_num[i]);
-			int ghost_y = y + OffsetCoordinatesY(dirs_num[i]);
+			int ghost_x = x + offsetCoordinatesX(dirs_num[i]);
+			int ghost_y = y + offsetCoordinatesY(dirs_num[i]);
 			int counter = 0;
 			while (ghost_x != pm_x)
 			{
@@ -250,26 +268,26 @@ char Ghost::DetermineFurthestMove(int pm_x, int pm_y)
 		return Direction[furthest];
 	}
 }
-char Ghost::GetOppositeDirection()
+char Ghost::getOppositeDirection()
 {
 	if (old_direction == 'w') return 's';
 	if (old_direction == 'a') return 'd';
 	if (old_direction == 's') return 'w';
 	if (old_direction == 'd') return 'a';
 }
-int  Ghost::OffsetCoordinatesX(int dir)
+int  Ghost::offsetCoordinatesX(int dir)
 {
-	if		(dir == 1) return -1; // Offset LEFT
-	else if (dir == 3) return 1;// Offset RIGHT
+	if		(dir == 1) return -1; // offset LEFT
+	else if (dir == 3) return 1;// offset RIGHT
 	return 0;
 }
-int  Ghost::OffsetCoordinatesY(int dir)
+int  Ghost::offsetCoordinatesY(int dir)
 {
-	if		(dir == 0) return -1; // Offset UP, '0' - W
-	else if (dir == 2) return 1;// Offset DOWN, '2' - D
+	if		(dir == 0) return -1; // offset UP, '0' - W
+	else if (dir == 2) return 1;// offset DOWN, '2' - D
 	return 0;
 }
-void Ghost::SetGhostColor(Ghosts_Names name)
+void Ghost::setGhostColor(Ghosts_Names name)
 {
 	switch (name) 
 	{
@@ -279,7 +297,7 @@ void Ghost::SetGhostColor(Ghosts_Names name)
 	case Ghosts_Names::CLYDE   : { color = YELLOW; 	   } break;
 	}
 }
-int  Ghost::GetInkyPos_X(int pacman_x, int blincky_x)
+int  Ghost::getInkyPos_X(int pacman_x, int blincky_x)
 {
 	int ghost_x = blincky_x;
 	int counter = 0;
@@ -291,7 +309,7 @@ int  Ghost::GetInkyPos_X(int pacman_x, int blincky_x)
 	}
 	return pacman_x + 2 + counter;
 }
-int  Ghost::GetInkyPos_Y(int pacman_y, int blincky_y)
+int  Ghost::getInkyPos_Y(int pacman_y, int blincky_y)
 {
 	int ghost_y = blincky_y;
 	int counter = 0;
@@ -303,7 +321,7 @@ int  Ghost::GetInkyPos_Y(int pacman_y, int blincky_y)
 	}
 	return pacman_y + 2 + counter;
 }
-int  Ghost::GetClydeCountPos_X(int pacman_x)
+int  Ghost::getClydeCountPos_X(int pacman_x)
 {
 	int ghost_x = pacman_x;
 	int counter = 0;
@@ -315,7 +333,7 @@ int  Ghost::GetClydeCountPos_X(int pacman_x)
 	}
 	return counter;
 }
-int  Ghost::GetClydeCountPos_Y(int pacman_y)
+int  Ghost::getClydeCountPos_Y(int pacman_y)
 {
 	int ghost_y = pacman_y;
 	int counter = 0;
@@ -327,7 +345,7 @@ int  Ghost::GetClydeCountPos_Y(int pacman_y)
 	}
 	return counter;
 }
-char Ghost::GetDirection()
+char Ghost::getDirection()
 {
 	if (_kbhit())
 	{
@@ -335,27 +353,27 @@ char Ghost::GetDirection()
 		return direction;
 	}
 }
-bool Ghost::CheckCollision(char dir)
+bool Ghost::checkCollision(char dir)
 {
 	switch (dir) 
 	{
-	case 'w': if (strchr(CharNotToCollide, game_instance->GetCharOfMap(x, y - 1)))return false;
+	case 'w': if (strchr(CharNotToCollide, game_instance->getCharOfMap(x, y - 1)))return false;
 	break;
-	case 'a': if (x == 0 || strchr(CharNotToCollide, game_instance->GetCharOfMap(x - 1, y))) return false;
+	case 'a': if (x == 0 || strchr(CharNotToCollide, game_instance->getCharOfMap(x - 1, y))) return false;
 	break;
-	case 's': if (strchr(CharNotToCollide, game_instance->GetCharOfMap(x, y + 1))) return false;
+	case 's': if (strchr(CharNotToCollide, game_instance->getCharOfMap(x, y + 1))) return false;
 	break;
-	case 'd': if (x == X_SIZE - 1 || strchr(CharNotToCollide, game_instance->GetCharOfMap(x + 1, y))) return false;
+	case 'd': if (x == X_SIZE - 1 || strchr(CharNotToCollide, game_instance->getCharOfMap(x + 1, y))) return false;
 	break;
 	}
 	return true;
 }
-void Ghost::Move(char dir)
+void Ghost::move(char dir)
 {
 	if (move_counter) move_counter--;
 	else
 	{
-		RenderMap();
+		renderMap();
 		if (dir == 'w') --y;
 		if (dir == 'a') 
 		{

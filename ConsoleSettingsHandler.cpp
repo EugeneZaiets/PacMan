@@ -9,7 +9,7 @@ ConsoleSettingsHandler::ConsoleSettingsHandler() :
 ConsoleSettingsHandler::~ConsoleSettingsHandler()
 {
 }
-void ConsoleSettingsHandler::CreateGameWindow()
+void ConsoleSettingsHandler::createGameWindow()
 {
 
 	SMALL_RECT windowSize = { 0, 0, X_GAME_SCREEN_SIZE - 1, Y_GAME_SCREEN_SIZE - 1 };
@@ -26,7 +26,7 @@ void ConsoleSettingsHandler::CreateGameWindow()
 		exit(CONSOLE_BUFFERSIZE_FAIL);
 	}
 }
-void ConsoleSettingsHandler::HanldeCursorVisibility(bool visibility)
+void ConsoleSettingsHandler::hanldeCursorVisibility(bool visibility)
 {
 	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
@@ -34,11 +34,11 @@ void ConsoleSettingsHandler::HanldeCursorVisibility(bool visibility)
 	cursorInfo.dwSize = 1;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 }
-bool ConsoleSettingsHandler::FlushConsoleBuffer()
+bool ConsoleSettingsHandler::flushConsoleBuffer()
 {
 	return FlushConsoleInputBuffer(this->m_Console_Input);
 }
-void ConsoleSettingsHandler::ResetSettingsToDefault()
+void ConsoleSettingsHandler::resetSettingsToDefault()
 {
 	SetConsoleOutputCP(866);
 	SetConsoleTextAttribute(m_Console, WHITE);

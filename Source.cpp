@@ -8,6 +8,6 @@ int main()
 	if (handler == 0) return 1;
 	std::unique_ptr<Game> game = std::make_unique<Game>(handler);
 	if (game == 0) return 1;
-	game->Start();
+	game->start();
 	return 0;
 }
