@@ -25,5 +25,6 @@ public:
 	void setCursorPosition(short x, short y)      { SetConsoleCursorPosition(m_Console, { x, y + 2 }); }
 	void setTextColor(int color)                  { SetConsoleTextAttribute(m_Console, color);         }
 	HANDLE getConsoleOutputHandle()               { return m_Console;                                  }
+    HANDLE getConsoleInputHandle()                { return m_Console_Input;                            }
 };
 #endif //CONSOLESETTINGSHANDLER_H

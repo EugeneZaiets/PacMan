@@ -10,8 +10,6 @@ public:
 	virtual void setDirection(char)       = 0;
 	virtual bool checkCollision(char dir) = 0;
 	virtual void dead()                   = 0;
-    virtual ~iActor()
-    {
-    };
+    virtual ~iActor(){};
 };
 

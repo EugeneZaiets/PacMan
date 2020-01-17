@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "PacMan.h"
 #include "Ghost.h"
+#include "KeyboardInput.h"
 
 #include <iostream>
 #include <Windows.h>
@@ -21,38 +22,53 @@ class PacMan;
 class Ghost;
 class ConsoleSettingsHandler;
 
-class Game
+class Game : public Keyboard
 {
+    static Game* m_p_GameInstance;
+
 	int points_num;
 	int level_counter;
 	int number_of_ghosts;
+    bool m_isPaused;
+    bool m_gameover;
+    bool check_to_unpause;
 	char m_MapToPrint[Y_SIZE][X_SIZE];
 	double seconds_in_boost_by_level;
 	double seconds_to_mode_change;
+    char substring[11];
 
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	std::unique_ptr<PacMan> pacman;
 	std::unique_ptr<Ghost> ghost[4];
+    std::clock_t timer, timer2, temp_timer1, temp_timer2;
 
-	std::clock_t timer;
-	std::clock_t timer2;
-	void game_Loop();
+    bool isDead();
+    void game_Loop();
 	void loadLevel();
-	void render();
-	bool isDead();
 	void moveGhosts();
 	void handleTime();
+    void startLevel();
+    void render();
+    void renderPause(bool);
 	void initAllActors();
 	void setMazeText(std::string, int);
 	void resetMapInCollision();
 	bool collisionWithGhost();
     void checkPointersToActors();
     void determitePositionForModeActivity();
-public:
-	Game(std::shared_ptr<ConsoleSettingsHandler> console_handler);
-	~Game();
-	void start();
 
+    Game(std::shared_ptr<ConsoleSettingsHandler> console_handler);
+    Game(const Game&) = delete;
+    Game(const Game&&) = delete;
+    Game& operator=( Game const& )  = delete;
+    Game& operator=( Game const&& ) = delete;
+    ~Game();
+ 
+public:
+    static Game* getInstance(std::shared_ptr<ConsoleSettingsHandler> console_handler);
+ 
+	void start();
+    void pause();
 	void getCharFromMap(char, int, int);
 	void decreasePointsNum()                    { --points_num;                  }
 	int  getPointsNum()                         { return points_num;             }

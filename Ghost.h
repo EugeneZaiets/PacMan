@@ -27,6 +27,7 @@ class Ghost : public iActor
 	unsigned char direction;
 	unsigned char old_direction;
 	unsigned char head;
+    bool check_to_unpause;
 
 	Mode current_mode;
 	Mode prev_mode;
@@ -34,6 +35,7 @@ class Ghost : public iActor
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	Game* game_instance;
 	std::clock_t timer;
+    std::clock_t timer_on_pause;
 
     void handleChaseMode(int x, int y);
 	void handleScatterMode();
@@ -53,12 +55,12 @@ public:
 	void move(char);
 	void dead();
 	bool checkCollision(char);
+    bool isPaused(bool);
 	void renderMap();
 	void renderGhost();
 	void resetGhost(int x, int y);
 	void resetModes(int name);
-	void modeActivity(int x, int y);
-	char getDirection();
+	void modeActivity(int x, int y, bool paused);
 
 	int getInkyPos_X(int pacman_x, int blincky_x);
 	int getInkyPos_Y(int pacman_y, int blincky_y);
@@ -79,6 +81,7 @@ public:
 	void setDirection(char dir)    { direction = dir;     }
 	void setOldDirection(char dir) { old_direction = dir; }
 	void setGhostColor(int clr)    { color = clr;         }
+    char getDirection()            { return 0;            }
 
 	void setGhostColor(Ghosts_Names name);
 };

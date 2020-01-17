@@ -112,6 +112,12 @@ namespace Game_Constants
 	    { '@', 192 }, 
 	    { '*', 191 }
 	};
+   
+    //Virtual Keys
+    const int VK_W = 0x57;
+    const int VK_A = 0x41;
+    const int VK_S = 0x53;
+    const int VK_D = 0x44;
 
     //Timings
     const double SECODS_IN_BOOST_BY_LEVEL = 20.0;

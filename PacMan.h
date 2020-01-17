@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Actor.h"
 #include "ConsoleSettingsHandler.h"
+#include "KeyboardInput.h"
 
 #include <iostream>
 #include <conio.h>
@@ -14,13 +15,14 @@ using namespace Game_Constants;
 
 class Game;
 
-class PacMan : public iActor
+class PacMan : public iActor, public Keyboard
 {
 private:
 	int x, y;
 	int prev_x, prev_y;
 
 	bool got_energizer;
+    bool check_to_unpause;
     unsigned int lives;
 	unsigned int score;
 	unsigned int color;
@@ -32,6 +34,7 @@ private:
 	unsigned char old_direction;
 	unsigned char head;
 	std::clock_t timer;
+    std::clock_t timer_on_pause;
 
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	Game* game_instance;
@@ -39,7 +42,7 @@ public:
 	PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game);
 	~PacMan();
 
-	void move();
+	void move(bool);
 	void dead();
 	void scoreUp();
 	void renderScore();
@@ -49,7 +52,7 @@ public:
 	void renderKill();
 	void resetPacMan(int x, int y);
 	bool checkCollision (char dir);
-
+    bool isPaused(bool);
 
 	int getPos_X()                   { return x;             }
 	int getPos_Y()                   { return y;             }

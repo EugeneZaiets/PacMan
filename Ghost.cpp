@@ -1,19 +1,21 @@
 #include "Ghost.h"
 
-Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name):
-	m_console_handler(console_handler),
-	game_instance(game),
-	name(his_name),
-	x(0),
-	y(0),
-	prev_x(0),
-	prev_y(0),
-	head(GHOST_HEAD),
-	direction(DEFAULT_DIRECTION),
-	old_direction(DEFAULT_DIRECTION),
-	speed(GHOST_SPEED),
-	move_counter(0),
-	timer(0)
+Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name) :
+    m_console_handler(console_handler),
+    game_instance(game),
+    name(his_name),
+    x(0),
+    y(0),
+    prev_x(0),
+    prev_y(0),
+    head(GHOST_HEAD),
+    direction(DEFAULT_DIRECTION),
+    old_direction(DEFAULT_DIRECTION),
+    speed(GHOST_SPEED),
+    move_counter(0),
+    timer(0),
+    timer_on_pause(0),
+    check_to_unpause(false)
 {
 	resetModes(his_name);
 	setGhostColor(his_name);
@@ -59,8 +61,9 @@ void Ghost::resetModes(int name) {
 	else if (name == Ghosts_Names::CLYDE  ) current_mode = Mode::WAIT;
 	prev_mode = current_mode;
 }
-void Ghost::modeActivity(int pacman_x, int pacman_y)
+void Ghost::modeActivity(int pacman_x, int pacman_y, bool paused)
 {
+    if (isPaused(paused)) return;
 	switch (current_mode) 
 	{
 	case Mode::CHASE :
@@ -174,6 +177,7 @@ void Ghost::handleWaitMode()
         timer = std::clock();
     }
 }
+
 char Ghost::determineClosestMove(int pm_x, int pm_y)
 {
 	std::vector<int> dirs_num;
@@ -345,14 +349,6 @@ int  Ghost::getClydeCountPos_Y(int pacman_y)
 	}
 	return counter;
 }
-char Ghost::getDirection()
-{
-	if (_kbhit())
-	{
-		direction = tolower(_getch());
-		return direction;
-	}
-}
 bool Ghost::checkCollision(char dir)
 {
 	switch (dir) 
@@ -368,8 +364,25 @@ bool Ghost::checkCollision(char dir)
 	}
 	return true;
 }
+bool Ghost::isPaused(bool paused)
+{
+    if (paused)
+    {
+        timer_on_pause = timer;
+        check_to_unpause = true;
+        return true;
+    }
+    else if(!paused && check_to_unpause)
+    {
+        timer = timer_on_pause;
+        check_to_unpause = false;
+        return false;
+    }
+    return false;
+}
 void Ghost::move(char dir)
 {
+
 	if (move_counter) move_counter--;
 	else
 	{

@@ -1,4 +1,5 @@
 ﻿#include "PacMan.h"
+#include <WinUser.h>
 
 PacMan::PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game) :
 	m_console_handler(console_handler),
@@ -12,20 +13,24 @@ PacMan::PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* ga
 	score(0),
 	head(Head::RIGHT), 
 	direction(NO_DIRECTION),
+    old_direction(NO_DIRECTION),
 	speed(PACMAN_SPEED),
 	move_counter(0),
 	kill_counter(0),
 	score_offset(0), 
 	got_energizer(false),
-	timer(0)
+    check_to_unpause(false),
+	timer(0),
+    timer_on_pause(0)
 {
 	if (m_console_handler == 0) exit(1);
 }
 PacMan::~PacMan()
 {
 }
-void PacMan::move()
+void PacMan::move(bool paused)
 {
+    if (isPaused(paused)) return;
 	if (move_counter) move_counter--;
 	else {
 		getDirection();
@@ -66,11 +71,10 @@ void PacMan::move()
 }
 char PacMan::getDirection()
 {
-	if (_kbhit()) 
-	{
-		direction = tolower(_getch());
-		return direction;
-	}
+    if      (isKeyDown(VK_W) || isKeyDown(VK_UP))    return direction = Direction[0];
+    else if (isKeyDown(VK_A) || isKeyDown(VK_LEFT))  return direction = Direction[1];
+    else if (isKeyDown(VK_S) || isKeyDown(VK_DOWN))  return direction = Direction[2];
+    else if (isKeyDown(VK_D) || isKeyDown(VK_RIGHT)) return direction = Direction[3];
 	return 0;
 }
 bool PacMan::checkCollision(char dir)
@@ -119,6 +123,22 @@ bool PacMan::checkCollision(char dir)
 		break;
 	}
 	return (prev_x == x && prev_y == y) ? true :  false;
+}
+bool PacMan::isPaused(bool paused)
+{
+    if (paused)
+    {
+        timer_on_pause = timer;
+        check_to_unpause = true;
+        return true;
+    }
+    else if (!paused && check_to_unpause)
+    {
+        timer = timer_on_pause;
+        check_to_unpause = false;
+        return false;
+    }
+    return false;
 }
 void PacMan::dead()
 {

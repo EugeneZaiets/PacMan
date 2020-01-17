@@ -119,6 +119,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="PacMan.h" />
     <ClInclude Include="ConsoleSettingsHandler.h" />
   </ItemGroup>

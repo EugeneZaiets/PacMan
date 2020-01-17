@@ -1,114 +1,13 @@
-﻿  ConsoleSettingsHandler.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(90): warning C4309: 'initializing': truncation of constant value
-  Game.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(90): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(26): error C2143: syntax error: missing ';' before ')'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(311): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
+﻿  Game.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(339): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
           with
           [
               _Ty2=short
           ]
-  Ghost.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(90): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(39): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(40): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(45): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(46): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(47): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(342): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(342): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(344): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(344): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(346): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(346): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(348): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(348): error C2661: 'strchr': no overloaded function takes 1 arguments
-  PacMan.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(90): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(34): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(36): error C2039: 'ResetSettingsToDefault': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(37): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(38): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(42): error C2039: 'DecreasePointsNum': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(43): error C2039: 'SetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(51): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(53): error C2039: 'ResetSettingsToDefault': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(54): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(55): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(59): error C2039: 'DecreasePointsNum': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(60): error C2039: 'SetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(83): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(83): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(95): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(95): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(102): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(102): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(114): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(114): error C2661: 'strchr': no overloaded function takes 1 arguments
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(137): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(145): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(145): warning C4309: 'static_cast': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(150): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(164): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(165): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(170): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(171): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(177): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(178): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(180): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(187): error C2039: 'ResetSettingsToDefault': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(213): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(214): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(218): error C2039: 'SetCursorPosition': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(221): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(222): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(222): warning C4309: 'static_cast': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(223): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(225): error C2039: 'SetTextColor': is not a member of 'ConsoleSettingsHandler'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(22): note: see declaration of 'ConsoleSettingsHandler'
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(227): error C2039: 'GetCharOfMap': is not a member of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(15): note: see declaration of 'Game'
-  Source.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(90): warning C4309: 'initializing': truncation of constant value
+  Generating code
+  3 of 449 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ProjectPacMan.vcxproj -> C:\Users\euzai\source\repos\ProjectPacMan\x64\Release\ProjectPacMan.exe
