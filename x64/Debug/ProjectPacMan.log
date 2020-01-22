@@ -1,6 +1,6 @@
 ﻿  Game.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(339): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(345): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
           with
           [
               _Ty2=short

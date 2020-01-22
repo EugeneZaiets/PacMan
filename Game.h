@@ -35,7 +35,7 @@ class Game : public Keyboard
     char substring[11];
     bool m_isPaused;
     bool m_gameover;
-    bool check_to_unpause;
+    bool return_to_unpause;
 
     std::clock_t timer, timer2, temp_timer1, temp_timer2;
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
@@ -50,7 +50,7 @@ class Game : public Keyboard
 	void handleTime();
     void startLevel();
     void render();
-    void renderPause(bool);
+    bool renderPause(bool);
 	void initAllActors();
 	void setMazeText(std::string, int);
 	void resetMapInCollision();
@@ -77,6 +77,6 @@ public:
     void setCharFromMap(const char, const int, const int);
 
     const double getTime()              { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
-    const double getTime2()             { return (std::clock() - timer2) / (double)CLOCKS_PER_SEC; }
+    const double getTime2()             { return (std::clock() - timer2)/ (double)CLOCKS_PER_SEC;  }
 };
 #endif // GAME_H
