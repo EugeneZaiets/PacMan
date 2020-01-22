@@ -46,7 +46,7 @@ void Ghost::renderMap()
 {
 	m_console_handler->setTextColor(WHITE);
 	m_console_handler->setCursorPosition(x, y);
-	std::cout << game_instance->getCharOfMap(x, y);
+	std::cout << game_instance->getCharOfBuffer(x, y);
 }
 void Ghost::resetGhost(int x, int y)
 {
@@ -353,13 +353,13 @@ bool Ghost::checkCollision(char dir)
 {
 	switch (dir) 
 	{
-	case 'w': if (strchr(CharNotToCollide, game_instance->getCharOfMap(x, y - 1)))return false;
+	case 'w': if (strchr(CharNotToCollide, game_instance->getCharOfBuffer(x, y - 1)))return false;
 	break;
-	case 'a': if (x == 0 || strchr(CharNotToCollide, game_instance->getCharOfMap(x - 1, y))) return false;
+	case 'a': if (x == 0 || strchr(CharNotToCollide, game_instance->getCharOfBuffer(x - 1, y))) return false;
 	break;
-	case 's': if (strchr(CharNotToCollide, game_instance->getCharOfMap(x, y + 1))) return false;
+	case 's': if (strchr(CharNotToCollide, game_instance->getCharOfBuffer(x, y + 1))) return false;
 	break;
-	case 'd': if (x == X_SIZE - 1 || strchr(CharNotToCollide, game_instance->getCharOfMap(x + 1, y))) return false;
+	case 'd': if (x == X_SIZE - 1 || strchr(CharNotToCollide, game_instance->getCharOfBuffer(x + 1, y))) return false;
 	break;
 	}
 	return true;

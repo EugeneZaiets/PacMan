@@ -66,8 +66,9 @@ void Game::pause()
 void Game::game_Loop() 
 {
     m_gameover = false;
-    if (!pacman) exit(1);
+    checkPointersToActors();
 	pacman->setLives(NUMBER_OF_LIVES);
+
 	for (level_counter = 0; level_counter < 255; level_counter++)
 	{
 		if (seconds_in_boost_by_level < 0) seconds_in_boost_by_level = 0.0; //decrease boost time with level till 0
@@ -140,8 +141,6 @@ void Game::loadLevel()
 	cout << "1UP";
 	m_console_handler->setCursorPosition(36, -2);
 	cout << "LEVEL: " << level_counter;
-
-	setPointsNum(POINTS_NUMBER);
 	 
 	m_console_handler->setCursorPosition(0, 0);
 	for (int y = 0; y < Y_SIZE; y++)
@@ -149,11 +148,12 @@ void Game::loadLevel()
 		for (int x = 0; x < X_SIZE; x++)
 		{
 			char_to_print = Map[y][x];
-			getCharFromMap(char_to_print, x, y);
+			setCharFromMap(char_to_print, x, y);
 			cout << m_MapToPrint[y][x];
 		}
 		m_console_handler->setCursorPosition(0, y + Y_GAME_SCREEN_TOP_SIDE_OFFSET);
 	}
+    setPointsNum(POINTS_NUMBER);
 	initAllActors();
 	render();
 }
@@ -186,11 +186,11 @@ void Game::renderPause(bool paused)
         std::cout << substring;
     }
 }
-bool Game::isDead()
+const bool Game::isDead()
 {
 	return !pacman->getLives();
 }
-bool Game::collisionWithGhost()
+const bool Game::collisionWithGhost()
 {
     checkPointersToActors();
 	for (int i = 0; i < number_of_ghosts; ++i)
@@ -322,7 +322,7 @@ void Game::setMazeText(std::string text, int color)
 	std::cout << substring;
 	//delete substring;
 }
-void Game::getCharFromMap(char ch, int x_offset, int y_offset) 
+void Game::setCharFromMap(const char ch, const int x_offset, const int y_offset)
 {
 	for (auto iterator = MapCharToPtint.begin(); iterator != MapCharToPtint.end(); ++iterator)
 	{

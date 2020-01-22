@@ -39,8 +39,8 @@ void PacMan::move(bool paused)
 			m_console_handler->setCursorPosition(prev_x, prev_y);
 			//check = game_instance->getCharOfMap(prev_x, prev_y);
 			m_console_handler->resetSettingsToDefault();
-			std::cout << game_instance->getCharOfMap(prev_x, prev_y);
-			if (game_instance->getCharOfMap(x, y) != ' ')
+			std::cout << game_instance->getCharOfBuffer(prev_x, prev_y);
+			if (game_instance->getCharOfBuffer(x, y) != ' ')
 			{
 				scoreUp();
 				renderScore();
@@ -56,8 +56,8 @@ void PacMan::move(bool paused)
 			m_console_handler->setCursorPosition(prev_x, prev_y);
 			//check = game_instance->getCharOfMap(prev_x, prev_y);
 			m_console_handler->resetSettingsToDefault();
-			std::cout << game_instance->getCharOfMap(prev_x, prev_y);
-			if (game_instance->getCharOfMap(x, y) != ' ')
+			std::cout << game_instance->getCharOfBuffer(prev_x, prev_y);
+			if (game_instance->getCharOfBuffer(x, y) != ' ')
 			{
 				scoreUp();
 				renderScore();
@@ -84,7 +84,7 @@ bool PacMan::checkCollision(char dir)
 	switch (dir)
 	{
 	case 'w':
-		if (strchr(CharNotToCollide,  game_instance->getCharOfMap(x, y - 1)))
+		if (strchr(CharNotToCollide,  game_instance->getCharOfBuffer(x, y - 1)))
 		{
 			--y;
 			head = Head::UP;
@@ -96,14 +96,14 @@ bool PacMan::checkCollision(char dir)
 			x = X_SIZE - 1;
 			head = Head::LEFT;
 		}
-		else if(strchr(CharNotToCollide, game_instance->getCharOfMap(x - 1, y)))
+		else if(strchr(CharNotToCollide, game_instance->getCharOfBuffer(x - 1, y)))
 		{
 			--x;
 			head = Head::LEFT;
 		}
 		break;
 	case 's':
-		if (strchr(CharNotToCollide, game_instance->getCharOfMap(x, y + 1)))
+		if (strchr(CharNotToCollide, game_instance->getCharOfBuffer(x, y + 1)))
 		{
 			++y;
 			head = Head::DOWN;
@@ -115,7 +115,7 @@ bool PacMan::checkCollision(char dir)
 			x = 0;
 			head = Head::RIGHT;
 		}
-		else if(strchr(CharNotToCollide, game_instance->getCharOfMap(x + 1, y)))
+		else if(strchr(CharNotToCollide, game_instance->getCharOfBuffer(x + 1, y)))
 		{
 			++x;
 			head = Head::RIGHT;
@@ -154,7 +154,7 @@ void PacMan::dead()
 }
 void PacMan::scoreUp()
 {
-	if (game_instance->getCharOfMap(x, y) == 'o') // energizer
+	if (game_instance->getCharOfBuffer(x, y) == 'o') // energizer
 	{ 
 		score_offset = 50;
 		score += 50;
@@ -162,12 +162,12 @@ void PacMan::scoreUp()
 		kill_counter = 0;
 		timer = std::clock();
 	} 
-	else if (game_instance->getCharOfMap(x, y) == static_cast<char>(250))  // pill
+	else if (game_instance->getCharOfBuffer(x, y) == static_cast<char>(250))  // pill
 	{
 		score_offset = 10;
 		score += 10;
 	} 
-	else if (game_instance->getCharOfMap(x, y) == '%') {} // cherry
+	else if (game_instance->getCharOfBuffer(x, y) == '%') {} // cherry
 	if ((score / 10000) < ((score + score_offset) / 10000)) // each 10k gains lives_point;
 	{
 		if(lives < 3) ++lives;
@@ -239,12 +239,12 @@ void PacMan::renderKill()
 	for (int i = kill_pos_x; i < kill_pos_x + digit_num; ++i)
 	{
 		m_console_handler->setTextColor(BLUE);
-		if (game_instance->getCharOfMap(i, y) == static_cast<char>(250) ||
-			game_instance->getCharOfMap(i, y) == 'o')
+		if (game_instance->getCharOfBuffer(i, y) == static_cast<char>(250) ||
+			game_instance->getCharOfBuffer(i, y) == 'o')
 		{
 			m_console_handler->setTextColor(WHITE);
 		}
-		std::cout << game_instance->getCharOfMap(i, y);
+		std::cout << game_instance->getCharOfBuffer(i, y);
 	}
 	if ((score / 10000) < ((score + score_offset) / 10000))
 	{
