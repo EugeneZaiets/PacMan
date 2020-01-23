@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="CareTaker.h" />
+    <ClInclude Include="CareTakerGhost.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
@@ -126,7 +126,7 @@
     <ClInclude Include="ConsoleSettingsHandler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CareTaker.cpp" />
+    <ClCompile Include="CareTakerGhost.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Memento.cpp" />

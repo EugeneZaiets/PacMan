@@ -6,20 +6,15 @@
 #include "Ghost.h"
 #include "PacMan.h"
 
-template <typename RestoreClass>
-
 class Memento
 {
-    friend class Game;
     friend class Ghost;
-    friend class PacMan;
+    Ghost m_To_Memento;
 
-    RestoreClass m_To_Memento;
-
-    void setOriginator(RestoreClass to_memento);
-    RestoreClass getOriginator();
+    void setOriginator(Ghost to_memento);
+    Ghost getOriginator();
 public:
-    Memento(RestoreClass to_memento);
+    Memento(Ghost to_memento);
     ~Memento();
 };
 

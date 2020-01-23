@@ -6,6 +6,7 @@
 #include "Actor.h"
 #include "constants.h"
 #include "ConsoleSettingsHandler.h"
+#include "CareTakerGhost.h"
 
 #include <iostream>
 #include <Windows.h>
@@ -16,6 +17,8 @@
 using namespace Game_Constants;
 
 class Game;
+class CareTakerGhost;
+class Memento;
 
 class Ghost : public iActor
 {
@@ -37,6 +40,8 @@ class Ghost : public iActor
 	std::clock_t timer;
     std::clock_t timer_on_pause;
 
+    std::unique_ptr<CareTakerGhost> caretaker_ghost;
+
     void handleChaseMode(int x, int y);
 	void handleScatterMode();
     void handleFrightenedMode(int x, int y);
@@ -49,6 +54,7 @@ class Ghost : public iActor
 	int  offsetCoordinatesX(int);
 	int  offsetCoordinatesY(int);
 public:
+    //Ghost() {}
 	Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name);
 	~Ghost();
 
@@ -84,5 +90,8 @@ public:
     char getDirection()            { return 0;            }
 
 	void setGhostColor(Ghosts_Names name);
+
+    std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
+    void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }
 };
 #endif //GHOST_H

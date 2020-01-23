@@ -8,7 +8,7 @@
 #include "Ghost.h"
 #include "KeyboardInput.h"
 #include "Memento.h"
-#include "CareTaker.h"
+#include "CareTakerGhost.h"
 
 #include <iostream>
 #include <Windows.h>
@@ -24,7 +24,7 @@ using namespace Game_Constants;
 class PacMan;
 class Ghost;
 class ConsoleSettingsHandler;
-
+class CareTakerGame;
 
 class Game : public Keyboard
 {
@@ -39,13 +39,12 @@ class Game : public Keyboard
     char substring[11];
     bool m_isPaused;
     bool m_gameover;
-    bool return_to_unpause;
+    bool check_to_unpause;
 
     std::clock_t timer, timer2, temp_timer1, temp_timer2;
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	std::unique_ptr<PacMan> pacman;
 	std::unique_ptr<Ghost> ghost[4];
-    std::unique_ptr<CareTaker<Game>> caretaker_game;
     
     const bool isDead();
     const bool collisionWithGhost();
@@ -55,7 +54,7 @@ class Game : public Keyboard
 	void handleTime();
     void startLevel();
     void render();
-    bool renderPause(bool);
+    void renderPause(bool);
 	void initAllActors();
 	void setMazeText(std::string, int);
 	void resetMapInCollision();
@@ -72,8 +71,6 @@ class Game : public Keyboard
 public:
     static Game* getInstance(std::shared_ptr<ConsoleSettingsHandler> console_handler);
     
-
- 
 	void start();
     void pause();
 	void decreasePointsNum()                                      { --points_num;                  }
@@ -86,7 +83,7 @@ public:
     const double getTime()              { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
     const double getTime2()             { return (std::clock() - timer2)/ (double)CLOCKS_PER_SEC;  }
 
-    std::unique_ptr<Memento<Game>> createMemento() { return  std::make_unique<Memento<Game>>(*this); }
-    void restoreToMemento(std::unique_ptr<Memento<Game>> memento) { m_p_GameInstance = &memento->getOriginator(); }
+    std::unique_ptr<Memento> createMemento() { return  std::make_unique<Memento>(*this->); }
+    void restoreToMemento(std::unique_ptr<Memento> memento) { m_p_GameInstance = &memento->getOriginator(); }
 };
 #endif // GAME_H

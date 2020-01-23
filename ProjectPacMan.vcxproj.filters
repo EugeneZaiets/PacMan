@@ -39,7 +39,7 @@
     <ClInclude Include="Memento.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CareTaker.h">
+    <ClInclude Include="CareTakerGhost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,7 +62,7 @@
     <ClCompile Include="Memento.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CareTaker.cpp">
+    <ClCompile Include="CareTakerGhost.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
