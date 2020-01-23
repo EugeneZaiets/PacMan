@@ -1,157 +1,109 @@
-﻿  CareTaker.cpp
+﻿  CareTakerGame.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): error C2988: unrecognizable template declaration/definition
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): error C2143: syntax error: missing ';' before '<'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): error C2913: explicit specialization; 'CareTaker' is not a specialization of a class template
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): error C2059: syntax error: '<'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(50): error C3203: 'CareTaker': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2065: 'Memento': undeclared identifier
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2275: 'Game': illegal use of this type as an expression
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2275: 'Game': illegal use of this type as an expression
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2903: 'default_delete': symbol is neither a class template nor a function template
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2059: syntax error: '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2065: 'Memento': undeclared identifier
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2275: 'Game': illegal use of this type as an expression
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2275: 'Game': illegal use of this type as an expression
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2903: 'default_delete': symbol is neither a class template nor a function template
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2143: syntax error: missing ')' before '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2059: syntax error: '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2059: syntax error: '{'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(5): error C2988: unrecognizable template declaration/definition
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(5): error C2059: syntax error: ')'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(6): error C2143: syntax error: missing ';' before '{'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(6): error C2447: '{': missing function header (old-style formal list?)
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(10): error C2523: '<Unknown>::~CareTaker': destructor tag mismatch
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(10): error C2988: unrecognizable template declaration/definition
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(10): error C2059: syntax error: ')'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(11): error C2143: syntax error: missing ';' before '{'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(11): error C2447: '{': missing function header (old-style formal list?)
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(17): error C3861: 'm_listMemento': identifier not found
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(24): error C3861: 'm_listMemento': identifier not found
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.cpp(25): error C3861: 'm_listMemento': identifier not found
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2143: syntax error: missing ')' before '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2059: syntax error: '{'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
   Game.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(58): error C2027: use of undefined type 'CareTaker<Game>'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): note: see declaration of 'CareTaker<Game>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(58): error C2039: 'setMemento': is not a member of 'std::unique_ptr<CareTaker<Game>,std::default_delete<_Ty>>'
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(50): note: see declaration of 'std::unique_ptr<CareTaker<Game>,std::default_delete<_Ty>>'
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(63): error C2027: use of undefined type 'CareTaker<Game>'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): note: see declaration of 'CareTaker<Game>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(63): error C2039: 'getMemento': is not a member of 'std::unique_ptr<CareTaker<Game>,std::default_delete<_Ty>>'
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(50): note: see declaration of 'std::unique_ptr<CareTaker<Game>,std::default_delete<_Ty>>'
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
 c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(344): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
           with
           [
               _Ty2=short
           ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2538): error C2248: 'Game::~Game': cannot access private member declared in class 'Game'
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(36): note: see declaration of 'Game::~Game'
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): note: see declaration of 'Game'
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): note: see reference to function template instantiation 'std::unique_ptr<Memento<Game>,std::default_delete<_Ty>> std::make_unique<Memento<Game>,Game&,0>(Game &)' being compiled
+          with
+          [
+              _Ty=Memento<Game>
+          ]
   Ghost.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2538): error C2248: 'Game::~Game': cannot access private member declared in class 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(72): note: see declaration of 'Game::~Game'
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(70): note: see declaration of 'Game::~Game'
   c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): note: see reference to function template instantiation 'std::unique_ptr<Memento<Game>,std::default_delete<_Ty>> std::make_unique<Memento<Game>,Game&,0>(Game &)' being compiled
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): note: see reference to function template instantiation 'std::unique_ptr<Memento<Game>,std::default_delete<_Ty>> std::make_unique<Memento<Game>,Game&,0>(Game &)' being compiled
           with
           [
               _Ty=Memento<Game>
           ]
   Memento.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(22): error C2065: 'Memento': undeclared identifier
-  c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(24): note: see reference to class template instantiation 'CareTaker<RestoreClass>' being compiled
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(22): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C2275: 'Game': illegal use of this type as an expression
+  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(22): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(22): error C2143: syntax error: missing ')' before '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(22): error C2059: syntax error: '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(23): error C2065: 'Memento': undeclared identifier
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(23): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C3203: 'unique_ptr': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(13): error C2238: unexpected token(s) preceding ';'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C2275: 'Game': illegal use of this type as an expression
+  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(23): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(23): error C2059: syntax error: '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\caretaker.h(23): error C2238: unexpected token(s) preceding ';'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2065: 'Memento': undeclared identifier
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2275: 'Game': illegal use of this type as an expression
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C2143: syntax error: missing ')' before '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(18): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C2275: 'Game': illegal use of this type as an expression
+  c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.h(18): note: see declaration of 'Game'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2903: 'default_delete': symbol is neither a class template nor a function template
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2059: syntax error: '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2065: 'Memento': undeclared identifier
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2275: 'Game': illegal use of this type as an expression
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\caretakergame.h(19): error C2238: unexpected token(s) preceding ';'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2275: 'Game': illegal use of this type as an expression
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2903: 'default_delete': symbol is neither a class template nor a function template
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2143: syntax error: missing ')' before '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2059: syntax error: '>'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2059: syntax error: '{'
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(92): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2065: 'Memento': undeclared identifier
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2275: 'Game': illegal use of this type as an expression
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2178): note: see declaration of 'std::unique_ptr'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2903: 'default_delete': symbol is neither a class template nor a function template
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C3203: 'default_delete': unspecialized class template can't be used as a template argument for template parameter '_Dx', expected a real type
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2143: syntax error: missing ')' before '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2059: syntax error: '>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2059: syntax error: '{'
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
   PacMan.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
 c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(165): warning C4309: 'static_cast': truncation of constant value
 c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(242): warning C4309: 'static_cast': truncation of constant value
 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2538): error C2248: 'Game::~Game': cannot access private member declared in class 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(72): note: see declaration of 'Game::~Game'
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(70): note: see declaration of 'Game::~Game'
   c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.h(16): note: see declaration of 'Game'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(91): note: see reference to function template instantiation 'std::unique_ptr<Memento<Game>,std::default_delete<_Ty>> std::make_unique<Memento<Game>,Game&,0>(Game &)' being compiled
+  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): note: see reference to function template instantiation 'std::unique_ptr<Memento<Game>,std::default_delete<_Ty>> std::make_unique<Memento<Game>,Game&,0>(Game &)' being compiled
           with
           [
               _Ty=Memento<Game>
           ]
   Source.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2082): error C2027: use of undefined type 'CareTaker<Game>'
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): note: see declaration of 'CareTaker<Game>'
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2081): note: while compiling class template member function 'void std::default_delete<_Ty>::operator ()(_Ty *) noexcept const'
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2296): note: see reference to function template instantiation 'void std::default_delete<_Ty>::operator ()(_Ty *) noexcept const' being compiled
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2132): note: see reference to class template instantiation 'std::default_delete<_Ty>' being compiled
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2179): note: see reference to class template instantiation 'std::_Unique_ptr_base<_Ty,_Dx>' being compiled
-          with
-          [
-              _Ty=CareTaker<Game>,
-              _Dx=std::default_delete<CareTaker<Game>>
-          ]
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(50): note: see reference to class template instantiation 'std::unique_ptr<CareTaker<Game>,std::default_delete<_Ty>>' being compiled
-          with
-          [
-              _Ty=CareTaker<Game>
-          ]
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2082): error C2338: can't delete an incomplete type
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\memory(2084): warning C4150: deletion of pointer to incomplete type 'CareTaker<Game>'; no destructor called
-  c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(29): note: see declaration of 'CareTaker<Game>'
+c:\users\euzai\source\repos\projectpacman\projectpacman\source.cpp(3): fatal error C1083: Cannot open include file: 'CareTaker.h': No such file or directory
   Generating Code...

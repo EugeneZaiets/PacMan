@@ -25,6 +25,8 @@ Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game
 		timer = std::clock();
 	}
 	if (m_console_handler == 0) exit(1);
+
+    caretaker_ghost = std::make_unique<CareTakerGhost>();
 }
 Ghost::~Ghost()
 {
