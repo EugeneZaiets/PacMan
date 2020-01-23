@@ -40,7 +40,7 @@ class Ghost : public iActor
 	std::clock_t timer;
     std::clock_t timer_on_pause;
 
-    std::unique_ptr<CareTakerGhost> caretaker_ghost;
+    //std::unique_ptr<CareTakerGhost> caretaker_ghost;
 
     void handleChaseMode(int x, int y);
 	void handleScatterMode();
@@ -91,7 +91,7 @@ public:
 
 	void setGhostColor(Ghosts_Names name);
 
-    std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
-    void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }
+    /*std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
+    void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }*/
 };
 #endif //GHOST_H

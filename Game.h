@@ -20,11 +20,9 @@
 using namespace std;
 using namespace Game_Constants;
 
-
 class PacMan;
 class Ghost;
 class ConsoleSettingsHandler;
-class CareTakerGame;
 
 class Game : public Keyboard
 {
@@ -54,7 +52,7 @@ class Game : public Keyboard
 	void handleTime();
     void startLevel();
     void render();
-    void renderPause(bool);
+    bool renderPause(bool);
 	void initAllActors();
 	void setMazeText(std::string, int);
 	void resetMapInCollision();
@@ -83,7 +81,5 @@ public:
     const double getTime()              { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
     const double getTime2()             { return (std::clock() - timer2)/ (double)CLOCKS_PER_SEC;  }
 
-    std::unique_ptr<Memento> createMemento() { return  std::make_unique<Memento>(*this->); }
-    void restoreToMemento(std::unique_ptr<Memento> memento) { m_p_GameInstance = &memento->getOriginator(); }
 };
 #endif // GAME_H

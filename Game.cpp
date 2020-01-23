@@ -19,7 +19,7 @@ Game::Game(std::shared_ptr<ConsoleSettingsHandler> console_handler) :
 	level_counter(0),
     m_isPaused(false),
     m_gameover(false),
-    return_to_unpause(true),
+    check_to_unpause(true),
 	timer(0),
 	timer2(0),
     temp_timer1(0),
@@ -51,7 +51,7 @@ void Game::pause()
     if (isKeyOncePressed(VK_ESCAPE))
     {
         m_isPaused = true;
-        return_to_unpause = true;
+        check_to_unpause = true;
         temp_timer1 = timer;
         temp_timer2 = timer2;
     }
@@ -178,14 +178,14 @@ bool Game::renderPause(bool paused)
         std::cout << "  PAUSE  ";
         return true;
     }
-    else if(return_to_unpause)
+    else if(check_to_unpause)
     {
         memcpy(substring, &m_MapToPrint[Y_MIDDLE_POS][X_MIDDLE_POS], 9);
         substring[9] = '\0';
         m_console_handler->setCursorPosition(X_MIDDLE_POS, Y_MIDDLE_POS);
         m_console_handler->setTextColor(WHITE);
         std::cout << substring;
-        return_to_unpause = false;
+        check_to_unpause = false;
         return false;
     }
     return false;
