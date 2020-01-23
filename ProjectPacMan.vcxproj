@@ -116,16 +116,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="CareTaker.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="KeyboardInput.h" />
+    <ClInclude Include="Memento.h" />
     <ClInclude Include="PacMan.h" />
     <ClInclude Include="ConsoleSettingsHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CareTaker.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Memento.cpp" />
     <ClCompile Include="PacMan.cpp" />
     <ClCompile Include="ConsoleSettingsHandler.cpp" />
     <ClCompile Include="Source.cpp" />

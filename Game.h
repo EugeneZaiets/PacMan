@@ -7,6 +7,8 @@
 #include "PacMan.h"
 #include "Ghost.h"
 #include "KeyboardInput.h"
+#include "Memento.h"
+#include "CareTaker.h"
 
 #include <iostream>
 #include <Windows.h>
@@ -18,9 +20,11 @@
 using namespace std;
 using namespace Game_Constants;
 
+
 class PacMan;
 class Ghost;
 class ConsoleSettingsHandler;
+
 
 class Game : public Keyboard
 {
@@ -41,6 +45,7 @@ class Game : public Keyboard
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
 	std::unique_ptr<PacMan> pacman;
 	std::unique_ptr<Ghost> ghost[4];
+    std::unique_ptr<CareTaker<Game>> caretaker_game;
     
     const bool isDead();
     const bool collisionWithGhost();
@@ -66,6 +71,8 @@ class Game : public Keyboard
  
 public:
     static Game* getInstance(std::shared_ptr<ConsoleSettingsHandler> console_handler);
+    
+
  
 	void start();
     void pause();
@@ -78,5 +85,8 @@ public:
 
     const double getTime()              { return (std::clock() - timer) / (double)CLOCKS_PER_SEC;  }
     const double getTime2()             { return (std::clock() - timer2)/ (double)CLOCKS_PER_SEC;  }
+
+    std::unique_ptr<Memento<Game>> createMemento() { return  std::make_unique<Memento<Game>>(*this); }
+    void restoreToMemento(std::unique_ptr<Memento<Game>> memento) { m_p_GameInstance = &memento->getOriginator(); }
 };
 #endif // GAME_H

@@ -372,7 +372,7 @@ bool Ghost::isPaused(bool paused)
         check_to_unpause = true;
         return true;
     }
-    else if(!paused && check_to_unpause)
+    else if(check_to_unpause)
     {
         timer = timer_on_pause;
         check_to_unpause = false;

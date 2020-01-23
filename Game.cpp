@@ -25,11 +25,13 @@ Game::Game(std::shared_ptr<ConsoleSettingsHandler> console_handler) :
     temp_timer1(0),
     temp_timer2(0)
 {
+    if (!m_console_handler) exit(1);
 	SetConsoleTitle("PacMan");
 	m_console_handler->createGameWindow();
 	m_console_handler->hanldeCursorVisibility(false);
 
-	if (m_console_handler == 0) exit(1);
+    caretaker_game = std::make_unique<CareTaker<Game>>();
+    if(!caretaker_game) exit(1);
 }
 Game::~Game()
 {
@@ -53,16 +55,13 @@ void Game::pause()
     {
         m_isPaused = true;
         return_to_unpause = true;
-        temp_timer1 = timer;
-        temp_timer2 = timer2;
+        caretaker_game->setMemento(this->createMemento());
     }
     else
     {
         m_isPaused = false;
-        timer = temp_timer1;
-        timer2 = temp_timer2;
+        this->restoreToMemento(caretaker_game->getMemento());
     }
-    
 }
 void Game::game_Loop() 
 {
