@@ -1,6 +1,5 @@
 ﻿  CareTakerGame.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
-<<<<<<< HEAD
 c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2065: 'Memento': undeclared identifier
 c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2275: 'Game': illegal use of this type as an expression
 c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(89): error C2974: 'std::unique_ptr': invalid template argument for '_Ty', type expected
@@ -22,9 +21,6 @@ c:\users\euzai\source\repos\projectpacman\projectpacman\game.h(90): error C2334:
   Game.cpp
 c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(95): warning C4309: 'initializing': truncation of constant value
 c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(344): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
-=======
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(339): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
->>>>>>> parent of 1eb070b... Commit #19 - Pause Fix
           with
           [
               _Ty2=short
