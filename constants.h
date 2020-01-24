@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <string>
 namespace Game_Constants
 {
 	const int X_SIZE = 46; //Maze x_size
@@ -113,6 +114,18 @@ namespace Game_Constants
 	    { '*', 191 }
 	};
    
+    //Menu Constants
+    const int NUM_OF_MENU_TITLES = 4;
+    const int UNDEFINED_CHOISE = -1;
+    const std::string menu_titles[NUM_OF_MENU_TITLES] =
+    {
+        "NEW GAME",
+        "title 1",
+        "title 2",
+        "EXIT"
+    };
+    const char menu_cursor = '>';
+
     //Virtual Keys
     const int VK_W = 0x57;
     const int VK_A = 0x41;

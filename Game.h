@@ -3,12 +3,13 @@
 #define GAME_H
 
 #include "ConsoleSettingsHandler.h"
-#include "constants.h"
+//#include "constants.h"
 #include "PacMan.h"
 #include "Ghost.h"
 #include "KeyboardInput.h"
 #include "Memento.h"
 #include "CareTakerGhost.h"
+#include "GameMenu.h"
 
 #include <iostream>
 #include <Windows.h>
@@ -23,6 +24,7 @@ using namespace Game_Constants;
 class PacMan;
 class Ghost;
 class ConsoleSettingsHandler;
+class GameMenu;
 
 class Game : public Keyboard
 {
@@ -41,6 +43,7 @@ class Game : public Keyboard
 
     std::clock_t timer, timer2, temp_timer1, temp_timer2;
 	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
+    std::unique_ptr<GameMenu> m_menu;
 	std::unique_ptr<PacMan> pacman;
 	std::unique_ptr<Ghost> ghost[4];
     

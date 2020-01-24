@@ -11,7 +11,7 @@ Game* Game::getInstance(std::shared_ptr<ConsoleSettingsHandler> console_handler)
 }
 
 Game::Game(std::shared_ptr<ConsoleSettingsHandler> console_handler) :
-	m_console_handler(console_handler),         
+	m_console_handler(console_handler),
 	seconds_in_boost_by_level(SECODS_IN_BOOST_BY_LEVEL),
 	seconds_to_mode_change(SECODS_TO_CHANGE_MODE),
     number_of_ghosts(NUMBER_OF_GHOSTS), // num of pills and energyzers - 360
@@ -35,16 +35,25 @@ Game::~Game()
 }
 void Game::start() 
 {
-    pacman = std::make_unique<PacMan>(m_console_handler, Game::getInstance(m_console_handler));
-    for (int i = 0; i < number_of_ghosts; i++)
+    m_menu = std::make_unique<GameMenu>(m_console_handler);
+    if (!m_menu) exit(1);
+    while (m_menu->getChoise() != (NUM_OF_MENU_TITLES - 1))
     {
-        ghost[i] = std::make_unique<Ghost>(m_console_handler, Game::getInstance(m_console_handler), (Ghosts_Names)i);
+        m_menu->renderMenu();
+        if (m_menu->getChoise() == 0)
+        {
+            pacman = std::make_unique<PacMan>(m_console_handler, Game::getInstance(m_console_handler));
+            for (int i = 0; i < number_of_ghosts; i++)
+            {
+                ghost[i] = std::make_unique<Ghost>(m_console_handler, Game::getInstance(m_console_handler), (Ghosts_Names)i);
+            }
+            checkPointersToActors();
+            game_Loop();
+            system("CLS");
+        }
+        m_menu->setChoise(UNDEFINED_CHOISE);
+        m_menu->makeChoise();
     }
-    checkPointersToActors();
-	while (true) 
-	{ 
-		game_Loop(); 
-	}
 }
 void Game::pause()
 {

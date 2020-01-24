@@ -119,6 +119,7 @@
     <ClInclude Include="CareTakerGhost.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMenu.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Memento.h" />
@@ -128,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="CareTakerGhost.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameMenu.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Memento.cpp" />
     <ClCompile Include="PacMan.cpp" />
