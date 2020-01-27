@@ -7,24 +7,27 @@
 #include <iostream>
 #include <Windows.h>
 using namespace std;
-using namespace Game_Constants;
+using namespace game_constants;
 
 class ConsoleSettingsHandler {
-	HANDLE m_Console;
-	HANDLE m_Console_Input;
-	COORD windowBuffSize;
 public:
-	ConsoleSettingsHandler();
-	~ConsoleSettingsHandler();
+    ConsoleSettingsHandler();
+    ~ConsoleSettingsHandler();
 
-	bool flushConsoleBuffer();
-	void resetSettingsToDefault();
-	void createGameWindow();
-	void hanldeCursorVisibility(bool visibility);
+    bool   flushConsoleBuffer();
+    void   resetSettingsToDefault();
+    void   createGameWindow();
+    void   hanldeCursorVisibility (bool visibility );
+    void   setTextColor           (int  color      );
+    void   setCursorPosition      (short x, short y);
 
-	void setCursorPosition(short x, short y)      { SetConsoleCursorPosition(m_Console, { x, y + 2 }); }
-	void setTextColor(int color)                  { SetConsoleTextAttribute(m_Console, color);         }
-	HANDLE getConsoleOutputHandle()               { return m_Console;                                  }
-    HANDLE getConsoleInputHandle()                { return m_Console_Input;                            }
+    HANDLE getConsoleOutputHandle();
+    HANDLE getConsoleInputHandle ();      
+
+private:
+
+    HANDLE m_Console_;
+    HANDLE m_Console_Input_;
+    COORD  m_windowBuffSize_;
 };
 #endif //CONSOLESETTINGSHANDLER_H

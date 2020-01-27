@@ -1,11 +1,41 @@
 ﻿  Game.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(352): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(98): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(385): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
           with
           [
               _Ty2=short
           ]
-  GameMenu.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
+  Ghost.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(98): warning C4309: 'initializing': truncation of constant value
+  PacMan.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(98): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(177): warning C4309: 'static_cast': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(254): warning C4309: 'static_cast': truncation of constant value
+  Source.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(98): warning C4309: 'initializing': truncation of constant value
   Generating Code...
-  ProjectPacMan.vcxproj -> C:\Users\euzai\source\repos\ProjectPacMan\x64\Debug\ProjectPacMan.exe
+c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(323): warning C4715: 'Ghost::getOppositeDirection': not all control paths return a value
+Game.obj : error LNK2019: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setTextColor(int)" (?setTextColor@ConsoleSettingsHandler@@QEAAXH@Z) referenced in function "private: void __cdecl Game::game_Loop(void)" (?game_Loop@Game@@AEAAXXZ)
+GameMenu.obj : error LNK2001: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setTextColor(int)" (?setTextColor@ConsoleSettingsHandler@@QEAAXH@Z)
+Ghost.obj : error LNK2001: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setTextColor(int)" (?setTextColor@ConsoleSettingsHandler@@QEAAXH@Z)
+PacMan.obj : error LNK2001: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setTextColor(int)" (?setTextColor@ConsoleSettingsHandler@@QEAAXH@Z)
+Game.obj : error LNK2019: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setCursorPosition(short,short)" (?setCursorPosition@ConsoleSettingsHandler@@QEAAXFF@Z) referenced in function "private: void __cdecl Game::game_Loop(void)" (?game_Loop@Game@@AEAAXXZ)
+GameMenu.obj : error LNK2001: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setCursorPosition(short,short)" (?setCursorPosition@ConsoleSettingsHandler@@QEAAXFF@Z)
+Ghost.obj : error LNK2001: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setCursorPosition(short,short)" (?setCursorPosition@ConsoleSettingsHandler@@QEAAXFF@Z)
+PacMan.obj : error LNK2001: unresolved external symbol "public: void __cdecl ConsoleSettingsHandler::setCursorPosition(short,short)" (?setCursorPosition@ConsoleSettingsHandler@@QEAAXFF@Z)
+Game.obj : error LNK2019: unresolved external symbol "public: int const __cdecl PacMan::getLives(void)" (?getLives@PacMan@@QEAA?BHXZ) referenced in function "private: bool const __cdecl Game::isDead(void)" (?isDead@Game@@AEAA?B_NXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: bool const __cdecl PacMan::getEnergizerInfo(void)" (?getEnergizerInfo@PacMan@@QEAA?B_NXZ) referenced in function "private: void __cdecl Game::handleTime(void)" (?handleTime@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: double const __cdecl PacMan::getTimeInBooste(void)" (?getTimeInBooste@PacMan@@QEAA?BNXZ) referenced in function "private: void __cdecl Game::handleTime(void)" (?handleTime@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: void __cdecl PacMan::setLives(int)" (?setLives@PacMan@@QEAAXH@Z) referenced in function "private: void __cdecl Game::game_Loop(void)" (?game_Loop@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: void __cdecl PacMan::setEnergizerInfo(bool)" (?setEnergizerInfo@PacMan@@QEAAX_N@Z) referenced in function "private: void __cdecl Game::handleTime(void)" (?handleTime@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: int const __cdecl Ghost::getColor(void)" (?getColor@Ghost@@QEAA?BHXZ) referenced in function "private: void __cdecl Game::handleTime(void)" (?handleTime@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: enum game_constants::Mode const __cdecl Ghost::getMode(void)" (?getMode@Ghost@@QEAA?BW4Mode@game_constants@@XZ) referenced in function "private: bool const __cdecl Game::collisionWithGhost(void)" (?collisionWithGhost@Game@@AEAA?B_NXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: enum game_constants::Ghost_Name const __cdecl Ghost::getName(void)" (?getName@Ghost@@QEAA?BW4Ghost_Name@game_constants@@XZ) referenced in function "private: void __cdecl Game::handleTime(void)" (?handleTime@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: void __cdecl Ghost::setHead(char)" (?setHead@Ghost@@QEAAXD@Z) referenced in function "private: void __cdecl Game::initializeAllActors(void)" (?initializeAllActors@Game@@AEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: void __cdecl GameMenu::setChoise(int)" (?setChoise@GameMenu@@QEAAXH@Z) referenced in function "public: void __cdecl Game::start(void)" (?start@Game@@QEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: int const __cdecl GameMenu::getChoise(void)" (?getChoise@GameMenu@@QEAA?BHXZ) referenced in function "public: void __cdecl Game::start(void)" (?start@Game@@QEAAXXZ)
+Ghost.obj : error LNK2019: unresolved external symbol "public: char const __cdecl Game::getCharOfBuffer(int,int)" (?getCharOfBuffer@Game@@QEAA?BDHH@Z) referenced in function "public: virtual bool const __cdecl Ghost::checkCollision(char)" (?checkCollision@Ghost@@UEAA?B_ND@Z)
+PacMan.obj : error LNK2001: unresolved external symbol "public: char const __cdecl Game::getCharOfBuffer(int,int)" (?getCharOfBuffer@Game@@QEAA?BDHH@Z)
+PacMan.obj : error LNK2019: unresolved external symbol "public: void __cdecl Game::decreasePointsNum(void)" (?decreasePointsNum@Game@@QEAAXXZ) referenced in function "public: void __cdecl PacMan::move(bool)" (?move@PacMan@@QEAAX_N@Z)
+PacMan.obj : error LNK2019: unresolved external symbol "public: void __cdecl Game::setCharOfMap(int,int,char)" (?setCharOfMap@Game@@QEAAXHHD@Z) referenced in function "public: void __cdecl PacMan::move(bool)" (?move@PacMan@@QEAAX_N@Z)
+C:\Users\euzai\source\repos\ProjectPacMan\x64\Debug\ProjectPacMan.exe : fatal error LNK1120: 16 unresolved externals

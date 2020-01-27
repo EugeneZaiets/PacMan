@@ -14,7 +14,7 @@
 #include <vector>
 #include <utility>
 #include <ctime>
-using namespace Game_Constants;
+using namespace game_constants;
 
 class Game;
 class CareTakerGhost;
@@ -22,76 +22,79 @@ class Memento;
 
 class Ghost : public iActor
 {
-	int x, y;
-	int prev_x, prev_y;
-	unsigned int color;
-	unsigned int speed;
-	unsigned int move_counter;
-	unsigned char direction;
-	unsigned char old_direction;
-	unsigned char head;
-    bool check_to_unpause;
+public:
+    Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghost_Name his_name);
+    ~Ghost();
 
-	Mode current_mode;
-	Mode prev_mode;
-	Ghosts_Names name;
-	std::shared_ptr<ConsoleSettingsHandler> m_console_handler;
-	Game* game_instance;
-	std::clock_t timer;
-    std::clock_t timer_on_pause;
+    void       dead();
+    void       renderMap();
+    void       renderGhost();
+    void       resetModes         (const int name);
+    void       resetGhost         (const int x, const int y);
+    void       modeActivity       (const int x, const int y, const bool paused);
 
+    void       move               (const char);
+    const bool isPaused           (const bool);
+    const bool checkCollision     (const char);
+
+    const int  getClydeCountPos_X (const int pacman_x);
+    const int  getClydeCountPos_Y (const int pacman_y);
+    const int  getInkyPos_X       (const int pacman_x, const int blincky_x);
+    const int  getInkyPos_Y       (const int pacman_y, const int blincky_y);
+
+
+    const int        getPos_X();
+    const int        getPos_Y();
+    const int        getColor();
+    const Mode       getMode ();
+    const Ghost_Name getName ();
+    const char       getDirection();
+    const double     getTimeInWait();
+
+    void setColor        (const Ghost_Name ghost_name);
+    void setMode         (const Mode mode);
+    void setHead         (const char head);
+    void setPrevMode     (const Mode mode);
+    void setColor        (const int color);
+    void setPos_X        (const int x_pos);
+    void setPos_Y        (const int y_pos);
+    void setDirection    (const char direction);
+    void setOldDirection (const char direction);
+    /*std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
+    void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }*/
+
+private:
+
+    int           m_x_, m_y_           ;
+    int           m_prev_x_, m_prev_y_ ;
+    unsigned int  m_color_             ;
+    unsigned int  m_speed_             ;
+    unsigned int  m_move_counter_      ;
+    unsigned char m_direction_         ;
+    unsigned char m_old_direction_     ;
+    unsigned char m_head_              ;
+    bool          m_check_to_unpause_  ;
+    Mode          m_current_mode_      ;
+    Mode          m_prev_mode_         ;
+    std::clock_t  m_timer_             ;
+    std::clock_t  m_timer_on_pause_    ;
+    Ghost_Name    m_name_              ;
+    Game*         m_game_instance_     ;
+
+    std::shared_ptr<ConsoleSettingsHandler> m_console_handler_ ;
     //std::unique_ptr<CareTakerGhost> caretaker_ghost;
 
-    void handleChaseMode(int x, int y);
-	void handleScatterMode();
-    void handleFrightenedMode(int x, int y);
+    void handleScatterMode();
     void handleExitMode();
     void handleDeadMode();
     void handleWaitMode();
-	char determineClosestMove(int pm_x, int pm_y);
-	char determineFurthestMove(int pm_x, int pm_y);
-	char getOppositeDirection();
-	int  offsetCoordinatesX(int);
-	int  offsetCoordinatesY(int);
-public:
-    //Ghost() {}
-	Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghosts_Names his_name);
-	~Ghost();
+    void handleChaseMode      (const int x, const int y);
+    void handleFrightenedMode (const int x, const int y);
 
-	void move(char);
-	void dead();
-	bool checkCollision(char);
-    bool isPaused(bool);
-	void renderMap();
-	void renderGhost();
-	void resetGhost(int x, int y);
-	void resetModes(int name);
-	void modeActivity(int x, int y, bool paused);
-
-	int getInkyPos_X(int pacman_x, int blincky_x);
-	int getInkyPos_Y(int pacman_y, int blincky_y);
-	int getClydeCountPos_X(int pacman_x);
-	int getClydeCountPos_Y(int pacman_y);
-	double getTimeInWait() { return (std::clock() - timer) / (double)CLOCKS_PER_SEC; }
-
-	int getPos_X()                 { return x;            }
-	int getPos_Y()                 { return y;            }
-	int getGhostColor()            { return color;        }
-	Ghosts_Names getGhostName()    { return name;         }
-	Mode getMode()                 { return current_mode; }
-	void setMode(Mode m)           { current_mode = m;    }
-	void setHead(char ch)          { head = ch;           }
-	void setPrevMode(Mode m)       { prev_mode = m;       }
-	void setPos_X(int x_pos)       { x = x_pos;           }
-	void setPos_Y(int y_pos)       { y = y_pos;           }
-	void setDirection(char dir)    { direction = dir;     }
-	void setOldDirection(char dir) { old_direction = dir; }
-	void setGhostColor(int clr)    { color = clr;         }
-    char getDirection()            { return 0;            }
-
-	void setGhostColor(Ghosts_Names name);
-
-    /*std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
-    void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }*/
+    const char getOppositeDirection();
+    const char determineClosestMove  (const int pm_x, const int pm_y);
+    const char determineFurthestMove (const int pm_x, const int pm_y);
+    const int  offsetCoordinatesX    (const int);
+    const int  offsetCoordinatesY    (const int);
 };
 #endif //GHOST_H
