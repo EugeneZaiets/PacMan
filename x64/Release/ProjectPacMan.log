@@ -1,25 +1,27 @@
-﻿  Game.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(352): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
+﻿  CareTakerGhost.cpp
+  ConsoleSettingsHandler.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(101): warning C4309: 'initializing': truncation of constant value
+  Game.cpp
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(101): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\game.cpp(395): warning C4244: '=': conversion from 'const _Ty2' to 'char', possible loss of data
           with
           [
               _Ty2=short
           ]
   GameMenu.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(101): warning C4309: 'initializing': truncation of constant value
   Ghost.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(101): warning C4309: 'initializing': truncation of constant value
   PacMan.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(165): warning C4309: 'static_cast': truncation of constant value
-c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(242): warning C4309: 'static_cast': truncation of constant value
-  ConsoleSettingsHandler.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(101): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(180): warning C4309: 'static_cast': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\pacman.cpp(257): warning C4309: 'static_cast': truncation of constant value
   Source.cpp
-c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(96): warning C4309: 'initializing': truncation of constant value
+c:\users\euzai\source\repos\projectpacman\projectpacman\constants.h(101): warning C4309: 'initializing': truncation of constant value
   Generating code
-  138 of 497 functions (27.8%) were compiled, the rest were copied from previous compilation.
-    47 functions were new in current compilation
-    23 functions had inline decision re-evaluated but remain unchanged
+c:\users\euzai\source\repos\projectpacman\projectpacman\ghost.cpp(332): warning C4715: 'Ghost::getOppositeDirection': not all control paths return a value
+  125 of 498 functions (25.1%) were compiled, the rest were copied from previous compilation.
+    62 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ProjectPacMan.vcxproj -> C:\Users\euzai\source\repos\ProjectPacMan\x64\Release\ProjectPacMan.exe
