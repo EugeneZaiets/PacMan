@@ -58,11 +58,4 @@ void GameMenu::moveCursorDown()
     }
 }
 
-inline void GameMenu::setChoise(const int ch) 
-{ 
-    m_choise_ = ch;
-}
-inline const int GameMenu::getChoise()
-{ 
-    return m_choise_;
-}
+

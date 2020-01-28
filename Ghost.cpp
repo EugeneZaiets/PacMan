@@ -470,21 +470,3 @@ void       Ghost::move(const char dir)
         m_move_counter_  = m_speed_;
     }
 }
-
-inline const int        Ghost::getPos_X()                 { return m_x_;                  }
-inline const int        Ghost::getPos_Y()                 { return m_y_;                  }
-inline const int        Ghost::getColor()                 { return m_color_;              }
-inline const char       Ghost::getDirection()             { return 0;                     }
-inline const Mode       Ghost::getMode()                  { return m_current_mode_;       }
-inline const Ghost_Name Ghost::getName()                  { return m_name_;               }
-
-inline void Ghost::setMode         (const Mode mode)      { m_current_mode_ = mode;       }
-inline void Ghost::setHead         (const char head)      { m_head_ = head;               }
-inline void Ghost::setPrevMode     (const Mode mode)      { m_prev_mode_ = mode;          }
-inline void Ghost::setColor        (const int color)      { m_color_ = color;             }
-inline void Ghost::setPos_X        (const int x_pos)      { m_x_ = x_pos;                 }
-inline void Ghost::setPos_Y        (const int y_pos)      { m_y_ = y_pos;                 }
-inline void Ghost::setDirection    (const char direction) { m_direction_ = direction;     }
-inline void Ghost::setOldDirection (const char direction) { m_old_direction_ = direction; }
-
-inline const double Ghost::getTimeInWait()                { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC; }

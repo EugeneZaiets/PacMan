@@ -41,25 +41,26 @@ public:
     const int  getClydeCountPos_Y (const int pacman_y);
     const int  getInkyPos_X       (const int pacman_x, const int blincky_x);
     const int  getInkyPos_Y       (const int pacman_y, const int blincky_y);
+    void       setColor           (const Ghost_Name ghost_name);
 
 
-    const int        getPos_X();
-    const int        getPos_Y();
-    const int        getColor();
-    const Mode       getMode ();
-    const Ghost_Name getName ();
-    const char       getDirection();
-    const double     getTimeInWait();
+    inline const int        getPos_X()                            { return m_x_;                     }
+    inline const int        getPos_Y()                            { return m_y_;                     }
+    inline const int        getColor()                            { return m_color_;                 }
+    inline const char       getDirection()                        { return 0;                        }
+    inline const Mode       getMode()                             { return m_current_mode_;          }
+    inline const Ghost_Name getName()                             { return m_name_;                  }
 
-    void setColor        (const Ghost_Name ghost_name);
-    void setMode         (const Mode mode);
-    void setHead         (const char head);
-    void setPrevMode     (const Mode mode);
-    void setColor        (const int color);
-    void setPos_X        (const int x_pos);
-    void setPos_Y        (const int y_pos);
-    void setDirection    (const char direction);
-    void setOldDirection (const char direction);
+    inline void             setMode(const Mode mode)              { m_current_mode_ = mode;          }
+    inline void             setHead(const char head)              { m_head_ = head;                  }
+    inline void             setPrevMode(const Mode mode)          { m_prev_mode_ = mode;             }
+    inline void             setColor(const int color)             { m_color_ = color;                }
+    inline void             setPos_X(const int x_pos)             { m_x_ = x_pos;                    }
+    inline void             setPos_Y(const int y_pos)             { m_y_ = y_pos;                    }
+    inline void             setDirection(const char direction)    { m_direction_ = direction;        }
+    inline void             setOldDirection(const char direction) { m_old_direction_ = direction;    }
+
+    inline const double getTimeInWait() { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC; }
     /*std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
     void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }*/
 

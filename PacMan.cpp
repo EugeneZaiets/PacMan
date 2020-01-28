@@ -265,17 +265,3 @@ void PacMan::renderKill()
         renderLives();
     }
 }
-
-inline const int    PacMan::getPos_X()                    { return m_x_;                  }
-inline const int    PacMan::getPos_Y()                    { return m_y_;                  }
-inline const int    PacMan::getLives()                    { return m_lives_;              }
-inline const bool   PacMan::getEnergizerInfo()            { return m_got_energizer_;      }
-
-inline void PacMan::setDirection(const char direction)    { m_direction_ = direction;     }
-inline void PacMan::setOldDirection(const char direction) { m_old_direction_ = direction; }
-inline void PacMan::setPos_X(const int x_pos)             { m_x_ = x_pos;                 }
-inline void PacMan::setPos_Y(const int y_pos)             { m_y_ = y_pos;                 }
-inline void PacMan::setLives(const int lives)             { m_lives_ = lives;             }
-inline void PacMan::setEnergizerInfo(const bool info)     { m_got_energizer_ = info;      }
-
-inline const double PacMan::getTimeInBooste()             { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC; }

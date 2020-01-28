@@ -43,20 +43,3 @@ void ConsoleSettingsHandler::resetSettingsToDefault()
     SetConsoleOutputCP(866);
     SetConsoleTextAttribute(m_Console_, WHITE);
 }
-
-inline void ConsoleSettingsHandler::setTextColor(int  color)
-{ 
-    SetConsoleTextAttribute(m_Console_, color);
-}
-inline void ConsoleSettingsHandler::setCursorPosition(short x, short y)
-{
-    SetConsoleCursorPosition(m_Console_, { x, y + 2 }); 
-}
-inline HANDLE ConsoleSettingsHandler::getConsoleOutputHandle() 
-{ 
-    return m_Console_; 
-}
-inline HANDLE ConsoleSettingsHandler::getConsoleInputHandle() 
-{
-    return m_Console_Input_; 
-}

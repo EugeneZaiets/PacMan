@@ -23,8 +23,8 @@ public:
     void      makeChoise();
     void      moveCursorUp();
     void      moveCursorDown();
-    void      setChoise(const int ch);
-    const int getChoise();
+    inline void setChoise(const int ch) { m_choise_ = ch;   }
+    inline const int getChoise()        { return m_choise_; }
 
 private:
 

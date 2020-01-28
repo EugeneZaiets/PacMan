@@ -32,17 +32,17 @@ class Game : public Keyboard
 public:
     static Game* getInstance(std::shared_ptr<ConsoleSettingsHandler> console_handler);
 
-    void         start();
-    void         pause();
-    void         decreasePointsNum();
-    const int    getPointsNum();
-    const char   getCharOfBuffer(const int x, const int y);
-    const double getTime();
-    const double getTime2();
-   
-    void         setPointsNum   (const int num);
-    void         setCharOfMap   (const int x, const int y, const char print);
-    void         setCharFromMap (const char, const int, const int);
+    void                start();
+    void                pause();
+    void                setCharFromMap(const char, const int, const int);
+    inline void         decreasePointsNum()                                      { --m_points_num_;                             }
+    inline void         setPointsNum(const int num)                              { m_points_num_ = num;                         }
+    inline void         setCharOfMap(const int x, const int y, const char print) { m_MapToPrint_[y][x] = print;                 }
+
+    inline const int    getPointsNum()                            { return m_points_num_;                                       }
+    inline const char   getCharOfBuffer(const int x, const int y) { return m_MapToPrint_[y][x];                                 }
+    inline const double getTime ()                                { return (std::clock() - m_timer_ ) / (double)CLOCKS_PER_SEC; }
+    inline const double getTime2()                                { return (std::clock() - m_timer2_) / (double)CLOCKS_PER_SEC; }
 
 private:
 
@@ -67,7 +67,7 @@ private:
     std::shared_ptr<ConsoleSettingsHandler> m_console_handler_ ;
     std::unique_ptr<GameMenu>               m_menu_            ;
     std::unique_ptr<PacMan>                 m_pacman_          ;
-    std::unique_ptr<Ghost>                  m_ghosts_[4]        ;
+    std::unique_ptr<Ghost>                  m_ghosts_[4]       ;
     
     const bool isDead();
     const bool collisionWithGhost();

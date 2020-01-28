@@ -439,11 +439,3 @@ void Game::determinatePositionForModeActivity()
         }
     }
 }
-
-inline void         Game::decreasePointsNum()                       { --m_points_num_;                                            }
-inline const int    Game::getPointsNum()                            { return m_points_num_;                                       }
-inline const char   Game::getCharOfBuffer(const int x, const int y) { return m_MapToPrint_[y][x];                                 }
-inline const double Game::getTime()                                 { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC;  }
-inline const double Game::getTime2()                                { return (std::clock() - m_timer2_) / (double)CLOCKS_PER_SEC; }
-inline void         Game::setPointsNum(const int num)               { m_points_num_ = num;                                        }
-inline void         Game::setCharOfMap(const int x, const int y, const char print) { m_MapToPrint_[y][x] = print;                 }

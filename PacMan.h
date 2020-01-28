@@ -34,18 +34,19 @@ public:
     const bool checkCollision (const char);
     void       resetPacMan    (const int x, const int y);
 
-    const int    getPos_X();
-    const int    getPos_Y();
-    const int    getLives();
-    const bool   getEnergizerInfo();
-    const double getTimeInBooste ();
+    inline const int    getPos_X()                            { return m_x_;                           }
+    inline const int    getPos_Y()                            { return m_y_;                           }
+    inline const int    getLives()                            { return m_lives_;                       }
+    inline const bool   getEnergizerInfo()                    { return m_got_energizer_;               }
 
-    void setDirection     (const char direction);
-    void setOldDirection  (const char direction);
-    void setPos_X         (const int x_pos);
-    void setPos_Y         (const int y_pos);
-    void setLives         (const int lives);
-    void setEnergizerInfo (const bool info);
+    inline void         setDirection(const char direction)    { m_direction_ = direction;              }
+    inline void         setOldDirection(const char direction) { m_old_direction_ = direction;          }
+    inline void         setPos_X(const int x_pos)             { m_x_ = x_pos;                          }
+    inline void         setPos_Y(const int y_pos)             { m_y_ = y_pos;                          }
+    inline void         setLives(const int lives)             { m_lives_ = lives;                      }
+    inline void         setEnergizerInfo(const bool info)     { m_got_energizer_ = info;               }
+
+    inline const double getTimeInBooste() { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC; }
     
 private:
 
