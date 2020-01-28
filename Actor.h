@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ACTOR_H
+#define ACTOR_H
+
 class iActor
 {
 public:
@@ -12,4 +14,4 @@ public:
 	virtual void       dead()                     = 0;
     virtual ~iActor(){};
 };
-
+#endif //ACTOR_H

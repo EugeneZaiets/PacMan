@@ -1,16 +1,18 @@
-#pragma once
 #ifndef PACMAN_H
 #define PACMAN_H
 
-#include "Game.h"
-#include "Actor.h"
-#include "ConsoleSettingsHandler.h"
-#include "KeyboardInput.h"
-
 #include <iostream>
-#include <conio.h>
 #include <ctime>
+
 #include <Windows.h>
+#include <WinUser.h>
+#include <conio.h>
+
+#include "Actor.h"
+#include "KeyboardInput.h"
+#include "Game.h"
+#include "ConsoleSettingsHandler.h"
+
 using namespace game_constants;
 
 class Game;
@@ -18,7 +20,11 @@ class Game;
 class PacMan : public iActor, public Keyboard
 {
 public:
-    PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game);
+    PacMan
+    (
+        std::shared_ptr<ConsoleSettingsHandler> console_handler, 
+        Game* game
+    );
     ~PacMan();
 
     void  dead();

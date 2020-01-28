@@ -1,19 +1,20 @@
-#pragma once
 #ifndef GHOST_H
 #define GHOST_H
 
-#include "Game.h"
-#include "Actor.h"
-#include "constants.h"
-#include "ConsoleSettingsHandler.h"
-#include "CareTakerGhost.h"
-
 #include <iostream>
-#include <Windows.h>
-#include <conio.h>
 #include <vector>
 #include <utility>
 #include <ctime>
+
+#include <Windows.h>
+#include <conio.h>
+
+#include "Actor.h"
+#include "Game.h"
+#include "ConsoleSettingsHandler.h"
+#include "CareTakerGhost.h"
+#include "constants.h"
+
 using namespace game_constants;
 
 class Game;
@@ -23,7 +24,12 @@ class Memento;
 class Ghost : public iActor
 {
 public:
-    Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghost_Name his_name);
+    Ghost
+    (
+        std::shared_ptr<ConsoleSettingsHandler> console_handler, 
+        Game* game, 
+        Ghost_Name his_name
+    );
     ~Ghost();
 
     void       dead();

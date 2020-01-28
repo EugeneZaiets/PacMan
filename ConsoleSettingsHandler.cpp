@@ -12,16 +12,20 @@ ConsoleSettingsHandler::~ConsoleSettingsHandler()
 void ConsoleSettingsHandler::createGameWindow()
 {
 
-    SMALL_RECT windowSize = { 0, 0, X_GAME_SCREEN_SIZE - 1, Y_GAME_SCREEN_SIZE - 1 };
+    SMALL_RECT windowSize = 
+        { 0, 0, X_GAME_SCREEN_SIZE - 1, Y_GAME_SCREEN_SIZE - 1 };
+
     if (SetConsoleWindowInfo(m_Console_, TRUE, &windowSize) == 0)
     {
-        std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << endl;
+        std::cout << "SetConsoleWindowInfo failed with error " 
+                  << GetLastError() << endl;
         system("pause");
         exit(WINDOW_INFO_FAIL);
     }
     if (SetConsoleScreenBufferSize(m_Console_, m_windowBuffSize_) == 0)
     {
-        cout << "SetConsoleScreenBufferSize failed with error " << GetLastError() << endl;
+        cout << "SetConsoleScreenBufferSize failed with error " 
+             << GetLastError() << endl;
         system("pause");
         exit(CONSOLE_BUFFERSIZE_FAIL);
     }

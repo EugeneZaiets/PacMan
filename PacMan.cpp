@@ -1,7 +1,10 @@
 ﻿#include "PacMan.h"
-#include <WinUser.h>
 
-PacMan::PacMan(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game) :
+PacMan::PacMan
+(
+    std::shared_ptr<ConsoleSettingsHandler> console_handler, 
+    Game* game
+) :
     m_console_handler_(console_handler),
     m_game_instance_(game),
     m_x_(0),
@@ -34,14 +37,14 @@ void PacMan::move(const bool paused)
     if (isPaused(paused)) 
         return;
 
-    if (m_move_counter_)
+    if (m_move_counter_ != 0)
     {
         m_move_counter_--;
     }
     else 
     {
         getDirection();
-        if (!checkCollision(m_direction_))
+        if (checkCollision(m_direction_) == false)
         {
             m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
             m_console_handler_->resetSettingsToDefault();
@@ -58,7 +61,7 @@ void PacMan::move(const bool paused)
             m_old_direction_ = m_direction_;
             m_move_counter_ = m_speed_;
         }
-        else if (!checkCollision(m_old_direction_))
+        else if (checkCollision(m_old_direction_) == false)
         {
             m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
             m_console_handler_->resetSettingsToDefault();
@@ -166,7 +169,7 @@ void PacMan::dead()
 }
 void PacMan::scoreUp()
 {
-    if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == 'o') // energizer
+    if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == 'o') 
     { 
         m_score_offset_ = 50;
         m_score_ += 50;
@@ -174,13 +177,13 @@ void PacMan::scoreUp()
         m_kill_counter_ = 0;
         m_timer_ = std::clock();
     } 
-    else if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == static_cast<char>(250))  // pill
+    else if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == static_cast<char>(250))
     {
         m_score_offset_ = 10;
         m_score_ += 10;
     } 
     else if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == '%') {} // cherry
-    if ((m_score_ / 10000) < ((m_score_ + m_score_offset_) / 10000))  // each 10k gains lives_point;
+    if ((m_score_ / 10000) < ((m_score_ + m_score_offset_) / 10000))  
     {
         if(m_lives_ < 3) ++m_lives_;
         renderLives();

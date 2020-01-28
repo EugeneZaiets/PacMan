@@ -1,31 +1,31 @@
-#pragma once
 #ifndef GAME_H
 #define GAME_H
 
-#include "ConsoleSettingsHandler.h"
-//#include "constants.h"
-#include "PacMan.h"
-#include "Ghost.h"
-#include "KeyboardInput.h"
-#include "Memento.h"
-#include "CareTakerGhost.h"
-#include "GameMenu.h"
-
 #include <iostream>
-#include <Windows.h>
-#include <conio.h>
 #include <string>
 #include <memory>
 #include <ctime>
 #include <vector>
 
+#include <Windows.h>
+#include <conio.h>
+
+#include "ConsoleSettingsHandler.h"
+#include "KeyboardInput.h"
+#include "GameMenu.h"
+#include "PacMan.h"
+#include "Ghost.h"
+#include "Memento.h"
+#include "CareTakerGhost.h"
+#include "constants.h"
+
 using namespace std;
 using namespace game_constants;
 
-class PacMan;
-class Ghost;
 class ConsoleSettingsHandler;
 class GameMenu;
+class PacMan;
+class Ghost;
 
 class Game : public Keyboard
 {

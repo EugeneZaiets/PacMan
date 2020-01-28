@@ -1,11 +1,12 @@
-//#pragma once
 #ifndef CONSOLESETTINGSHANDLER_H
 #define CONSOLESETTINGSHANDLER_H
 
+#include <iostream>
+
+#include <Windows.h>
+
 #include "constants.h"
 
-#include <iostream>
-#include <Windows.h>
 using namespace std;
 using namespace game_constants;
 

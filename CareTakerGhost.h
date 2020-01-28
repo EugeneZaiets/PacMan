@@ -2,10 +2,10 @@
 #ifndef CARETAKERGHOST_H
 #define CARETAKERGHOST_H
 
-//#include "Memento.h"
-//
 //#include <list>
 //#include <memory>
+//
+//#include "Memento.h"
 //
 //class CareTakerGhost
 //{

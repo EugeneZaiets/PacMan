@@ -1,6 +1,11 @@
 #include "Ghost.h"
 
-Ghost::Ghost(std::shared_ptr<ConsoleSettingsHandler> console_handler, Game* game, Ghost_Name his_name) :
+Ghost::Ghost
+(
+    std::shared_ptr<ConsoleSettingsHandler> console_handler, 
+    Game* game, 
+    Ghost_Name his_name
+) :
     m_console_handler_(console_handler),
     m_game_instance_(game),
     m_name_(his_name),
@@ -117,22 +122,26 @@ void Ghost::handleScatterMode()
 {
     if (m_name_ == Ghost_Name::GHOST_NAME_BLINCKY)
     {
-        char dir = determineClosestMove(BLINKY_SCATTER_POS_X, BLINKY_SCATTER_POS_Y); // right-up corner
+        char dir = determineClosestMove(BLINKY_SCATTER_POS_X, 
+                                        BLINKY_SCATTER_POS_Y); 
         move(dir);
     }
     else if (m_name_ == Ghost_Name::GHOST_NAME_PINKY)
     {
-        char dir = determineClosestMove(PINKY_SCATTER_POS_X, PINKY_SCATTER_POS_Y); // right-down corner
+        char dir = determineClosestMove(PINKY_SCATTER_POS_X, 
+                                        PINKY_SCATTER_POS_Y); 
         move(dir);
     }
     else if (m_name_ == Ghost_Name::GHOST_NAME_INKY)
     {
-        char dir = determineClosestMove(INKY_SCATTER_POS_X, INKY_SCATTER_POS_Y); // left-up corner
+        char dir = determineClosestMove(INKY_SCATTER_POS_X, 
+                                        INKY_SCATTER_POS_Y); 
         move(dir);
     }
     else if (m_name_ == Ghost_Name::GHOST_NAME_CLYDE)
     {
-        char dir = determineClosestMove(CLYDE_SCATTER_POS_X, CLYDE_SCATTER_POS_Y); // left-down corner
+        char dir = determineClosestMove(CLYDE_SCATTER_POS_X, 
+                                        CLYDE_SCATTER_POS_Y); 
         move(dir);
     }
 }
@@ -407,16 +416,24 @@ const bool Ghost::checkCollision(const char dir)
 {
     switch (dir) 
     {
-        case 'w': if (strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_, m_y_ - 1)))return false;
+        case 'w': 
+            if (strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_, m_y_ - 1)))
+                return false;
         break;
 
-        case 'a': if (m_x_ == 0 || strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_ - 1, m_y_))) return false;
+        case 'a': 
+            if (m_x_ == 0 || strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_ - 1, m_y_))) 
+                return false;
         break;
 
-        case 's': if (strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_, m_y_ + 1))) return false;
+        case 's': 
+            if (strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_, m_y_ + 1))) 
+                return false;
         break;
 
-        case 'd': if (m_x_ == X_SIZE - 1 || strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_ + 1, m_y_))) return false;
+        case 'd': 
+            if (m_x_ == X_SIZE - 1 || strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_ + 1, m_y_))) 
+                return false;
         break;
     }
     return true;
@@ -439,7 +456,7 @@ const bool Ghost::isPaused(const bool paused)
 }
 void       Ghost::move(const char dir)
 {
-    if (m_move_counter_)
+    if (m_move_counter_ != 0)
     {
         m_move_counter_--;
     }

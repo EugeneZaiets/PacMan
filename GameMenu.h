@@ -1,14 +1,14 @@
-#pragma once
 #ifndef GAMEMENU_H
 #define GAMEMENU_H
 
-#include <Windows.h>
 #include <iostream>
 #include <memory>
 
-#include "constants.h"
+#include <Windows.h>
+
 #include "KeyboardInput.h"
 #include "ConsoleSettingsHandler.h"
+#include "constants.h"
 
 using namespace game_constants;
 class ConsoleSettingsHandler;
@@ -16,15 +16,18 @@ class ConsoleSettingsHandler;
 class GameMenu : public Keyboard
 {
 public:
-    GameMenu(std::shared_ptr<ConsoleSettingsHandler> console_handler);
+    GameMenu
+    (
+        std::shared_ptr<ConsoleSettingsHandler> console_handler
+    );
     ~GameMenu();
 
     void      renderMenu();
     void      makeChoise();
     void      moveCursorUp();
     void      moveCursorDown();
-    inline void setChoise(const int ch) { m_choise_ = ch;   }
-    inline const int getChoise()        { return m_choise_; }
+    inline void  setChoise(const int ch) { m_choise_ = ch;   }
+    inline const int getChoise()         { return m_choise_; }
 
 private:
 

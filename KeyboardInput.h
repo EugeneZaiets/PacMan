@@ -1,4 +1,3 @@
-#pragma once
 #ifndef KEYBOARDINPUT_H
 #define KEYBOARDINPUT_H
 

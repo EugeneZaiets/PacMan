@@ -1,6 +1,9 @@
-#pragma once
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
 #include <map>
 #include <string>
+
 namespace game_constants
 {
     const int X_SIZE = 46; //Maze x_size
@@ -139,3 +142,4 @@ namespace game_constants
     const double SECODS_IN_BOOST_BY_LEVEL = 20.0;
     const double SECODS_TO_CHANGE_MODE    = 20.0;
 }
+#endif //CONSTANTS_H

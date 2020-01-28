@@ -1,7 +1,8 @@
-#include "Game.h"
-#include "ConsoleSettingsHandler.h"
-#include "CareTakerGhost.h"
 #include <memory>
+
+#include "ConsoleSettingsHandler.h"
+#include "Game.h"
+#include "CareTakerGhost.h"
 
 int main() 
 {
@@ -9,7 +10,7 @@ int main()
     if (handler == 0)   
         return 1;
 
-    //auto caretaker_ghost   = std::make_unique<CareTakerGhost>();
+    //auto caretaker_ghost = std::make_unique<CareTakerGhost>();
     //if (caretaker_ghost == 0) 
     //   return 1;
 
