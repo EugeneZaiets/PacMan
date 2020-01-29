@@ -23,7 +23,7 @@ Ghost::Ghost
     m_check_to_unpause_(false)
 {
     if (m_console_handler_ == 0)
-        exit(1);
+        exit(NULL_POINTER_ERROR);
 
     resetModes(his_name);
     setColor(his_name);
@@ -418,22 +418,26 @@ const bool Ghost::checkCollision(const char dir)
     switch (dir) 
     {
         case 'w': 
-            if (strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_, m_y_ - 1)))
+            if (strchr(CharNotToCollide, 
+                m_game_instance_->getCharOfBuffer(m_x_, m_y_ - 1)))
                 return false;
         break;
 
         case 'a': 
-            if (m_x_ == 0 || strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_ - 1, m_y_))) 
+            if (m_x_ == 0 || strchr(CharNotToCollide, 
+                m_game_instance_->getCharOfBuffer(m_x_ - 1, m_y_))) 
                 return false;
         break;
 
         case 's': 
-            if (strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_, m_y_ + 1))) 
+            if (strchr(CharNotToCollide, 
+                m_game_instance_->getCharOfBuffer(m_x_, m_y_ + 1))) 
                 return false;
         break;
 
         case 'd': 
-            if (m_x_ == X_SIZE - 1 || strchr(CharNotToCollide, m_game_instance_->getCharOfBuffer(m_x_ + 1, m_y_))) 
+            if (m_x_ == X_SIZE - 1 || strchr(CharNotToCollide, 
+                m_game_instance_->getCharOfBuffer(m_x_ + 1, m_y_))) 
                 return false;
         break;
     }

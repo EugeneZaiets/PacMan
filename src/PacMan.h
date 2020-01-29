@@ -30,16 +30,18 @@ public:
 
     void  dead();
     void  scoreUp();
+    void  gainLife();
     void  renderKill();
     void  renderScore();
     void  renderLives();
     void  renderPacman();
     const char getDirection();
 
-    void       move           (const bool);
-    const bool isPaused       (const bool);
-    const bool checkCollision (const char);
-    void       resetPacMan    (const int x, const int y);
+    void       move             (const bool);
+    const bool isPaused         (const bool);
+    const bool checkCollision   (const char);
+    void       resetPacMan      (const int x, const int y);
+    void       resetMapAfterKill(const int x, const int y, const int num_elements);
 
     inline const int    getPos_X()                            { return m_x_;                           }
     inline const int    getPos_Y()                            { return m_y_;                           }
@@ -73,6 +75,11 @@ private:
     bool          m_check_to_unpause_  ;
     std::clock_t  m_timer_             ;
     std::clock_t  m_timer_on_pause_    ;
+
+    void moveUp();
+    void moveLeft();
+    void moveDown();
+    void moveRight();
 
     std::shared_ptr<ConsoleSettingsHandler> m_console_handler_;
     Game* m_game_instance_;

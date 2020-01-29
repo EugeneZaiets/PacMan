@@ -20,7 +20,6 @@ Game::Game
     m_console_handler_(console_handler),
     m_seconds_in_boost_by_level_(SECODS_IN_BOOST_BY_LEVEL),
     m_seconds_to_mode_change_(SECODS_TO_CHANGE_MODE),
-    m_number_of_ghosts_(NUMBER_OF_GHOSTS),
     m_points_num_(POINTS_NUMBER),
     m_level_counter_(0),
     m_isPaused_(false),
@@ -32,7 +31,7 @@ Game::Game
     m_temp_timer2_(0)
 {
     if (m_console_handler_ == 0) 
-        exit(1);
+        exit(NULL_POINTER_ERROR);
     SetConsoleTitle("PacMan");
     m_console_handler_->createGameWindow();
     m_console_handler_->hanldeCursorVisibility(false);
@@ -44,34 +43,36 @@ void Game::start()
 {
     m_menu_ = std::make_unique<GameMenu>(m_console_handler_);
     if (m_menu_ == 0) 
-        exit(1);
+        exit(NULL_POINTER_ERROR);
 
     while (m_menu_->getChoise() != (NUM_OF_MENU_TITLES - 1))
     {
         m_menu_->renderMenu();
-        if (m_menu_->getChoise() == 0)
-        {
-            m_pacman_ = std::make_unique<PacMan>
-                (
-                m_console_handler_, 
-                Game::getInstance(m_console_handler_)
-                );
-            for (int i = 0; i < m_number_of_ghosts_; ++i)
-            {
-                m_ghosts_[i] = std::make_unique<Ghost>
-                    (
-                    m_console_handler_, 
-                    Game::getInstance(m_console_handler_), 
-                    (Ghost_Name)i
-                    );
-            }
-            checkPointersToActors();
-            game_Loop();
-            system("CLS");
-        }
+        handleMenuChoise(m_menu_->getChoise());
         m_menu_->setChoise(UNDEFINED_CHOISE);
         m_menu_->makeChoise();
     }
+}
+void Game::handleMenuChoise(const int choise)
+{
+    switch (choise)
+    {
+        case 0 : startNewGame(); break;
+    }
+}
+void Game::startNewGame()
+{
+    m_pacman_ = std::make_unique<PacMan>(m_console_handler_, 
+                                         Game::getInstance(m_console_handler_));
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
+    {
+        m_ghosts_[i] = std::make_unique<Ghost>(m_console_handler_,
+                                               Game::getInstance(m_console_handler_),
+                                               (Ghost_Name)i);
+    }
+    checkPointersToActors();
+    game_Loop();
+    system("CLS");
 }
 void Game::pause()
 {
@@ -95,7 +96,7 @@ void Game::game_Loop()
     checkPointersToActors();
     m_pacman_->setLives(NUMBER_OF_LIVES);
 
-    for (m_level_counter_ = 0; m_level_counter_ < 255; ++m_level_counter_)
+    for (m_level_counter_ = 0; m_level_counter_ < LEVEL_NUM; ++m_level_counter_)
     {
         if (m_seconds_in_boost_by_level_ < 0.0) 
             m_seconds_in_boost_by_level_ = 0.0;
@@ -105,14 +106,9 @@ void Game::game_Loop()
         loadLevel();
         setMazeText("Get Ready!", YELLOW);
         startLevel();
-        if (m_isGameover_ == true)
-        {
-            m_console_handler_->setTextColor(RED);
-            m_console_handler_->setCursorPosition(19, 7);
-            std::cout << "GAME OVER";
-            Sleep(1500);
+
+        if (isEndGame() == true)
             break;
-        }
     }
 }
 void Game::startLevel()
@@ -142,48 +138,17 @@ void Game::startLevel()
 }
 void Game::loadLevel()
 {
-    char Map[Y_SIZE][X_SIZE + 1] =
-    {
-        "1555555555555555555555555555555555555555555552",
-        "6..................%%....%%..................6",
-        "6.$####*.$*.$####*.%%.$*.%%.$####*.$####*.$*.6",
-        "6.%$###^.@^.@####^.@^.%%.@^.@####^.%$###^.%%.6",
-        "6.%%..o...............%%...........%%..o..%%.6",
-        "6.%%.$####*.$####*.$##^@##*.$####*.%%.$###^%.6",
-        "6.@^.@####^.@####^.@######^.@####^.@^.@####^.6",
-        "6.................      .....................6",
-        "3552.$###*.$#####* 1552 152.$#####*.$###*.1554",
-        "5554.%$#*%.@#####^ 3  6 6 6.@#####^.%$#*%.3555",
-        ".....%% %%........ %  6 6 6........ %% %%.....",
-        "5552.%@#^%.$#####* 1  6 6 6.$#####*.%@#^%.1555",
-        "1554.@###^.@#####^ 3554 354.@#####^.@###^.3552",
-        "6.................      .....................6",
-        "6.$*.$*.$*.$#####*.$######*.$*.$*.$#####*.$*.6",
-        "6.%%.@^.@^.@#####^.@##*$##^.@^.@^.@#####^.%%.6",
-        "6.%%o.................%%.................o%%.6",
-        "6.%%.$*.$*.$#*.$#*.$*.%%.$*.$*.$*.$#*.$#*.%%.6",
-        "6.@^.@^.@^.@#^.@#^.%%.@^.%%.@^.@^.@#^.@#^.@^.6",
-        "6..................%%....%%..................6",
-        "3555555555555555555555555555555555555555555554"
-    };
-    char char_to_print;
     m_console_handler_->setTextColor(WHITE);
-    m_console_handler_->setCursorPosition(0, -2);
+    m_console_handler_->setCursorPosition(X_1UP_OFFSET, 
+                                         -Y_SCREEN_TOP_OFFSET);
     cout << "1UP";
-    m_console_handler_->setCursorPosition(36, -2);
+    m_console_handler_->setCursorPosition(X_LEVEL_OFFSET,
+                                         -Y_SCREEN_TOP_OFFSET);
     cout << "LEVEL: " << m_level_counter_;
-
+    
     m_console_handler_->setCursorPosition(0, 0);
-    for (int y = 0; y < Y_SIZE; ++y)
-    {
-        for (int x = 0; x < X_SIZE; ++x)
-        {
-            char_to_print = Map[y][x];
-            setCharFromMap(char_to_print, x, y);
-            cout << m_MapToPrint_[y][x];
-        }
-        m_console_handler_->setCursorPosition(0, y + Y_GAME_SCREEN_TOP_SIDE_OFFSET);
-    }
+    fillMapToPrint();
+
     setPointsNum(POINTS_NUMBER);
     initializeAllActors();
     render();
@@ -194,7 +159,7 @@ void Game::render()
     m_pacman_->renderPacman();
     m_pacman_->renderScore();
     m_pacman_->renderLives();
-    for (int i = 0; i < m_number_of_ghosts_; ++i)
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
     {
         m_ghosts_[i]->renderGhost();
     }
@@ -204,7 +169,7 @@ const bool Game::renderPause(const bool paused)
     if (paused)
     {
         if (m_console_handler_ == 0) 
-            exit(1);
+            exit(NULL_POINTER_ERROR);
         m_console_handler_->setTextColor(YELLOW);
         m_console_handler_->setCursorPosition(X_MIDDLE_POS, Y_MIDDLE_POS);
         std::cout << "  PAUSE  ";
@@ -213,7 +178,7 @@ const bool Game::renderPause(const bool paused)
     else if(m_check_to_unpause_ == true)
     {
         if (m_console_handler_ == 0)
-            exit(1);
+            exit(NULL_POINTER_ERROR);
         memcpy(m_substring_, &m_MapToPrint_[Y_MIDDLE_POS][X_MIDDLE_POS], 9);
         m_substring_[9] = '\0';
         m_console_handler_->setCursorPosition(X_MIDDLE_POS, Y_MIDDLE_POS);
@@ -228,10 +193,22 @@ const bool Game::isDead()
 {
     return !m_pacman_->getLives();
 }
+const bool Game::isEndGame()
+{
+    if (m_isGameover_ == true)
+    {
+        m_console_handler_->setTextColor(RED);
+        m_console_handler_->setCursorPosition(19, 7);
+        std::cout << "GAME OVER";
+        Sleep(1500);
+        return true;
+    }
+    return false;
+}
 const bool Game::collisionWithGhost()
 {
     checkPointersToActors();
-    for (int i = 0; i < m_number_of_ghosts_; ++i)
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
     {
         if (m_pacman_->getPos_X()  == m_ghosts_[i]->getPos_X() &&
             m_pacman_->getPos_Y()  == m_ghosts_[i]->getPos_Y() &&
@@ -257,7 +234,7 @@ void Game::moveGhosts()
     checkPointersToActors();
     if (m_pacman_->getEnergizerInfo())
     {
-        for (int i = 0; i < m_number_of_ghosts_; ++i)
+        for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
         {
             if (m_ghosts_[i]->getMode() != Mode::MODE_DEAD)
                 m_ghosts_[i]->setColor(LIGHT_BLUE);
@@ -273,7 +250,10 @@ void Game::moveGhosts()
     if (m_points_num_ <= 240 && m_ghosts_[3]->getMode() == Mode::MODE_WAIT)
         m_ghosts_[3]->setMode(Mode::MODE_EXIT_GATE);
 
-    determinatePositionForModeActivity();
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
+    {
+        handleGhostsMovement(i);
+    }
     render();
 }
 void Game::handleTime() 
@@ -282,22 +262,11 @@ void Game::handleTime()
     if (m_pacman_->getEnergizerInfo())
     {
         if (m_pacman_->getTimeInBooste() >= m_seconds_in_boost_by_level_) 
-            m_pacman_->setEnergizerInfo(false); 
-        if (m_pacman_->getTimeInBooste() >= m_seconds_in_boost_by_level_ * 0.75) 
-        { 
-            for (int i = 0; i < m_number_of_ghosts_; ++i)
-            {
-                if (m_ghosts_[i]->getColor() == BLUE)
-                {
-                    m_ghosts_[i]->setColor(WHITE);
-                    render();
-                }
-            }
-        }
+            m_pacman_->setEnergizerInfo(false);      
     }
     else 
     {
-        for (int i = 0; i < m_number_of_ghosts_; ++i)
+        for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
         {
             if (m_ghosts_[i]->getMode() != Mode::MODE_DEAD)
             {
@@ -314,15 +283,33 @@ void Game::handleTime()
 
     if (getTime2() >= m_seconds_to_mode_change_)
     {
-        for (int i = 0; i < m_number_of_ghosts_; ++i)
-        {
-            if      (m_ghosts_[i]->getMode() == Mode::MODE_CHASE)
-                     m_ghosts_[i]->setMode(Mode::MODE_SCATTER);
-            else if (m_ghosts_[i]->getMode() == Mode::MODE_SCATTER)
-                     m_ghosts_[i]->setMode(Mode::MODE_CHASE);
-        }
+        changeGhostsModeByTimer();
+        m_timer2_ = std::clock();
     }
-    else m_timer2_ = std::clock();
+}
+void Game::fillMapToPrint()
+{
+    char char_to_print;
+    for (int y = 0; y < Y_SIZE; ++y)
+    {
+        for (int x = 0; x < X_SIZE; ++x)
+        {
+            char_to_print = Map[y][x];
+            setCharFromMap(char_to_print, x, y);
+            cout << m_MapToPrint_[y][x];
+        }
+        m_console_handler_->setCursorPosition(0, y + Y_SCREEN_BOTTOM_OFFSET);
+    }
+}
+void Game::changeGhostsModeByTimer()
+{
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
+    {
+        if (m_ghosts_[i]->getMode() == Mode::MODE_CHASE)
+            m_ghosts_[i]->setMode(Mode::MODE_SCATTER);
+        else if (m_ghosts_[i]->getMode() == Mode::MODE_SCATTER)
+            m_ghosts_[i]->setMode(Mode::MODE_CHASE);
+    }
 }
 void Game::initializeAllActors()
 {
@@ -335,25 +322,25 @@ void Game::initializeAllActors()
     m_ghosts_[3]->resetGhost (CLYDE_INIT_POS_X , CLYDE_INIT_POS_Y );
     m_timer_ = std::clock();
 
-    for (int i = 0; i < m_number_of_ghosts_; ++i)
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
     {
-        m_ghosts_[i]->resetModes   (m_ghosts_[i]->getName());
-        m_ghosts_[i]->setColor(m_ghosts_[i]->getName());
-        m_ghosts_[i]->setHead      (GHOST_HEAD);
+        m_ghosts_[i]->resetModes (m_ghosts_[i]->getName());
+        m_ghosts_[i]->setColor   (m_ghosts_[i]->getName());
+        m_ghosts_[i]->setHead    (GHOST_HEAD);
     }
 }
 void Game::resetMapInCollision()
 {
     checkPointersToActors();
     if (m_console_handler_ == 0) 
-        exit(1);
+        exit(NULL_POINTER_ERROR);
 
     m_console_handler_->setCursorPosition(m_pacman_->getPos_X(), 
                                           m_pacman_->getPos_Y());
 
     std::cout << m_MapToPrint_[m_pacman_->getPos_Y()][m_pacman_->getPos_X()];
 
-    for (int i = 0; i < m_number_of_ghosts_; i++)
+    for (int i = 0; i < NUMBER_OF_GHOSTS; i++)
     {
         m_console_handler_->setCursorPosition(m_ghosts_[i]->getPos_X(), 
                                               m_ghosts_[i]->getPos_Y());
@@ -364,7 +351,7 @@ void Game::resetMapInCollision()
 void Game::setMazeText(std::string text, int color)
 {
     if (m_console_handler_ == 0) 
-        exit(1);
+        exit(NULL_POINTER_ERROR);
 
     m_console_handler_->setTextColor(color);
     m_console_handler_->setCursorPosition(X_MIDDLE_POS, Y_MIDDLE_POS);
@@ -383,84 +370,73 @@ void Game::setCharFromMap(const char ch, const int x_offset, const int y_offset)
     for (auto i = MapCharToPtint.begin(); i != MapCharToPtint.end(); ++i)
     {
         if (ch == '.' || ch == 'o')
-        {
             m_console_handler_->setTextColor(WHITE);
-        }
         else
-        {
             m_console_handler_->setTextColor(BLUE);
-        }
         if (ch == i->first)
-        {
             m_MapToPrint_[y_offset][x_offset] = i->second;
-        }
     }
 }
 void Game::checkPointersToActors() 
 {
     if (m_pacman_ == 0) 
-        exit(1);
-
-    for (int i = 0; i < m_number_of_ghosts_; ++i)
+        exit(NULL_POINTER_ERROR);
+    for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
     {
         if (m_ghosts_[i] == 0) 
-            exit(1);
+            exit(NULL_POINTER_ERROR);
     }
 }
-void Game::determinatePositionForModeActivity()
+void Game::handleGhostsMovement(const int ghost_num)
 {
-    for (int i = 0; i < m_number_of_ghosts_; ++i)
+    if (m_ghosts_[ghost_num] == 0)
+       exit(NULL_POINTER_ERROR);
+    switch (ghost_num)
     {
-        if (m_ghosts_[i] == 0) 
-            exit(1);
+        case 0: handleBlinkyFeature(); break;
+        case 1: handlePinkyFeature() ; break;
+        case 2: handleInkyFeature()  ; break;
+        case 3: handleClydeFeature() ; break;
+    }    
+}
+void Game::handleBlinkyFeature()
+{
+    m_ghosts_[0]->modeActivity
+    (
+        m_pacman_->getPos_X(), 
+        m_pacman_->getPos_Y(), 
+        m_isPaused_
+    );
+}
+void Game::handlePinkyFeature()
+{
+    m_ghosts_[1]->modeActivity
+    (
+        m_pacman_->getPos_X() + OFFSET_PINKY_POSITION,
+        m_pacman_->getPos_Y() + OFFSET_PINKY_POSITION,
+        m_isPaused_
+    );
+}
+void Game::handleInkyFeature() 
+{
+    m_ghosts_[2]->modeActivity
+    (
+        m_ghosts_[2]->getInkyPos_X(m_pacman_->getPos_X(), m_ghosts_[0]->getPos_X()),
+        m_ghosts_[2]->getInkyPos_Y(m_pacman_->getPos_Y(), m_ghosts_[0]->getPos_X()),
+        m_isPaused_
+    );
+}
+void Game::handleClydeFeature()
+{
+    int sum = m_ghosts_[3]->getClydeCountPos_X(m_pacman_->getPos_X()) +
+              m_ghosts_[3]->getClydeCountPos_Y(m_pacman_->getPos_Y());
 
-        switch (i)
-        {
-        case 0:
-        {
-            m_ghosts_[0]->modeActivity(
-                m_pacman_->getPos_X(), 
-                m_pacman_->getPos_Y(), 
-                m_isPaused_);
-        }
-        break;
-
-        case 1:
-        {
-            m_ghosts_[1]->modeActivity(
-                m_pacman_->getPos_X() + OFFSET_PINKY_POSITION, 
-                m_pacman_->getPos_Y() + OFFSET_PINKY_POSITION, 
-                m_isPaused_);
-        }
-        break;
-
-        case 2:
-        {
-            m_ghosts_[2]->modeActivity(
-                m_ghosts_[2]->getInkyPos_X(m_pacman_->getPos_X(), 
-                                           m_ghosts_[0]->getPos_X()), 
-                m_ghosts_[2]->getInkyPos_Y(m_pacman_->getPos_Y(), 
-                                           m_ghosts_[0]->getPos_X()),
-                                           m_isPaused_);
-        }
-        break;
-
-        case 3:
-        {
-            int sum = m_ghosts_[3]->getClydeCountPos_X(m_pacman_->getPos_X()) +
-                      m_ghosts_[i]->getClydeCountPos_Y(m_pacman_->getPos_Y()); 
-
-            if (sum > 8) 
-                m_ghosts_[3]->modeActivity(m_pacman_->getPos_X(), 
-                                           m_pacman_->getPos_Y(), 
-                                           m_isPaused_);
-            else 
-                m_ghosts_[3]->modeActivity(CLYDE_SCATTER_POS_X, 
-                                           CLYDE_SCATTER_POS_Y, 
-                                           m_isPaused_);
-        }
-        break;
-
-        }
-    }
+    if (sum < PACMAN_DISTANCE_TO_CLYDE)
+        m_ghosts_[3]->modeActivity(m_pacman_->getPos_X(),
+                                   m_pacman_->getPos_Y(),
+                                   m_isPaused_);
+    else
+        m_ghosts_[3]->modeActivity(CLYDE_SCATTER_POS_X,
+                                   CLYDE_SCATTER_POS_Y,
+                                   m_isPaused_);
 }

@@ -67,8 +67,6 @@ public:
     inline void             setOldDirection(const char direction) { m_old_direction_ = direction;    }
 
     inline const double getTimeInWait() { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC; }
-    /*std::unique_ptr<Memento> createMemento() { return std::make_unique<Memento>(*this); }
-    void restoreToMemento(std::unique_ptr<Memento> memento) { *this = memento->getOriginator(); }*/
 
 private:
 
@@ -89,7 +87,6 @@ private:
     Game*         m_game_instance_     ;
 
     std::shared_ptr<ConsoleSettingsHandler> m_console_handler_ ;
-    //std::unique_ptr<CareTakerGhost> caretaker_ghost;
 
     void handleScatterMode();
     void handleExitMode();

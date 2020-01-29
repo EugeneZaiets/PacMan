@@ -9,14 +9,13 @@ namespace game_constants
     const int X_SIZE = 46; //Maze x_size
     const int Y_SIZE = 21; //Maze y_size
 
-    const int X_GAME_SCREEN_OFFSET             = 0;
-    const int Y_GAME_SCREEN_BOTTOM_SIDE_OFFSET = 2;
-    const int Y_GAME_SCREEN_TOP_SIDE_OFFSET    = 1;
+    const int Y_SCREEN_BOTTOM_OFFSET = 1;
+    const int Y_SCREEN_TOP_OFFSET    = 2;
 
-    const int X_GAME_SCREEN_SIZE = X_SIZE;                           //Screen x_size
+    const int X_GAME_SCREEN_SIZE = X_SIZE;                          
     const int Y_GAME_SCREEN_SIZE = Y_SIZE + 
-                                   Y_GAME_SCREEN_TOP_SIDE_OFFSET + 
-                                   Y_GAME_SCREEN_BOTTOM_SIDE_OFFSET; //Screen y_size
+                                   Y_SCREEN_TOP_OFFSET + 
+                                   Y_SCREEN_BOTTOM_OFFSET; 
 
     const int X_GATE = 19;
     const int Y_GATE = 10;
@@ -24,7 +23,12 @@ namespace game_constants
     const int X_MIDDLE_POS = 19;
     const int Y_MIDDLE_POS = 7;
 
+    const int X_1UP_OFFSET = 0;
+    const int X_LEVEL_OFFSET = 36;
+    const int X_MENU_CURSOR_OFFSET = 2;
+
     //ERRORS
+    const int NULL_POINTER_ERROR      = 1;
     const int WINDOW_INFO_FAIL        = 2;
     const int CONSOLE_BUFFERSIZE_FAIL = 3;
 
@@ -41,34 +45,41 @@ namespace game_constants
     const int LIGHT_BLUE = 9;
 
     //In game constants
-    const int OFFSET_PINKY_POSITION = 4;
-    const int POINTS_NUMBER         = 360;
-    const int NUMBER_OF_GHOSTS      = 4;
-    const int NUMBER_OF_LIVES       = 3;
-    const int PACMAN_SPEED          = 28;
-    const int GHOST_SPEED           = 58;
+    const int LEVEL_NUM                = 255;
+    const int OFFSET_PINKY_POSITION    = 4;
+    const int PACMAN_DISTANCE_TO_CLYDE = 8;
+    const int POINTS_NUMBER            = 360;
+    const int NUMBER_OF_GHOSTS         = 4;
+    const int NUMBER_OF_LIVES          = 3;
+    const int PACMAN_SPEED             = 50;
+    const int GHOST_SPEED              = 95;
+    const int LIFE_GAIN_BORDER         = 10000;
+
+    const int SCORE_POINTS_ENERGIZER   = 50;
+    const int SCORE_POINTS_PILL        = 10;
+    const int SCORE_POINTS_GHOST       = 200;
 
     //Position for ghosts in scatter mode
-    const int BLINKY_SCATTER_POS_X  = 44;
-    const int BLINKY_SCATTER_POS_Y  = 1;
-    const int PINKY_SCATTER_POS_X   = 44;
-    const int PINKY_SCATTER_POS_Y   = 20;
-    const int INKY_SCATTER_POS_X    = 1;
-    const int INKY_SCATTER_POS_Y    = 1;
-    const int CLYDE_SCATTER_POS_X   = 4;
-    const int CLYDE_SCATTER_POS_Y   = 20;
+    const int BLINKY_SCATTER_POS_X     = 44;
+    const int BLINKY_SCATTER_POS_Y     = 1;
+    const int PINKY_SCATTER_POS_X      = 44;
+    const int PINKY_SCATTER_POS_Y      = 20;
+    const int INKY_SCATTER_POS_X       = 1;
+    const int INKY_SCATTER_POS_Y       = 1;
+    const int CLYDE_SCATTER_POS_X      = 4;
+    const int CLYDE_SCATTER_POS_Y      = 20;
     
     //Init positions for actors
-    const int PACMAN_INIT_POS_X = 35;
-    const int PACMAN_INIT_POS_Y = 10;
-    const int BLINKY_INIT_POS_X = 18;
-    const int BLINKY_INIT_POS_Y = 10;
-    const int PINKY_INIT_POS_X  = 20;
-    const int PINKY_INIT_POS_Y  = 10;
-    const int INKY_INIT_POS_X   = 21;
-    const int INKY_INIT_POS_Y   = 11;
-    const int CLYDE_INIT_POS_X  = 21;
-    const int CLYDE_INIT_POS_Y  = 9;
+    const int PACMAN_INIT_POS_X        = 35;
+    const int PACMAN_INIT_POS_Y        = 10;
+    const int BLINKY_INIT_POS_X        = 18;
+    const int BLINKY_INIT_POS_Y        = 10;
+    const int PINKY_INIT_POS_X         = 20;
+    const int PINKY_INIT_POS_Y         = 10;
+    const int INKY_INIT_POS_X          = 21;
+    const int INKY_INIT_POS_Y          = 11;
+    const int CLYDE_INIT_POS_X         = 21;
+    const int CLYDE_INIT_POS_Y         = 9;
 
     //Elements declaration
     enum Head 
@@ -119,7 +130,31 @@ namespace game_constants
         { '@', 192 }, 
         { '*', 191 }
     };
-   
+    const char Map[Y_SIZE][X_SIZE + 1] =
+    {
+        "1555555555555555555555555555555555555555555552",
+        "6..................%%....%%..................6",
+        "6.$####*.$*.$####*.%%.$*.%%.$####*.$####*.$*.6",
+        "6.%$###^.@^.@####^.@^.%%.@^.@####^.%$###^.%%.6",
+        "6.%%..o...............%%...........%%..o..%%.6",
+        "6.%%.$####*.$####*.$##^@##*.$####*.%%.$###^%.6",
+        "6.@^.@####^.@####^.@######^.@####^.@^.@####^.6",
+        "6.................      .....................6",
+        "3552.$###*.$#####* 1552 152.$#####*.$###*.1554",
+        "5554.%$#*%.@#####^ 3  6 6 6.@#####^.%$#*%.3555",
+        ".....%% %%........ %  6 6 6........ %% %%.....",
+        "5552.%@#^%.$#####* 1  6 6 6.$#####*.%@#^%.1555",
+        "1554.@###^.@#####^ 3554 354.@#####^.@###^.3552",
+        "6.................      .....................6",
+        "6.$*.$*.$*.$#####*.$######*.$*.$*.$#####*.$*.6",
+        "6.%%.@^.@^.@#####^.@##*$##^.@^.@^.@#####^.%%.6",
+        "6.%%o.................%%.................o%%.6",
+        "6.%%.$*.$*.$#*.$#*.$*.%%.$*.$*.$*.$#*.$#*.%%.6",
+        "6.@^.@^.@^.@#^.@#^.%%.@^.%%.@^.@^.@#^.@#^.@^.6",
+        "6..................%%....%%..................6",
+        "3555555555555555555555555555555555555555555554"
+    };
+
     //Menu Constants
     const int NUM_OF_MENU_TITLES = 4;
     const int UNDEFINED_CHOISE   = -1;
@@ -139,7 +174,9 @@ namespace game_constants
     const int VK_D = 0x44;
 
     //Timings
-    const double SECODS_IN_BOOST_BY_LEVEL = 20.0;
-    const double SECODS_TO_CHANGE_MODE    = 20.0;
+    const double SECODS_IN_BOOST_BY_LEVEL       = 20.0;
+    const double SECODS_TO_CHANGE_MODE          = 20.0;
+    const int    MILLISECONDS_AFTER_GHOST_DEATH = 500;
+    const int    MILLISECONDS_BLINKING_TIME     = 200;
 }
 #endif //CONSTANTS_H

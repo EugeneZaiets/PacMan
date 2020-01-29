@@ -8,15 +8,11 @@ int main()
 {
     auto handler = std::make_shared<ConsoleSettingsHandler>();
     if (handler == 0)   
-        return 1;
-
-    //auto caretaker_ghost = std::make_unique<CareTakerGhost>();
-    //if (caretaker_ghost == 0) 
-    //   return 1;
+        return NULL_POINTER_ERROR;
 
     Game* game = Game::getInstance(handler);
     if (game == 0) 
-        return 1;
+        return NULL_POINTER_ERROR;
 
     game->start();
     return 0;

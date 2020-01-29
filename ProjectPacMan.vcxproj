@@ -18,6 +18,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Actor.h" />
+    <ClInclude Include="src\CareTakerGhost.h" />
+    <ClInclude Include="src\ConsoleSettingsHandler.h" />
+    <ClInclude Include="src\constants.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameMenu.h" />
+    <ClInclude Include="src\Ghost.h" />
+    <ClInclude Include="src\KeyboardInput.h" />
+    <ClInclude Include="src\Memento.h" />
+    <ClInclude Include="src\PacMan.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CareTakerGhost.cpp" />
+    <ClCompile Include="src\ConsoleSettingsHandler.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameMenu.cpp" />
+    <ClCompile Include="src\Ghost.cpp" />
+    <ClCompile Include="src\Memento.cpp" />
+    <ClCompile Include="src\PacMan.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8725FEF3-3503-4D5E-8042-D0E124D855D4}</ProjectGuid>
@@ -69,7 +91,22 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <SourcePath>C:\Users\euzai\source\repos\ProjectPacMan\ProjectPacMan\src;$(SourcePath)</SourcePath>
+    <OutDir>.\bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <SourcePath>C:\Users\euzai\source\repos\ProjectPacMan\ProjectPacMan\src;$(SourcePath)</SourcePath>
+    <OutDir>.\bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <SourcePath>C:\Users\euzai\source\repos\ProjectPacMan\ProjectPacMan\src;$(SourcePath)</SourcePath>
+    <OutDir>.\bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <SourcePath>C:\Users\euzai\source\repos\ProjectPacMan\ProjectPacMan\src;$(SourcePath)</SourcePath>
+    <OutDir>.\bin</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -77,6 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -85,6 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -114,28 +153,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="CareTakerGhost.h" />
-    <ClInclude Include="constants.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameMenu.h" />
-    <ClInclude Include="Ghost.h" />
-    <ClInclude Include="KeyboardInput.h" />
-    <ClInclude Include="Memento.h" />
-    <ClInclude Include="PacMan.h" />
-    <ClInclude Include="ConsoleSettingsHandler.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CareTakerGhost.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameMenu.cpp" />
-    <ClCompile Include="Ghost.cpp" />
-    <ClCompile Include="Memento.cpp" />
-    <ClCompile Include="PacMan.cpp" />
-    <ClCompile Include="ConsoleSettingsHandler.cpp" />
-    <ClCompile Include="Source.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

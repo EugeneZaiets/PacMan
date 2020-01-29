@@ -9,7 +9,7 @@ GameMenu::GameMenu
     m_console_handler_(console_handler)
 {
     if (m_console_handler_ == 0) 
-        exit(1);
+        exit(NULL_POINTER_ERROR);
 }
 GameMenu::~GameMenu()
 {
@@ -23,7 +23,8 @@ void GameMenu::renderMenu()
                                               Y_MIDDLE_POS + i);
         std::cout << menu_titles[i] << std::endl;
     }
-    m_console_handler_->setCursorPosition(X_MIDDLE_POS - 2, 
+
+    m_console_handler_->setCursorPosition(X_MIDDLE_POS - X_MENU_CURSOR_OFFSET,
                                           Y_MIDDLE_POS + m_cursor_position_);
     std::cout << MENU_CURSOR;
 }
@@ -47,7 +48,7 @@ void GameMenu::moveCursorUp()
     if (m_cursor_position_ > 0)
     {
         m_console_handler_->setTextColor(WHITE);
-        m_console_handler_->setCursorPosition(X_MIDDLE_POS - 2, 
+        m_console_handler_->setCursorPosition(X_MIDDLE_POS - X_MENU_CURSOR_OFFSET,
                                               Y_MIDDLE_POS + m_cursor_position_);
         std::cout << ' ';
         --m_cursor_position_;
@@ -58,7 +59,7 @@ void GameMenu::moveCursorDown()
     if (m_cursor_position_ < NUM_OF_MENU_TITLES - 1)
     {
         m_console_handler_->setTextColor(WHITE);
-        m_console_handler_->setCursorPosition(X_MIDDLE_POS - 2, 
+        m_console_handler_->setCursorPosition(X_MIDDLE_POS - X_MENU_CURSOR_OFFSET,
                                               Y_MIDDLE_POS + m_cursor_position_);
         std::cout << ' ';
         ++m_cursor_position_;
