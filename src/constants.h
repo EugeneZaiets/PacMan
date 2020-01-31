@@ -48,7 +48,9 @@ namespace game_constants
     const int LEVEL_NUM                = 255;
     const int OFFSET_PINKY_POSITION    = 4;
     const int PACMAN_DISTANCE_TO_CLYDE = 8;
-    const int POINTS_NUMBER            = 360;
+    const int POINTS_NUMBER            = 364;
+    const int POINTS_TO_RELEASE_INKY   = 330;
+    const int POINTS_TO_RELEASE_CLYDE  = 240;
     const int NUMBER_OF_GHOSTS         = 4;
     const int NUMBER_OF_LIVES          = 3;
     const int PACMAN_SPEED             = 50;
@@ -150,8 +152,8 @@ namespace game_constants
         "6.%%.@^.@^.@#####^.@##*$##^.@^.@^.@#####^.%%.6",
         "6.%%o.................%%.................o%%.6",
         "6.%%.$*.$*.$#*.$#*.$*.%%.$*.$*.$*.$#*.$#*.%%.6",
-        "6.@^.@^.@^.@#^.@#^.%%.@^.%%.@^.@^.@#^.@#^.@^.6",
-        "6..................%%....%%..................6",
+        "6.@^.@^.@^.@#^.@#^.@^.@^.@^.@^.@^.@#^.@#^.@^.6",
+        "6............................................6",
         "3555555555555555555555555555555555555555555554"
     };
 
@@ -178,5 +180,6 @@ namespace game_constants
     const double SECODS_TO_CHANGE_MODE          = 20.0;
     const int    MILLISECONDS_AFTER_GHOST_DEATH = 500;
     const int    MILLISECONDS_BLINKING_TIME     = 200;
+    const int    MILLISECONDS_GAMEOVER_TIME     = 1500;
 }
 #endif //CONSTANTS_H

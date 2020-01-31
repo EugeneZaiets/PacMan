@@ -38,8 +38,8 @@ public:
 
     inline const int    getPointsNum()                            { return m_points_num_;                                       }
     inline const char   getCharOfBuffer(const int x, const int y) { return m_MapToPrint_[y][x];                                 }
-    inline const double getTime ()                                { return (std::clock() - m_timer_ ) / (double)CLOCKS_PER_SEC; }
-    inline const double getTime2()                                { return (std::clock() - m_timer2_) / (double)CLOCKS_PER_SEC; }
+    inline const double getTime()                                { return (std::clock() - m_timer_ ) / (double)CLOCKS_PER_SEC; }
+    
 
 private:
 
@@ -56,10 +56,8 @@ private:
     bool   m_isGameover_                 ;
     bool   m_check_to_unpause_           ;
 
-    std::clock_t m_timer_                , 
-                 m_timer2_               , 
-                 m_temp_timer1_          , 
-                 m_temp_timer2_          ;
+    std::clock_t m_timer_                ,
+                 m_temp_timer_           ;
 
     std::shared_ptr<ConsoleSettingsHandler> m_console_handler_ ;
     std::unique_ptr<GameMenu>               m_menu_            ;
@@ -71,20 +69,25 @@ private:
     const bool collisionWithGhost();
     const bool renderPause(const bool);
     void       render();
-    void       startNewGame();
-    void       game_Loop ();
+    void       startNewGame ();
+    void       startGameLoop();
+    void       startMenuLoop();
+    void       startLevel();
     void       loadLevel ();
     void       moveGhosts();
-    void       handleTime();
-    void       startLevel();
     void       fillMapToPrint();
     void       initializeAllActors();
     void       setMazeText(std::string, int);
     void       resetMapInCollision();
     void       checkPointersToActors();
+    void       handleMenuChoise(const int choise);
+
+    void       handleTime();
+    void       handleTimeEnergizer();
+
     void       changeGhostsModeByTimer();
     void       handleGhostsMovement(const int ghost_num);
-    void       handleMenuChoise(const int choise);
+    const bool handleGhostsKill(const int ghost_num);
 
     void       handleBlinkyFeature();
     void       handlePinkyFeature();

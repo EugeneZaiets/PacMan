@@ -33,6 +33,9 @@ public:
     ~Ghost();
 
     void       dead();
+    void       scared();
+    void       braved();
+    void       changeModeToOpposite();
     void       renderMap();
     void       renderGhost();
     void       resetModes         (const int name);
@@ -88,17 +91,19 @@ private:
 
     std::shared_ptr<ConsoleSettingsHandler> m_console_handler_ ;
 
-    void handleScatterMode();
     void handleExitMode();
     void handleDeadMode();
     void handleWaitMode();
+    void handleScatterMode();
     void handleChaseMode      (const int x, const int y);
     void handleFrightenedMode (const int x, const int y);
 
     const char getOppositeDirection();
+
     const char determineClosestMove  (const int pm_x, const int pm_y);
     const char determineFurthestMove (const int pm_x, const int pm_y);
     const int  offsetCoordinatesX    (const int);
     const int  offsetCoordinatesY    (const int);
+    const int  countDistance         (const int start_point, const int end_point);
 };
 #endif //GHOST_H

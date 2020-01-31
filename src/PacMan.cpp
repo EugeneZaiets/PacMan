@@ -32,51 +32,16 @@ PacMan::PacMan
 PacMan::~PacMan()
 {
 }
-void PacMan::move(const bool paused)
+void PacMan::handlePacmanMovement(const bool paused)
 {
     if (isPaused(paused)) 
         return;
-
     if (m_move_counter_ != 0)
-    {
         m_move_counter_--;
-    }
     else 
     {
         getDirection();
-        if (checkCollision(m_direction_) == false)
-        {
-            m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
-            m_console_handler_->resetSettingsToDefault();
-            std::cout << m_game_instance_->getCharOfBuffer(m_prev_x_, m_prev_y_);
-
-            if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) != ' ')
-            {
-                scoreUp();
-                renderScore();
-                m_game_instance_->decreasePointsNum();
-                m_game_instance_->setCharOfMap(m_x_, m_y_, ' ');
-            }
-            renderPacman();
-            m_old_direction_ = m_direction_;
-            m_move_counter_ = m_speed_;
-        }
-        else if (checkCollision(m_old_direction_) == false)
-        {
-            m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
-            m_console_handler_->resetSettingsToDefault();
-            std::cout << m_game_instance_->getCharOfBuffer(m_prev_x_, m_prev_y_);
-
-            if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) != ' ')
-            {
-                scoreUp();
-                renderScore();
-                m_game_instance_->decreasePointsNum();
-                m_game_instance_->setCharOfMap(m_x_, m_y_, ' ');
-            }
-            renderPacman();
-            m_move_counter_ = m_speed_;
-        }
+        move();
     }
 }
 const char PacMan::getDirection()
@@ -133,27 +98,47 @@ void PacMan::moveRight()
         m_head_ = Head::HEAD_RIGHT;
     }
 }
+void PacMan::move()
+{
+    if (checkCollision(m_direction_) == false)
+        moveWithDirection(m_direction_);
+    else if (checkCollision(m_old_direction_) == false)
+        moveWithDirection(m_old_direction_);
+}
+void PacMan::moveWithDirection(const char direction)
+{
+    renderPrevPos();
+    eatFood();
+    renderPacman();
+    m_old_direction_ = direction;
+    m_move_counter_ = m_speed_;
+}
+void PacMan::renderPrevPos()
+{
+    m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
+    m_console_handler_->resetSettingsToDefault();
+    std::cout << m_game_instance_->getCharOfBuffer(m_prev_x_, m_prev_y_);
+}
+void PacMan::eatFood()
+{
+    if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) != ' ')
+    {
+        scoreUp();
+        renderScore();
+        m_game_instance_->decreasePointsNum();
+        m_game_instance_->setCharOfMap(m_x_, m_y_, ' ');
+    }
+}
 const bool PacMan::checkCollision(const char dir)
 {
     m_prev_x_ = m_x_;
     m_prev_y_ = m_y_;
     switch (dir)
     {
-        case 'w':
-            moveUp();
-            break;
-
-        case 'a':
-            moveLeft();
-            break;
-
-        case 's':
-            moveDown();
-            break;
-
-        case 'd':
-            moveRight();
-            break;
+    case 'w': moveUp()   ; break;
+    case 'a': moveLeft() ; break;
+    case 's': moveDown() ; break;
+    case 'd': moveRight(); break;
     }
     return (m_prev_x_ == m_x_ && m_prev_y_ == m_y_) ? true :  false;
 }

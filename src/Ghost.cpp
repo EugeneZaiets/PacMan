@@ -26,13 +26,12 @@ Ghost::Ghost
         exit(NULL_POINTER_ERROR);
 
     resetModes(his_name);
-    setColor(his_name);
-    if (his_name == Ghost_Name::GHOST_NAME_INKY ||
-        his_name == Ghost_Name::GHOST_NAME_CLYDE)
-    {
+    setColor  (his_name);
+
+    bool isInky  = his_name == Ghost_Name::GHOST_NAME_INKY;
+    bool isClyde = his_name == Ghost_Name::GHOST_NAME_CLYDE;
+    if (isInky || isClyde)
         m_timer_ = std::clock();
-    }
-    //caretaker_ghost = std::make_unique<CareTakerGhost>();
 }
 Ghost::~Ghost()
 {
@@ -43,6 +42,36 @@ void Ghost::dead()
     setPrevMode(m_current_mode_);
     setMode(Mode::MODE_DEAD);
     m_head_ = '"';
+}
+void Ghost::scared()
+{
+    if (m_current_mode_ != Mode::MODE_DEAD)
+        setColor(LIGHT_BLUE);
+
+    bool isChasing    = m_current_mode_ == Mode::MODE_CHASE;
+    bool isScattering = m_current_mode_ == Mode::MODE_SCATTER;
+    if (isChasing || isScattering)
+        setMode(Mode::MODE_FRIGHTENED);
+}
+void Ghost::braved()
+{
+    if (m_current_mode_ != Mode::MODE_DEAD)
+        setColor(m_name_);
+    else
+        setMode(Mode::MODE_DEAD);
+
+    if (m_current_mode_ == Mode::MODE_FRIGHTENED)
+    {
+        setPrevMode(m_current_mode_);
+        setMode(Mode::MODE_CHASE);
+    }
+}
+void Ghost::changeModeToOpposite()
+{
+    if      (m_current_mode_ == Mode::MODE_CHASE)
+        setMode(Mode::MODE_SCATTER);
+    else if (m_current_mode_ == Mode::MODE_SCATTER)
+        setMode(Mode::MODE_CHASE);
 }
 void Ghost::renderGhost()
 {
@@ -73,44 +102,14 @@ void Ghost::modeActivity(const int pacman_x, const int pacman_y, const bool paus
 {
     if (isPaused(paused)) 
         return;
-
     switch (m_current_mode_) 
     {
-        case Mode::MODE_CHASE:
-        {
-            handleChaseMode(pacman_x, pacman_y);
-        }
-        break;
-
-        case Mode::MODE_SCATTER:
-        {
-            handleScatterMode();
-        }
-        break;
-
-        case Mode::MODE_FRIGHTENED:
-        {
-            handleFrightenedMode(pacman_x, pacman_y);
-        }
-        break;
-
-        case Mode::MODE_DEAD:
-        {
-            handleDeadMode();
-        }
-        break;
-
-        case Mode::MODE_WAIT:
-        {
-            handleWaitMode();
-        }
-        break;
-
-        case Mode::MODE_EXIT_GATE:
-        {
-            handleExitMode();
-        }
-        break;
+    case Mode::MODE_CHASE      : handleChaseMode(pacman_x, pacman_y);      break;
+    case Mode::MODE_SCATTER    : handleScatterMode();                      break;
+    case Mode::MODE_FRIGHTENED : handleFrightenedMode(pacman_x, pacman_y); break;
+    case Mode::MODE_DEAD       : handleDeadMode();                         break;
+    case Mode::MODE_WAIT       : handleWaitMode();                         break;
+    case Mode::MODE_EXIT_GATE  : handleExitMode();                         break;
     }
 }
 void Ghost::handleChaseMode(const int x, const int y)
@@ -120,7 +119,7 @@ void Ghost::handleChaseMode(const int x, const int y)
 }
 void Ghost::handleScatterMode()
 {
-    if (m_name_ == Ghost_Name::GHOST_NAME_BLINCKY)
+    if      (m_name_ == Ghost_Name::GHOST_NAME_BLINCKY)
     {
         char dir = determineClosestMove(BLINKY_SCATTER_POS_X, 
                                         BLINKY_SCATTER_POS_Y); 
@@ -154,13 +153,14 @@ void Ghost::handleExitMode()
 {
     if (m_x_ == X_GATE + 1 && m_y_ == Y_GATE)
     {
-        m_direction_ = 'a';
+        m_direction_     = 'a';
         m_old_direction_ = 'a';
         renderMap();
         --m_x_;
         renderMap();
         renderGhost();
         setMode(Mode::MODE_CHASE);
+        setPrevMode(Mode::MODE_CHASE);
         return;
     }
     char dir = determineClosestMove(X_GATE + 1, Y_GATE);
@@ -224,27 +224,9 @@ const char Ghost::determineClosestMove(int pm_x, int pm_y)
         {
             int ghost_x = m_x_ + offsetCoordinatesX(dirs_num[i]);
             int ghost_y = m_y_ + offsetCoordinatesY(dirs_num[i]);
-            int counter = 0;
+            int counter = countDistance(ghost_x, pm_x) +
+                          countDistance(ghost_y, pm_y);
 
-            while (ghost_x != pm_x)
-            {
-                if (ghost_x > pm_x) 
-                    --ghost_x;
-                else 
-                    ++ghost_x;
-
-                ++counter;
-            }
-
-            while (ghost_y != pm_y)
-            {
-                if (ghost_y > pm_y) 
-                    --ghost_y;
-                else 
-                    ++ghost_y;
-
-                ++counter;
-            }
             pointer_counter_direction[i].first  = counter;
             pointer_counter_direction[i].second = dirs_num[i];
         }
@@ -283,27 +265,9 @@ const char Ghost::determineFurthestMove(int pm_x, int pm_y)
         {
             int ghost_x = m_x_ + offsetCoordinatesX(dirs_num[i]);
             int ghost_y = m_y_ + offsetCoordinatesY(dirs_num[i]);
-            int counter = 0;
+            int counter = countDistance(ghost_x, pm_x) +
+                          countDistance(ghost_y, pm_y);
 
-            while (ghost_x != pm_x)
-            {
-                if (ghost_x > pm_x) 
-                    --ghost_x;
-                else 
-                    ++ghost_x;
-
-                ++counter;
-            }
-
-            while (ghost_y != pm_y)
-            {
-                if (ghost_y > pm_y) 
-                    --ghost_y;
-                else 
-                    ++ghost_y;
-
-                ++counter;
-            }
             pointer_counter_direction[i].first = counter;
             pointer_counter_direction[i].second = dirs_num[i];
         }
@@ -325,11 +289,14 @@ const char Ghost::determineFurthestMove(int pm_x, int pm_y)
 }
 const char Ghost::getOppositeDirection()
 {
-    if (m_old_direction_ == 'w') return 's';
-    if (m_old_direction_ == 'a') return 'd';
-    if (m_old_direction_ == 's') return 'w';
-    if (m_old_direction_ == 'd') return 'a';
-    return 'w';
+    switch (m_old_direction_)
+    {
+    case 'w': return 's'; break;
+    case 'a': return 'd'; break;
+    case 's': return 'w'; break;
+    case 'd': return 'a'; break;
+    default : return 'w'; break;
+    }
 }
 const int  Ghost::offsetCoordinatesX(const int dir)
 {
@@ -342,6 +309,20 @@ const int  Ghost::offsetCoordinatesY(const int dir)
     if      (dir == 0) return -1; // offset UP, '0' - W
     else if (dir == 2) return 1 ; // offset DOWN, '2' - D
     return 0;
+}
+const int  Ghost::countDistance(const int start_point, const int end_point)
+{
+    int counter = 0;
+    int ghost_start = start_point;
+    while (ghost_start != end_point)
+    {
+        if (ghost_start > end_point)
+            --ghost_start;
+        else
+            ++ghost_start;
+        ++counter;
+    }
+    return counter;
 }
 void       Ghost::setColor(const Ghost_Name ghost_name)
 {
@@ -378,40 +359,17 @@ const int  Ghost::getInkyPos_Y(const int pacman_y, const int blincky_y)
             --ghost_y;
         else 
             ++ghost_y;
-
         ++counter;
     }
     return pacman_y + 2 + counter;
 }
 const int  Ghost::getClydeCountPos_X(const int pacman_x)
 {
-    int ghost_x = pacman_x;
-    int counter = 0;
-    while (ghost_x != pacman_x)
-    {
-        if (ghost_x > pacman_x) 
-            --ghost_x;
-        else 
-            ++ghost_x;
-
-        ++counter;
-    }
-    return counter;
+    return countDistance(m_x_, pacman_x);
 }
 const int  Ghost::getClydeCountPos_Y(const int pacman_y)
 {
-    int ghost_y = pacman_y;
-    int counter = 0;
-    while (ghost_y != pacman_y)
-    {
-        if (ghost_y > pacman_y)
-            --ghost_y;
-        else 
-            ++ghost_y;
-
-        ++counter;
-    }
-    return counter;
+    return countDistance(m_y_, pacman_y);
 }
 const bool Ghost::checkCollision(const char dir)
 {

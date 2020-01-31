@@ -12,7 +12,6 @@ Game* Game::getInstance
     }
     return m_GameInstance;
 }
-
 Game::Game
 (
     std::shared_ptr<ConsoleSettingsHandler> console_handler
@@ -26,9 +25,7 @@ Game::Game
     m_isGameover_(false),
     m_check_to_unpause_(true),
     m_timer_(0),
-    m_timer2_(0),
-    m_temp_timer1_(0),
-    m_temp_timer2_(0)
+    m_temp_timer_(0)
 {
     if (m_console_handler_ == 0) 
         exit(NULL_POINTER_ERROR);
@@ -45,6 +42,10 @@ void Game::start()
     if (m_menu_ == 0) 
         exit(NULL_POINTER_ERROR);
 
+    startMenuLoop();
+}
+void Game::startMenuLoop()
+{
     while (m_menu_->getChoise() != (NUM_OF_MENU_TITLES - 1))
     {
         m_menu_->renderMenu();
@@ -57,7 +58,7 @@ void Game::handleMenuChoise(const int choise)
 {
     switch (choise)
     {
-        case 0 : startNewGame(); break;
+    case 0: startNewGame(); break;
     }
 }
 void Game::startNewGame()
@@ -71,26 +72,10 @@ void Game::startNewGame()
                                                (Ghost_Name)i);
     }
     checkPointersToActors();
-    game_Loop();
+    startGameLoop();
     system("CLS");
 }
-void Game::pause()
-{
-    if (isKeyOncePressed(VK_ESCAPE))
-    {
-        m_isPaused_ = true;
-        m_check_to_unpause_ = true;
-        m_temp_timer1_ = m_timer_;
-        m_temp_timer2_ = m_timer2_;
-    }
-    else
-    {
-        m_isPaused_ = false;
-        m_timer_ = m_temp_timer1_;
-        m_timer2_ = m_temp_timer2_;
-    }
-}
-void Game::game_Loop() 
+void Game::startGameLoop()
 {
     m_isGameover_ = false;
     checkPointersToActors();
@@ -119,21 +104,29 @@ void Game::startLevel()
         if (renderPause(m_isPaused_) == true) 
             continue;
 
-        m_pacman_->move(m_isPaused_);
+        m_pacman_->handlePacmanMovement(m_isPaused_);
         moveGhosts(); 
         if (collisionWithGhost() == true)
-        {
             resetMapInCollision();
-            initializeAllActors();
-            render();
-            while (!_kbhit());
-        }
+
         if (isDead() == true)
-        {
-            m_isGameover_ = true;
             break;
-        }
+
         handleTime();
+    }
+}
+void Game::pause()
+{
+    if (isKeyOncePressed(VK_ESCAPE))
+    {
+        m_isPaused_ = true;
+        m_check_to_unpause_ = true;
+        m_temp_timer_ = m_timer_;
+    }
+    else
+    {
+        m_isPaused_ = false;
+        m_timer_ = m_temp_timer_;
     }
 }
 void Game::loadLevel()
@@ -191,7 +184,16 @@ const bool Game::renderPause(const bool paused)
 }
 const bool Game::isDead()
 {
-    return !m_pacman_->getLives();
+    if (m_pacman_->getLives() == 0)
+    {
+        m_isGameover_ = true;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return false;
 }
 const bool Game::isEndGame()
 {
@@ -200,7 +202,7 @@ const bool Game::isEndGame()
         m_console_handler_->setTextColor(RED);
         m_console_handler_->setCursorPosition(19, 7);
         std::cout << "GAME OVER";
-        Sleep(1500);
+        Sleep(MILLISECONDS_GAMEOVER_TIME);
         return true;
     }
     return false;
@@ -210,81 +212,56 @@ const bool Game::collisionWithGhost()
     checkPointersToActors();
     for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
     {
-        if (m_pacman_->getPos_X()  == m_ghosts_[i]->getPos_X() &&
-            m_pacman_->getPos_Y()  == m_ghosts_[i]->getPos_Y() &&
-            m_ghosts_[i]->getMode() != Mode::MODE_DEAD)
-        {
-            if (m_ghosts_[i]->getMode() != Mode::MODE_FRIGHTENED)
-            {
-                m_pacman_->dead();
-                return true;
-            }
-            else
-            {
-                m_ghosts_[i]->dead();
-                m_pacman_->renderKill();
-                return false;
-            }
-        }
+        bool matchPosX  = m_pacman_->getPos_X() == m_ghosts_[i]->getPos_X();
+        bool matchPosY  = m_pacman_->getPos_Y() == m_ghosts_[i]->getPos_Y();
+        bool ghostAlive = m_ghosts_[i]->getMode() != Mode::MODE_DEAD;
+        if (matchPosX && matchPosY && ghostAlive)
+            return handleGhostsKill(i);
     }
     return false;
 }
 void Game::moveGhosts()
 {
     checkPointersToActors();
-    if (m_pacman_->getEnergizerInfo())
-    {
-        for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
-        {
-            if (m_ghosts_[i]->getMode() != Mode::MODE_DEAD)
-                m_ghosts_[i]->setColor(LIGHT_BLUE);
-            
-            if (m_ghosts_[i]->getMode() == Mode::MODE_CHASE || 
-                m_ghosts_[i]->getMode() == Mode::MODE_SCATTER)
-                m_ghosts_[i]->setMode(Mode::MODE_FRIGHTENED);
-        }
-    }
-    if (m_points_num_ <= 330 && m_ghosts_[2]->getMode() == Mode::MODE_WAIT)
+
+    bool inkyReleasePoints = m_points_num_ <= POINTS_TO_RELEASE_INKY;
+    bool inlyWaits = m_ghosts_[2]->getMode() == Mode::MODE_WAIT;
+    if (inkyReleasePoints && inlyWaits)
         m_ghosts_[2]->setMode(Mode::MODE_EXIT_GATE);
 
-    if (m_points_num_ <= 240 && m_ghosts_[3]->getMode() == Mode::MODE_WAIT)
+    bool clydeReleasePoints = m_points_num_ <= POINTS_TO_RELEASE_CLYDE;
+    bool clydeWaits = m_ghosts_[3]->getMode() == Mode::MODE_WAIT;
+    if (clydeReleasePoints && clydeWaits)
         m_ghosts_[3]->setMode(Mode::MODE_EXIT_GATE);
 
     for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
-    {
         handleGhostsMovement(i);
-    }
+
     render();
 }
 void Game::handleTime() 
 {
     checkPointersToActors();
-    if (m_pacman_->getEnergizerInfo())
-    {
-        if (m_pacman_->getTimeInBooste() >= m_seconds_in_boost_by_level_) 
-            m_pacman_->setEnergizerInfo(false);      
-    }
-    else 
+    if (m_pacman_->getEnergizerInfo() == true)
     {
         for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
-        {
-            if (m_ghosts_[i]->getMode() != Mode::MODE_DEAD)
-            {
-                m_ghosts_[i]->setColor(m_ghosts_[i]->getName());
-            }
-            if (m_ghosts_[i]->getMode() == Mode::MODE_FRIGHTENED)
-            {
-                m_ghosts_[i]->setPrevMode(m_ghosts_[i]->getMode());
-                m_ghosts_[i]->setMode(Mode::MODE_CHASE);
-                m_timer_ = std::clock();
-            }
-        }
+            m_ghosts_[i]->scared();
+        handleTimeEnergizer();
+        m_timer_ = std::clock();
     }
-
-    if (getTime2() >= m_seconds_to_mode_change_)
+    if (getTime() >= m_seconds_to_mode_change_)
     {
         changeGhostsModeByTimer();
-        m_timer2_ = std::clock();
+        m_timer_ = std::clock();
+    }
+}
+void Game::handleTimeEnergizer()
+{
+    if (m_pacman_->getTimeInBooste() >= m_seconds_in_boost_by_level_)
+    {
+        for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
+            m_ghosts_[i]->braved();
+        m_pacman_->setEnergizerInfo(false);
     }
 }
 void Game::fillMapToPrint()
@@ -304,12 +281,7 @@ void Game::fillMapToPrint()
 void Game::changeGhostsModeByTimer()
 {
     for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
-    {
-        if (m_ghosts_[i]->getMode() == Mode::MODE_CHASE)
-            m_ghosts_[i]->setMode(Mode::MODE_SCATTER);
-        else if (m_ghosts_[i]->getMode() == Mode::MODE_SCATTER)
-            m_ghosts_[i]->setMode(Mode::MODE_CHASE);
-    }
+        m_ghosts_[i]->changeModeToOpposite();
 }
 void Game::initializeAllActors()
 {
@@ -337,16 +309,14 @@ void Game::resetMapInCollision()
 
     m_console_handler_->setCursorPosition(m_pacman_->getPos_X(), 
                                           m_pacman_->getPos_Y());
-
     std::cout << m_MapToPrint_[m_pacman_->getPos_Y()][m_pacman_->getPos_X()];
 
     for (int i = 0; i < NUMBER_OF_GHOSTS; i++)
-    {
-        m_console_handler_->setCursorPosition(m_ghosts_[i]->getPos_X(), 
-                                              m_ghosts_[i]->getPos_Y());
+        m_ghosts_[i]->renderMap();
 
-        std::cout << m_MapToPrint_[m_ghosts_[i]->getPos_Y()][m_ghosts_[i]->getPos_X()];
-    }
+    initializeAllActors();
+    render();
+    while (!_kbhit());
 }
 void Game::setMazeText(std::string text, int color)
 {
@@ -399,6 +369,21 @@ void Game::handleGhostsMovement(const int ghost_num)
         case 3: handleClydeFeature() ; break;
     }    
 }
+const bool Game::handleGhostsKill(const int ghost_num)
+{
+    if (m_ghosts_[ghost_num]->getMode() != Mode::MODE_FRIGHTENED)
+    {
+        m_pacman_->dead();
+        return true;
+    }
+    else
+    {
+        m_ghosts_[ghost_num]->dead();
+        m_pacman_->renderKill();
+        return false;
+    }
+    return false;
+}
 void Game::handleBlinkyFeature()
 {
     m_ghosts_[0]->modeActivity
@@ -431,7 +416,7 @@ void Game::handleClydeFeature()
     int sum = m_ghosts_[3]->getClydeCountPos_X(m_pacman_->getPos_X()) +
               m_ghosts_[3]->getClydeCountPos_Y(m_pacman_->getPos_Y());
 
-    if (sum < PACMAN_DISTANCE_TO_CLYDE)
+    if (sum > PACMAN_DISTANCE_TO_CLYDE)
         m_ghosts_[3]->modeActivity(m_pacman_->getPos_X(),
                                    m_pacman_->getPos_Y(),
                                    m_isPaused_);
