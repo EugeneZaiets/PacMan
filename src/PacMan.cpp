@@ -5,26 +5,26 @@ PacMan::PacMan
     std::shared_ptr<ConsoleSettingsHandler> console_handler, 
     Game* game
 ) :
-    m_console_handler_(console_handler),
-    m_game_instance_(game),
-    m_x_(0),
-    m_y_(0),
-    m_prev_x_(0),
-    m_prev_y_(0),
-    m_color_(YELLOW),
-    m_lives_(NUMBER_OF_LIVES),
-    m_score_(0),
-    m_head_(Head::HEAD_RIGHT),
-    m_direction_(NO_DIRECTION),
-    m_old_direction_(NO_DIRECTION),
-    m_speed_(PACMAN_SPEED),
-    m_move_counter_(0),
-    m_kill_counter_(0),
-    m_score_offset_(0),
-    m_got_energizer_(false),
-    m_check_to_unpause_(false),
-    m_timer_(0),
-    m_timer_on_pause_(0)
+    m_console_handler_  (console_handler),
+    m_game_instance_    (game),
+    m_x_                (0),
+    m_y_                (0),
+    m_prev_x_           (0),
+    m_prev_y_           (0),
+    m_score_            (0),
+    m_color_            (YELLOW),
+    m_lives_            (NUMBER_OF_LIVES),
+    m_head_             (Head::HEAD_RIGHT),
+    m_direction_        (Directions::DIRECTION_DEFAULT),
+    m_old_direction_    (Directions::DIRECTION_DEFAULT),
+    m_speed_            (PACMAN_SPEED),
+    m_move_counter_     (0),
+    m_kill_counter_     (0),
+    m_score_offset_     (0),
+    m_got_energizer_    (false),
+    m_check_to_unpause_ (false),
+    m_timer_            (0),
+    m_timer_on_pause_   (0)
 {
     if (m_console_handler_ == 0)
         exit(NULL_POINTER_ERROR);
@@ -40,20 +40,22 @@ void PacMan::handlePacmanMovement(const bool paused)
         m_move_counter_--;
     else 
     {
-        getDirection();
+        getDirectionFromKeyboard();
         move();
     }
 }
-const char PacMan::getDirection()
+Directions PacMan::getDirectionFromKeyboard()
 {
-    if      (isKeyDown(VK_W) || isKeyDown(VK_UP))    return m_direction_ = Direction[0];
-    else if (isKeyDown(VK_A) || isKeyDown(VK_LEFT))  return m_direction_ = Direction[1];
-    else if (isKeyDown(VK_S) || isKeyDown(VK_DOWN))  return m_direction_ = Direction[2];
-    else if (isKeyDown(VK_D) || isKeyDown(VK_RIGHT)) return m_direction_ = Direction[3];
-	return 0;
+    if      (isKeyDown(VK_W) || isKeyDown(VK_UP))    return m_direction_ = Directions::DIRECTION_W;
+    else if (isKeyDown(VK_A) || isKeyDown(VK_LEFT))  return m_direction_ = Directions::DIRECTION_A;
+    else if (isKeyDown(VK_S) || isKeyDown(VK_DOWN))  return m_direction_ = Directions::DIRECTION_S;
+    else if (isKeyDown(VK_D) || isKeyDown(VK_RIGHT)) return m_direction_ = Directions::DIRECTION_D;
+    return Directions::DIRECTION_DEFAULT;
 }
 void PacMan::moveUp()
 {
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     char buffer_char = m_game_instance_->getCharOfBuffer(m_x_, m_y_ - 1);
     if (strchr(CharNotToCollide, buffer_char))
     {
@@ -63,6 +65,8 @@ void PacMan::moveUp()
 }
 void PacMan::moveLeft()
 {
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     char buffer_char = m_game_instance_->getCharOfBuffer(m_x_ - 1, m_y_);
     if (m_x_ == 0)
     {
@@ -77,6 +81,8 @@ void PacMan::moveLeft()
 }
 void PacMan::moveDown()
 {
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     char buffer_char = m_game_instance_->getCharOfBuffer(m_x_, m_y_ + 1);
     if (strchr(CharNotToCollide, buffer_char))
     {
@@ -86,6 +92,8 @@ void PacMan::moveDown()
 }
 void PacMan::moveRight()
 {
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     char buffer_char = m_game_instance_->getCharOfBuffer(m_x_ + 1, m_y_);
     if (m_x_ == X_SIZE - 1)
     {
@@ -105,7 +113,7 @@ void PacMan::move()
     else if (checkCollision(m_old_direction_) == false)
         moveWithDirection(m_old_direction_);
 }
-void PacMan::moveWithDirection(const char direction)
+void PacMan::moveWithDirection(Directions direction)
 {
     renderPrevPos();
     eatFood();
@@ -115,12 +123,18 @@ void PacMan::moveWithDirection(const char direction)
 }
 void PacMan::renderPrevPos()
 {
+    if (m_console_handler_ == 0)
+        exit(NULL_POINTER_ERROR);
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
     m_console_handler_->resetSettingsToDefault();
     std::cout << m_game_instance_->getCharOfBuffer(m_prev_x_, m_prev_y_);
 }
 void PacMan::eatFood()
 {
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) != ' ')
     {
         scoreUp();
@@ -129,16 +143,16 @@ void PacMan::eatFood()
         m_game_instance_->setCharOfMap(m_x_, m_y_, ' ');
     }
 }
-const bool PacMan::checkCollision(const char dir)
+const bool PacMan::checkCollision(const Directions direction)
 {
     m_prev_x_ = m_x_;
     m_prev_y_ = m_y_;
-    switch (dir)
+    switch (direction)
     {
-    case 'w': moveUp()   ; break;
-    case 'a': moveLeft() ; break;
-    case 's': moveDown() ; break;
-    case 'd': moveRight(); break;
+    case Directions::DIRECTION_W : moveUp()   ; break;
+    case Directions::DIRECTION_A : moveLeft() ; break;
+    case Directions::DIRECTION_S : moveDown() ; break;
+    case Directions::DIRECTION_D : moveRight(); break;
     }
     return (m_prev_x_ == m_x_ && m_prev_y_ == m_y_) ? true :  false;
 }
@@ -161,7 +175,7 @@ const bool PacMan::isPaused(const bool paused)
 void PacMan::dead()
 {
     unsigned char head_prev = m_head_;
-    for (int i = 0; i < 9; ++i) //blincking
+    for (int i = 0; i < BLINKYNG_COUNTER; ++i) 
     {
         if (i % 2) 
             m_head_ = ' ';
@@ -174,6 +188,8 @@ void PacMan::dead()
 }
 void PacMan::scoreUp()
 {
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == 'o') 
     { 
         m_score_offset_ = SCORE_POINTS_ENERGIZER;
@@ -187,7 +203,7 @@ void PacMan::scoreUp()
         m_score_offset_ = SCORE_POINTS_PILL;
         m_score_ += SCORE_POINTS_PILL;
     } 
-    else if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == '%') {} // cherry
+    else if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) == '%') {} 
     gainLife();
 }
 void PacMan::gainLife()
@@ -204,9 +220,14 @@ void PacMan::resetPacMan(const int x, const int y)
 {
     setPos_X(x);
     setPos_Y(y);
+    setEnergizerInfo(false);
 }
 void PacMan::resetMapAfterKill(const int x, const int y, const int num_elements)
 {
+    if (m_console_handler_ == 0)
+        exit(NULL_POINTER_ERROR);
+    if (m_game_instance_ == 0)
+        exit(NULL_POINTER_ERROR);
     m_console_handler_->setCursorPosition(x, y);
     for (int i = x; i < x + num_elements; ++i)
     {
@@ -219,22 +240,28 @@ void PacMan::resetMapAfterKill(const int x, const int y, const int num_elements)
 }
 void PacMan::renderPacman()
 {
+    if (m_console_handler_ == 0)
+        exit(NULL_POINTER_ERROR);
     m_console_handler_->setCursorPosition(m_x_, m_y_);
     m_console_handler_->setTextColor(YELLOW);
     std::cout << m_head_;
 }
 void PacMan::renderScore()
 {
+    if (m_console_handler_ == 0)
+        exit(NULL_POINTER_ERROR);
     m_console_handler_->setTextColor(WHITE);
     m_console_handler_->setCursorPosition(0, -Y_SCREEN_BOTTOM_OFFSET);
     std::cout << "SCORE: " << m_score_;
 }
 void PacMan::renderLives()
 {
+    if (m_console_handler_ == 0)
+        exit(NULL_POINTER_ERROR);
     SetConsoleOutputCP(CP_UTF8);
     m_console_handler_->setTextColor(YELLOW);
     m_console_handler_->setCursorPosition(1, Y_SIZE);
-	std::cout << "Lives: ";
+    std::cout << "Lives: ";
     m_console_handler_->setTextColor(RED);
     for (unsigned int i = 0; i < m_lives_; ++i)
     {
@@ -246,6 +273,8 @@ void PacMan::renderLives()
 }
 void PacMan::renderKill()
 {
+    if (m_console_handler_ == 0)
+        exit(NULL_POINTER_ERROR);
     ++m_kill_counter_;
     int sum = SCORE_POINTS_GHOST * static_cast<int>(pow(2, m_kill_counter_ - 1));
     int temp = sum;

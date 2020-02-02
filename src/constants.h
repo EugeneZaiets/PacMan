@@ -12,20 +12,20 @@ namespace game_constants
     const int Y_SCREEN_BOTTOM_OFFSET = 1;
     const int Y_SCREEN_TOP_OFFSET    = 2;
 
-    const int X_GAME_SCREEN_SIZE = X_SIZE;                          
+    const int X_GAME_SCREEN_SIZE = X_SIZE;
     const int Y_GAME_SCREEN_SIZE = Y_SIZE + 
                                    Y_SCREEN_TOP_OFFSET + 
                                    Y_SCREEN_BOTTOM_OFFSET; 
 
-    const int X_GATE = 19;
-    const int Y_GATE = 10;
+    const int X_GATE                  = 19;
+    const int Y_GATE                  = 10;
 
-    const int X_MIDDLE_POS = 19;
-    const int Y_MIDDLE_POS = 7;
+    const int X_MIDDLE_POS            = 19;
+    const int Y_MIDDLE_POS            = 7;
 
-    const int X_1UP_OFFSET = 0;
-    const int X_LEVEL_OFFSET = 36;
-    const int X_MENU_CURSOR_OFFSET = 2;
+    const int X_1UP_OFFSET            = 0;
+    const int X_LEVEL_OFFSET          = 36;
+    const int X_MENU_CURSOR_OFFSET    = 2;
 
     //ERRORS
     const int NULL_POINTER_ERROR      = 1;
@@ -46,7 +46,9 @@ namespace game_constants
 
     //In game constants
     const int LEVEL_NUM                = 255;
-    const int OFFSET_PINKY_POSITION    = 4;
+    const int OFFSET_PACMAN_PINKY      = 4;
+    const int OFFSET_PACMAN_INKY       = 2;
+    const int OFFSET_NEXT_STEP         = 1;
     const int PACMAN_DISTANCE_TO_CLYDE = 8;
     const int POINTS_NUMBER            = 364;
     const int POINTS_TO_RELEASE_INKY   = 330;
@@ -55,11 +57,15 @@ namespace game_constants
     const int NUMBER_OF_LIVES          = 3;
     const int PACMAN_SPEED             = 50;
     const int GHOST_SPEED              = 95;
+    const int DEAD_GHOST_SPEED         = 40;
     const int LIFE_GAIN_BORDER         = 10000;
+    const int BLINKYNG_COUNTER         = 9;
 
     const int SCORE_POINTS_ENERGIZER   = 50;
     const int SCORE_POINTS_PILL        = 10;
     const int SCORE_POINTS_GHOST       = 200;
+
+    const int DOUBLE_DISTANSE          = 2;
 
     //Position for ghosts in scatter mode
     const int BLINKY_SCATTER_POS_X     = 44;
@@ -99,7 +105,8 @@ namespace game_constants
         MODE_DEAD,
         MODE_WAIT,
         MODE_EXIT_GATE,
-        MODE_ENTER_GATE
+        MODE_ENTER_GATE,
+        MODE_DEFAULT
     };
     enum Ghost_Name
     { 
@@ -108,12 +115,16 @@ namespace game_constants
         GHOST_NAME_INKY,
         GHOST_NAME_CLYDE
     };
+    enum Directions
+    { 
+        DIRECTION_W, 
+        DIRECTION_A, 
+        DIRECTION_S, 
+        DIRECTION_D,
+        DIRECTION_DEFAULT
+    };
     const char GHOST_HEAD          = 'G';
-    const char DEFAULT_DIRECTION   = 'w';
-    const char NO_DIRECTION        = 'N';
     const char CharNotToCollide[3] = { ' ', 'o', static_cast<char>(250) };
-    const char Direction[4]        = { 'w', 'a', 's', 'd' };
-
     const std::map<char, short> MapCharToPtint = 
     {
         { ' ', 32  },
