@@ -67,31 +67,30 @@ public:
 
 private:
 
-    int           m_x_, m_y_                ;
-    int           m_prev_x_, m_prev_y_      ;
-    unsigned int  m_color_                  ;
-    unsigned int  m_speed_                  ;
-    unsigned int  m_move_counter_           ;
-    Directions    m_direction_              ;
-    Directions    m_old_direction_          ;
-    unsigned char m_head_                   ;
-    bool          m_check_to_unpause_       ;
-    bool          m_first_exit              ;
-    Mode          m_current_mode_           ;
-    Mode          m_prev_mode_              ;
-    std::clock_t  m_timer_                  ;
-    std::clock_t  m_timer_on_pause_         ;
-    Ghost_Name    m_name_                   ;
-    Game*         m_game_instance_          ;
+    int           m_x_, m_y_                    ;
+    int           m_prev_x_, m_prev_y_          ;
+    unsigned int  m_color_                      ;
+    unsigned int  m_speed_                      ;
+    unsigned int  m_move_counter_               ;
+    Directions    m_direction_                  ;
+    Directions    m_old_direction_              ;
+    unsigned char m_head_                       ;
+    bool          m_check_to_unpause_           ;
+    bool          m_first_exit                  ;
+    Mode          m_current_mode_               ;
+    Mode          m_prev_mode_                  ;
+    std::clock_t  m_timer_                      ;
+    std::clock_t  m_timer_on_pause_             ;
+    Ghost_Name    m_name_                       ;
+    Game*         m_game_instance_              ;
     std::shared_ptr<ConsoleSettingsHandler> 
-                          m_console_handler_;
+                          m_console_handler_    ;
 
-    void       handleExitMode      ();
-    void       handleDeadMode      ();
-    void       handleWaitMode      ();
-    void       handleScatterMode   ();
-    Directions getOppositeDirection();
-
+    void       handleExitMode                 ();
+    void       handleDeadMode                 ();
+    void       handleWaitMode                 ();
+    void       handleScatterMode              ();
+    Directions getOppositeDirection           ();
     const bool isPaused                       (const bool);
     void       move                           (const Directions);
     const bool checkCollision                 (const Directions);

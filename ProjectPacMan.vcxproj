@@ -29,6 +29,7 @@
     <ClInclude Include="src\KeyboardInput.h" />
     <ClInclude Include="src\Memento.h" />
     <ClInclude Include="src\PacMan.h" />
+    <ClInclude Include="src\ScoreKeeper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CareTakerGhost.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="src\Ghost.cpp" />
     <ClCompile Include="src\Memento.cpp" />
     <ClCompile Include="src\PacMan.cpp" />
+    <ClCompile Include="src\ScoreKeeper.cpp" />
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

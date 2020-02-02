@@ -59,7 +59,8 @@ void Game::handleMenuChoise(const int choise)
 {
     switch (choise)
     {
-    case 0: startNewGame(); break;
+    case 0 : startNewGame()  ; break;
+    case 1 : showBestScores(); break;
     }
 }
 void Game::startNewGame()
@@ -76,12 +77,24 @@ void Game::startNewGame()
     startGameLoop();
     system("CLS");
 }
+void Game::showBestScores()
+{
+    m_score_keeper = make_unique<ScoreKeeper>(m_console_handler_);
+    if (m_score_keeper == 0)
+        exit(NULL_POINTER_ERROR);
+    system("CLS");
+    resetAsyncKeyState(VK_ESCAPE);
+    m_score_keeper->readScores ();
+    m_score_keeper->printScores();
+    while (isKeyPressed(VK_ESCAPE) == false);
+    resetAsyncKeyState(VK_RETURN);
+    system("CLS");
+}
 void Game::startGameLoop()
 {
     checkPointersToActors();
     m_isGameover_ = false;
     m_pacman_->setLives(NUMBER_OF_LIVES);
-
     for (m_level_counter_ = 0; m_level_counter_ < LEVEL_NUM; ++m_level_counter_)
     {
         if (m_seconds_in_boost_by_level_ < 0.0) 
@@ -96,6 +109,8 @@ void Game::startGameLoop()
         if (isEndGame() == true)
             break;
     }
+    m_score_keeper->writeScores(m_pacman_->getScore());
+    m_score_keeper->saveScores();
 }
 void Game::startLevel()
 {
@@ -263,7 +278,8 @@ void Game::handleTime()
     if (getTime() >= m_seconds_to_mode_change_)
     {
         changeGhostsModeByTimer();
-        m_timer_ = std::clock();
+        m_timer_ = 
+            std::clock();
     }
 }
 void Game::handleTimeEnergizer()
@@ -307,7 +323,6 @@ void Game::initializeAllActors()
     m_ghosts_[GHOST_NAME_INKY   ]->resetGhost (INKY_INIT_POS_X  , INKY_INIT_POS_Y  );
     m_ghosts_[GHOST_NAME_CLYDE  ]->resetGhost (CLYDE_INIT_POS_X , CLYDE_INIT_POS_Y );
     m_timer_ = std::clock();
-
     for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
         m_ghosts_[i]->resetModes (m_ghosts_[i]->getName());
 }
@@ -335,7 +350,6 @@ void Game::setMazeText(std::string text, int color)
     m_console_handler_->setTextColor(color);
     m_console_handler_->setCursorPosition(X_MIDDLE_POS, Y_MIDDLE_POS);
     std::cout << text;
-    
     while (!_kbhit());
     memcpy(m_substring_, &m_MapToPrint_[Y_MIDDLE_POS][X_MIDDLE_POS], text.size());
     m_substring_[text.size()] = '\0';

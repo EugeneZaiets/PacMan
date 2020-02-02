@@ -26,21 +26,20 @@ public:
     );
     ~PacMan();
 
-    void  dead         ();
-    void  renderKill   ();
-    void  renderScore  ();
-    void  renderLives  ();
-    void  renderPacman ();
-    void  renderPrevPos();
-
-    void       handlePacmanMovement (const bool);
-    void       resetPacMan          (const int, const int);
-    void       resetMapAfterKill    (const int, const int, const int);
-
+    void  dead                 ();
+    void  renderKill           ();
+    void  renderScore          ();
+    void  renderLives          ();
+    void  renderPacman         ();
+    void  renderPrevPos        ();
+    void  handlePacmanMovement (const bool);
+    void  resetPacMan          (const int, const int);
+    void  resetMapAfterKill    (const int, const int, const int);
 
     const int        getPos_X        ()                { return m_x_;                  }
     const int        getPos_Y        ()                { return m_y_;                  }
     const int        getLives        ()                { return m_lives_;              }
+    const int        getScore() { return m_score_; }
     const bool       getEnergizerInfo()                { return m_got_energizer_;      }
     const Directions getDirection    ()                { return m_direction_;          }
 
@@ -76,17 +75,17 @@ private:
                     m_console_handler_      ;
     Game* m_game_instance_                  ;
 
-    void       move                     ();
-    void       moveUp                   ();
-    void       moveLeft                 ();
-    void       moveDown                 ();
-    void       moveRight                ();
-    void       scoreUp                  ();
-    void       gainLife                 ();
-    void       eatFood                  ();
-    Directions getDirectionFromKeyboard ();
-    void       moveWithDirection        (Directions direction);
-    const bool isPaused                 (const bool);
-    const bool checkCollision           (const Directions);
+    void       move                       ();
+    void       moveUp                     ();
+    void       moveLeft                   ();
+    void       moveDown                   ();
+    void       moveRight                  ();
+    void       scoreUp                    ();
+    void       gainLife                   ();
+    void       eatFood                    ();
+    Directions getDirectionFromKeyboard   ();
+    void       moveWithDirection          (Directions direction);
+    const bool isPaused                   (const bool);
+    const bool checkCollision             (const Directions);
 };
 #endif //PACMAN_H

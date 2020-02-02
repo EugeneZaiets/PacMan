@@ -22,18 +22,19 @@ public:
     );
     ~GameMenu();
 
-    void      renderMenu();
-    void      makeChoise();
-    void      moveCursorUp();
-    void      moveCursorDown();
-    inline void  setChoise(const int ch) { m_choise_ = ch;   }
-    inline const int getChoise()         { return m_choise_; }
+    void      renderMenu     ();
+    void      makeChoise     ();
+    void      moveCursorUp   ();
+    void      moveCursorDown ();
+    void      setChoise      (const int ch) { m_choise_ = ch;   }
+    const int getChoise      ()             { return m_choise_; }
 
 private:
 
-    std::shared_ptr<ConsoleSettingsHandler> m_console_handler_;
-    int m_choise_;
-    int m_cursor_position_;
+    std::shared_ptr<ConsoleSettingsHandler> 
+        m_console_handler_ ;
+    int m_choise_          ;
+    int m_cursor_position_ ;
 };
 
 #endif //GAMEMENU_H

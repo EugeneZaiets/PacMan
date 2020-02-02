@@ -17,6 +17,7 @@
     <ClInclude Include="src\PacMan.h" />
     <ClInclude Include="src\CareTakerGhost.h" />
     <ClInclude Include="src\Memento.h" />
+    <ClInclude Include="src\ScoreKeeper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ConsoleSettingsHandler.cpp" />
@@ -27,5 +28,6 @@
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\CareTakerGhost.cpp" />
     <ClCompile Include="src\Memento.cpp" />
+    <ClCompile Include="src\ScoreKeeper.cpp" />
   </ItemGroup>
 </Project>

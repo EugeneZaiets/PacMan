@@ -26,11 +26,14 @@ namespace game_constants
     const int X_1UP_OFFSET            = 0;
     const int X_LEVEL_OFFSET          = 36;
     const int X_MENU_CURSOR_OFFSET    = 2;
+    const int X_SCORES_CURSOR_OFFSET  = 2;
+    const int Y_SCORES_CURSOR_OFFSET  = 1;
 
     //ERRORS
     const int NULL_POINTER_ERROR      = 1;
     const int WINDOW_INFO_FAIL        = 2;
     const int CONSOLE_BUFFERSIZE_FAIL = 3;
+    const int OPEN_FILE_ERROR         = 4;
 
 
     //COLORS
@@ -66,6 +69,7 @@ namespace game_constants
     const int SCORE_POINTS_GHOST       = 200;
 
     const int DOUBLE_DISTANSE          = 2;
+    const int SCORE_LINES              = 5;
 
     //Position for ghosts in scatter mode
     const int BLINKY_SCATTER_POS_X     = 44;
@@ -169,13 +173,12 @@ namespace game_constants
     };
 
     //Menu Constants
-    const int NUM_OF_MENU_TITLES = 4;
+    const int NUM_OF_MENU_TITLES = 3;
     const int UNDEFINED_CHOISE   = -1;
     const std::string menu_titles[NUM_OF_MENU_TITLES] =
     {
         "NEW GAME",
-        "title 1",
-        "title 2",
+        "Score",
         "EXIT"
     };
     const char MENU_CURSOR = '>';
