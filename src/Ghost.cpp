@@ -3,7 +3,7 @@
 Ghost::Ghost
 (
     std::shared_ptr<ConsoleSettingsHandler> console_handler, 
-    Game* game, 
+    shared_ptr<Game> game,
     Ghost_Name his_name
 ) :
     m_console_handler_  (console_handler),

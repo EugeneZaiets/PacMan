@@ -25,7 +25,12 @@ class Ghost;
 class Game : public Keyboard
 {
 public:
-    static Game* getInstance(std::shared_ptr<ConsoleSettingsHandler> console_handler);
+
+    static std::shared_ptr<Game> getInstance
+    (
+        std::shared_ptr<ConsoleSettingsHandler> console_handler
+    );
+    ~Game();
 
     void       start             ();
     void       pause             ();
@@ -86,7 +91,7 @@ private:
     void       setMazeText             (std::string, int);
     void       setCharFromMap          (const char, const int, const int);
 
-    static Game* m_GameInstance;
+    static std::shared_ptr<Game> m_GameInstance;
     Game
     (
         std::shared_ptr<ConsoleSettingsHandler> console_handler
@@ -95,6 +100,5 @@ private:
     Game           (const Game&&) = delete;
     Game& operator=(Game const& ) = delete;
     Game& operator=(Game const&&) = delete;
-    ~Game();
 };
 #endif // GAME_H

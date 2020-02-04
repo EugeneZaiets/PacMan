@@ -10,7 +10,7 @@ int main()
     if (handler == 0)   
         return NULL_POINTER_ERROR;
 
-    Game* game = Game::getInstance(handler);
+    std::shared_ptr<Game> game(Game::getInstance(handler));
     if (game == 0) 
         return NULL_POINTER_ERROR;
 

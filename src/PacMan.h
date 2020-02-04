@@ -22,7 +22,7 @@ public:
     PacMan
     (
         std::shared_ptr<ConsoleSettingsHandler> console_handler,
-        Game* game
+        shared_ptr<Game> game
     );
     ~PacMan();
 
@@ -55,25 +55,25 @@ public:
 
 private:
 
-    int           m_x_, m_y_                ;
-    int           m_prev_x_, m_prev_y_      ;
-    unsigned int  m_lives_                  ;
-    unsigned int  m_score_                  ;
-    unsigned int  m_color_                  ;
-    unsigned int  m_speed_                  ;
-    unsigned int  m_kill_counter_           ;
-    unsigned int  m_move_counter_           ;
-    unsigned int  m_score_offset_           ;
-    Directions    m_direction_              ;
-    Directions    m_old_direction_          ;
-    unsigned char m_head_                   ;
-    bool          m_got_energizer_          ;
-    bool          m_check_to_unpause_       ;
-    std::clock_t  m_timer_                  ;
-    std::clock_t  m_timer_on_pause_         ;
+    int           m_x_, m_y_                 ;
+    int           m_prev_x_, m_prev_y_       ;
+    unsigned int  m_lives_                   ;
+    unsigned int  m_score_                   ;
+    unsigned int  m_color_                   ;
+    unsigned int  m_speed_                   ;
+    unsigned int  m_kill_counter_            ;
+    unsigned int  m_move_counter_            ;
+    unsigned int  m_score_offset_            ;
+    Directions    m_direction_               ;
+    Directions    m_old_direction_           ;
+    unsigned char m_head_                    ;
+    bool          m_got_energizer_           ;
+    bool          m_check_to_unpause_        ;
+    std::clock_t  m_timer_                   ;
+    std::clock_t  m_timer_on_pause_          ;
     std::shared_ptr<ConsoleSettingsHandler> 
-                    m_console_handler_      ;
-    Game* m_game_instance_                  ;
+                          m_console_handler_ ;
+    std::shared_ptr<Game> m_game_instance_   ;
 
     void       move                       ();
     void       moveUp                     ();

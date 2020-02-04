@@ -1,15 +1,13 @@
 #include "Game.h"
 
-Game* Game::m_GameInstance = 0;
-Game* Game::getInstance
+shared_ptr<Game> Game::m_GameInstance = 0;
+shared_ptr<Game> Game::getInstance
 (
     std::shared_ptr<ConsoleSettingsHandler> console_handler
 )
 {
     if (m_GameInstance == 0)
-    {
-        m_GameInstance = new Game(console_handler);
-    }
+        m_GameInstance = std::shared_ptr<Game>(new Game(console_handler));
     return m_GameInstance;
 }
 Game::Game
@@ -93,6 +91,9 @@ void Game::showBestScores()
 void Game::startGameLoop()
 {
     checkPointersToActors();
+    if (m_score_keeper == 0)
+        exit(NULL_POINTER_ERROR);
+
     m_isGameover_ = false;
     m_pacman_->setLives(NUMBER_OF_LIVES);
     for (m_level_counter_ = 0; m_level_counter_ < LEVEL_NUM; ++m_level_counter_)

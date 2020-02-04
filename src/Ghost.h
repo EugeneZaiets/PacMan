@@ -22,7 +22,7 @@ public:
     Ghost
     (
         std::shared_ptr<ConsoleSettingsHandler> console_handler,
-        Game* game,
+        shared_ptr<Game> game,
         Ghost_Name his_name
     );
     ~Ghost();
@@ -82,9 +82,9 @@ private:
     std::clock_t  m_timer_                      ;
     std::clock_t  m_timer_on_pause_             ;
     Ghost_Name    m_name_                       ;
-    Game*         m_game_instance_              ;
+    std::shared_ptr<Game>  m_game_instance_     ;
     std::shared_ptr<ConsoleSettingsHandler> 
-                          m_console_handler_    ;
+                         m_console_handler_     ;
 
     void       handleExitMode                 ();
     void       handleDeadMode                 ();

@@ -3,7 +3,7 @@
 PacMan::PacMan
 (
     std::shared_ptr<ConsoleSettingsHandler> console_handler, 
-    Game* game
+    shared_ptr<Game> game
 ) :
     m_console_handler_  (console_handler),
     m_game_instance_    (game),
