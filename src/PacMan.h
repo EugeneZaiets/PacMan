@@ -27,28 +27,27 @@ public:
     ~PacMan();
 
     void  dead                 ();
-    void  renderKill           ();
-    void  renderScore          ();
-    void  renderLives          ();
-    void  renderPacman         ();
-    void  renderPrevPos        ();
+    void  Kill                 ();
     void  handlePacmanMovement (const bool);
     void  resetPacMan          (const int, const int);
-    void  resetMapAfterKill    (const int, const int, const int);
 
-    const int        getPos_X        ()                { return m_x_;                  }
-    const int        getPos_Y        ()                { return m_y_;                  }
-    const int        getLives        ()                { return m_lives_;              }
-    const int        getScore() { return m_score_; }
-    const bool       getEnergizerInfo()                { return m_got_energizer_;      }
-    const Directions getDirection    ()                { return m_direction_;          }
+    const int           getPos_X        ()                { return m_x_;                  }
+    const int           getPos_Y        ()                { return m_y_;                  }
+    const int           getPrevPos_X    ()                { return m_prev_x_;             }
+    const int           getPrevPos_Y    ()                { return m_prev_y_;             }
+    const int           getLives        ()                { return m_lives_;              }
+    const int           getScore        ()                { return m_score_;              }
+    const int           getKillCounter  ()                { return m_kill_counter_;       } 
+    const bool          getEnergizerInfo()                { return m_got_energizer_;      }
+    const Directions    getDirection    ()                { return m_direction_;          }
+    const unsigned char getHead         ()                { return m_head_;               }
 
-    void setDirection     (const Directions direction) { m_direction_ = direction;     }
-    void setOldDirection  (const Directions direction) { m_old_direction_ = direction; }
-    void setPos_X         (const int x_pos)            { m_x_ = x_pos;                 }
-    void setPos_Y         (const int y_pos)            { m_y_ = y_pos;                 }
-    void setLives         (const int lives)            { m_lives_ = lives;             }
-    void setEnergizerInfo (const bool info)            { m_got_energizer_ = info;      }
+    void setDirection     (const Directions direction)    { m_direction_ = direction;     }
+    void setOldDirection  (const Directions direction)    { m_old_direction_ = direction; }
+    void setPos_X         (const int x_pos)               { m_x_ = x_pos;                 }
+    void setPos_Y         (const int y_pos)               { m_y_ = y_pos;                 }
+    void setLives         (const int lives)               { m_lives_ = lives;             }
+    void setEnergizerInfo (const bool info)               { m_got_energizer_ = info;      }
 
     const double getTimeInBooste() 
     { return (std::clock() - m_timer_) / (double)CLOCKS_PER_SEC; }

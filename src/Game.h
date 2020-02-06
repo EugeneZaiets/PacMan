@@ -13,6 +13,7 @@
 #include "KeyboardInput.h"
 #include "GameMenu.h"
 #include "ScoreKeeper.h"
+#include "Renderer.h"
 #include "PacMan.h"
 #include "Ghost.h"
 
@@ -60,7 +61,8 @@ private:
     std::unique_ptr<GameMenu>               m_menu_            ;
     std::unique_ptr<PacMan>                 m_pacman_          ;
     std::unique_ptr<Ghost>                  m_ghosts_[4]       ;
-    std::unique_ptr<ScoreKeeper>            m_score_keeper     ;
+    std::unique_ptr<ScoreKeeper>            m_score_keeper_    ;
+    std::unique_ptr<Renderer>               m_renderer_        ;
 
     void       render                  ();
     const bool isDead                  ();

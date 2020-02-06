@@ -115,21 +115,9 @@ void PacMan::move()
 }
 void PacMan::moveWithDirection(Directions direction)
 {
-    renderPrevPos();
     eatFood();
-    renderPacman();
     m_old_direction_ = direction;
     m_move_counter_ = m_speed_;
-}
-void PacMan::renderPrevPos()
-{
-    if (m_console_handler_ == 0)
-        exit(NULL_POINTER_ERROR);
-    if (m_game_instance_ == 0)
-        exit(NULL_POINTER_ERROR);
-    m_console_handler_->setCursorPosition(m_prev_x_, m_prev_y_);
-    m_console_handler_->resetSettingsToDefault();
-    std::cout << m_game_instance_->getCharOfBuffer(m_prev_x_, m_prev_y_);
 }
 void PacMan::eatFood()
 {
@@ -138,7 +126,6 @@ void PacMan::eatFood()
     if (m_game_instance_->getCharOfBuffer(m_x_, m_y_) != ' ')
     {
         scoreUp();
-        renderScore();
         m_game_instance_->decreasePointsNum();
         m_game_instance_->setCharOfMap(m_x_, m_y_, ' ');
     }
@@ -172,18 +159,8 @@ const bool PacMan::isPaused(const bool paused)
     }
     return false;
 }
-void PacMan::dead()
+inline void PacMan::dead()
 {
-    unsigned char head_prev = m_head_;
-    for (int i = 0; i < BLINKYNG_COUNTER; ++i) 
-    {
-        if (i % 2) 
-            m_head_ = ' ';
-        else 
-            m_head_ = head_prev;
-        renderPacman();
-        Sleep(MILLISECONDS_BLINKING_TIME);
-    }
     --m_lives_;
 }
 void PacMan::scoreUp()
@@ -211,10 +188,7 @@ void PacMan::gainLife()
     double before_sroce_up = m_score_ / LIFE_GAIN_BORDER;
     double after_sroce_up  = (m_score_ + m_score_offset_) / LIFE_GAIN_BORDER;
     if (before_sroce_up < after_sroce_up)
-    {
         if (m_lives_ < NUMBER_OF_LIVES) ++m_lives_;
-        renderLives();
-    }
 }
 void PacMan::resetPacMan(const int x, const int y)
 {
@@ -222,86 +196,10 @@ void PacMan::resetPacMan(const int x, const int y)
     setPos_Y(y);
     setEnergizerInfo(false);
 }
-void PacMan::resetMapAfterKill(const int x, const int y, const int num_elements)
+void PacMan::Kill()
 {
-    if (m_console_handler_ == 0)
-        exit(NULL_POINTER_ERROR);
-    if (m_game_instance_ == 0)
-        exit(NULL_POINTER_ERROR);
-    m_console_handler_->setCursorPosition(x, y);
-    for (int i = x; i < x + num_elements; ++i)
-    {
-        m_console_handler_->setTextColor(BLUE);
-        if (m_game_instance_->getCharOfBuffer(i, y) == static_cast<char>(250) ||
-            m_game_instance_->getCharOfBuffer(i, y) == 'o')
-                m_console_handler_->setTextColor(WHITE);
-        std::cout << m_game_instance_->getCharOfBuffer(i, y);
-    }
-}
-void PacMan::renderPacman()
-{
-    if (m_console_handler_ == 0)
-        exit(NULL_POINTER_ERROR);
-    m_console_handler_->setCursorPosition(m_x_, m_y_);
-    m_console_handler_->setTextColor(YELLOW);
-    std::cout << m_head_;
-}
-void PacMan::renderScore()
-{
-    if (m_console_handler_ == 0)
-        exit(NULL_POINTER_ERROR);
-    m_console_handler_->setTextColor(WHITE);
-    m_console_handler_->setCursorPosition(0, -Y_SCREEN_BOTTOM_OFFSET);
-    std::cout << "SCORE: " << m_score_;
-}
-void PacMan::renderLives()
-{
-    if (m_console_handler_ == 0)
-        exit(NULL_POINTER_ERROR);
-    SetConsoleOutputCP(CP_UTF8);
-    m_console_handler_->setTextColor(YELLOW);
-    m_console_handler_->setCursorPosition(1, Y_SIZE);
-    std::cout << "Lives: ";
-    m_console_handler_->setTextColor(RED);
-    for (unsigned int i = 0; i < m_lives_; ++i)
-    {
-        //"\xE2\x99\xA5" heart sign in UTF-8
-        std::cout << "\xE2\x99\xA5 ";
-    }
-    std::cout << ' ';
-    m_console_handler_->resetSettingsToDefault();
-}
-void PacMan::renderKill()
-{
-    if (m_console_handler_ == 0)
-        exit(NULL_POINTER_ERROR);
     ++m_kill_counter_;
-    int sum = SCORE_POINTS_GHOST * static_cast<int>(pow(2, m_kill_counter_ - 1));
-    int temp = sum;
-    m_score_offset_ = sum;
-    m_score_ += sum;
-
-    int digit_num = 1;
-    while ((temp /= 10) > 0)
-    {
-        ++digit_num;
-    }
-
-    int kill_pos_x = m_x_ - 1;
-    if (m_x_ == 0)
-    {
-        kill_pos_x = m_x_;
-    }
-    if (m_x_ > X_SIZE - digit_num)
-    {
-        m_x_ = X_SIZE - digit_num;
-    }
-
-    m_console_handler_->setTextColor(CYAN);
-    m_console_handler_->setCursorPosition(kill_pos_x, m_y_);
-    std::cout << sum;
-
-    Sleep(MILLISECONDS_AFTER_GHOST_DEATH);
-    resetMapAfterKill(kill_pos_x, m_y_, digit_num);
+    m_score_offset_ = SCORE_POINTS_GHOST * static_cast<int>(pow(2, m_kill_counter_ - 1));
+    m_score_ += m_score_offset_;
     gainLife();
 }

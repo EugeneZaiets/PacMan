@@ -36,8 +36,14 @@ Game::~Game()
 }
 void Game::start() 
 {
-    m_menu_ = std::make_unique<GameMenu>(m_console_handler_);
-    if (m_menu_ == 0) 
+    m_menu_         = std::make_unique<GameMenu>   (m_console_handler_);
+    m_renderer_     = std::make_unique<Renderer>   (m_console_handler_);
+    m_score_keeper_ = std::make_unique<ScoreKeeper>(m_console_handler_);
+    if (m_score_keeper_ == 0)
+        exit(NULL_POINTER_ERROR);
+    if (m_menu_     == 0) 
+        exit(NULL_POINTER_ERROR);
+    if (m_renderer_ == 0)
         exit(NULL_POINTER_ERROR);
     startMenuLoop();
 }
@@ -69,7 +75,7 @@ void Game::startNewGame()
     {
         m_ghosts_[i] = std::make_unique<Ghost>(m_console_handler_,
                                                Game::getInstance(m_console_handler_),
-                                               (Ghost_Name)i);
+                                              (Ghost_Name)i);
     }
     checkPointersToActors();
     startGameLoop();
@@ -77,13 +83,12 @@ void Game::startNewGame()
 }
 void Game::showBestScores()
 {
-    m_score_keeper = make_unique<ScoreKeeper>(m_console_handler_);
-    if (m_score_keeper == 0)
+    if (m_score_keeper_ == 0)
         exit(NULL_POINTER_ERROR);
     system("CLS");
     resetAsyncKeyState(VK_ESCAPE);
-    m_score_keeper->readScores ();
-    m_score_keeper->printScores();
+    m_score_keeper_->readScores ();
+    m_score_keeper_->printScores();
     while (isKeyPressed(VK_ESCAPE) == false);
     resetAsyncKeyState(VK_RETURN);
     system("CLS");
@@ -91,7 +96,7 @@ void Game::showBestScores()
 void Game::startGameLoop()
 {
     checkPointersToActors();
-    if (m_score_keeper == 0)
+    if (m_score_keeper_ == 0)
         exit(NULL_POINTER_ERROR);
 
     m_isGameover_ = false;
@@ -110,8 +115,8 @@ void Game::startGameLoop()
         if (isEndGame() == true)
             break;
     }
-    m_score_keeper->writeScores(m_pacman_->getScore());
-    m_score_keeper->saveScores();
+    m_score_keeper_->writeScores(m_pacman_->getScore());
+    m_score_keeper_->saveScores();
 }
 void Game::startLevel()
 {
@@ -131,6 +136,7 @@ void Game::startLevel()
         if (isDead() == true)
             break;
         handleTime();
+        render();
     }
 }
 void Game::pause()
@@ -169,9 +175,19 @@ void Game::loadLevel()
 void Game::render()
 {
     checkPointersToActors();
-    m_pacman_->renderPacman();
-    m_pacman_->renderScore();
-    m_pacman_->renderLives();
+    if (m_renderer_ == 0)
+        exit(NULL_POINTER_ERROR);
+
+    int p_x = m_pacman_->getPos_X();
+    int p_y = m_pacman_->getPos_Y();
+    m_renderer_->renderPacman (p_x, p_y, m_pacman_->getHead());
+
+    int p_px = m_pacman_->getPrevPos_X();
+    int p_py = m_pacman_->getPrevPos_Y();
+    char map_element = getCharOfBuffer(p_px, p_py);
+    m_renderer_->renderPacmanPrevPos(p_px, p_py, p_x, p_y, map_element);
+    m_renderer_->renderScore (m_pacman_->getScore());
+    m_renderer_->renderLives (m_pacman_->getLives());
     for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
     {
         m_ghosts_[i]->renderGhost();
@@ -325,7 +341,7 @@ void Game::initializeAllActors()
     m_ghosts_[GHOST_NAME_CLYDE  ]->resetGhost (CLYDE_INIT_POS_X , CLYDE_INIT_POS_Y );
     m_timer_ = std::clock();
     for (int i = 0; i < NUMBER_OF_GHOSTS; ++i)
-        m_ghosts_[i]->resetModes (m_ghosts_[i]->getName());
+        m_ghosts_[i]->resetModes(m_ghosts_[i]->getName());
 }
 void Game::resetMapInCollision()
 {
@@ -398,15 +414,29 @@ void Game::handleGhostsMovement(const int ghost_num)
 const bool Game::handleGhostsKill(const int ghost_num)
 {
     checkPointersToActors();
+    if (m_renderer_ == 0)
+        exit(NULL_POINTER_ERROR);
+
     if (m_ghosts_[ghost_num]->getMode() != Mode::MODE_FRIGHTENED)
     {
         m_pacman_->dead();
+        m_renderer_->renderDeadPacman(m_pacman_->getPos_X(), 
+                                      m_pacman_->getPos_Y(), 
+                                      m_pacman_->getHead());
         return true;
     }
     else
     {
         m_ghosts_[ghost_num]->dead();
-        m_pacman_->renderKill();
+        m_pacman_->Kill();
+        m_renderer_->renderPacmanKill(m_pacman_->getPos_X(),
+                                      m_pacman_->getPos_Y(), 
+                                      m_pacman_->getKillCounter());
+
+        int x = m_renderer_->getKillPosX();
+        int y = m_renderer_->getKillPosY();
+        for (int i = 0; i < m_renderer_->getDigitNum(); ++i, ++x)
+            m_renderer_->resetMapAfterPacmanKill(m_MapToPrint_[y][x]);
         return false;
     }
     return false;
